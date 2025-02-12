@@ -1,0 +1,198 @@
+%==================================================================
+%novos comandos
+%==================================================================
+%definemodel
+\newcommand{\tit}{\hspace*{1cm}}
+\newcommand{\subtit}{}
+\newcommand{\loc}{\hspace*{1cm}}
+\newcommand{\inst}{\hspace*{1cm}}
+\newcommand{\campi}{\hspace*{1cm}}
+\newcommand{\autum}{\hspace*{1cm}}
+\newcommand{\autdos}{\hspace*{1cm}}
+\newcommand{\auttre}{\hspace*{1cm}}
+\newcommand{\autqua}{\hspace*{1cm}}
+\newcommand{\ori}{\hspace*{1cm}}
+\newcommand{\coori}{\hspace*{1cm}}
+\newcommand{\nota}{\hspace*{1cm}}
+\newcommand{\palavraschave}{}
+%========================
+\newcommand{\hyperreftit}{Modelo ABNT}
+\newcommand{\hyperrefsubtit}{}
+\newcommand{\hyperrefautum}{Leonidas Caetano}
+\newcommand{\hyperrefautdos}{}
+\newcommand{\hyperrefauttre}{}
+\newcommand{\hyperrefautqua}{}
+\newcommand{\hyperrefautores}{{\hyperrefautum; \hyperrefautdos;\hyperrefauttre; \hyperrefautqua}}
+\newcommand{\hyperrefkeywords}{ABNT; LaTeX}
+%========================
+\newcommand{\epigraphy}{\parbox{10cm}{``I heard a definition of an intellectual, that I thought was very interesting: a man who takes more words than are necessary to tell more than he knows."\par Dwight D. Eisenhower}}
+\newcommand{\dedique}{A família}
+%========================
+\newcommand{\bancaum}{medo}
+\newcommand{\bancados}{me salva}
+%================================================
+\newcommand{\titulo}[1]{\renewcommand{\hyperreftit}{#1}\renewcommand{\tit}{#1}}
+\newcommand{\subtitulo}[1]{\renewcommand{\hyperrefsubtit}{#1}\renewcommand{\subtit}{\ifstrequal{#1}{}{}{: {#1}}}}
+\newcommand{\local}[1]{\renewcommand{\loc}{#1}}
+\newcommand{\institui}[1]{\renewcommand{\inst}{\ifstrequal{#1}{}{\hspace*{1cm}}{\MakeUppercase{#1}}}}
+\newcommand{\campus}[1]{\renewcommand{\campi}{\ifstrequal{#1}{}{\hspace*{1cm}}{\MakeUppercase{#1}}}}
+\newcommand{\autorum}[1]{\renewcommand{\hyperrefautum}{#1}\renewcommand{\autum}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+\newcommand{\autordos}[1]{\renewcommand{\hyperrefautdos}{#1}\renewcommand{\autdos}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+\newcommand{\autortre}[1]{\renewcommand{\hyperrefauttre}{#1}\renewcommand{\auttre}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+\newcommand{\autorqua}[1]{\renewcommand{\hyperrefautqua}{#1}\renewcommand{\autqua}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+\newcommand{\orientador}[1]{\renewcommand{\ori}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+\newcommand{\coorientador}[1]{\renewcommand{\coori}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+\newcommand{\notasandt}[1]{\renewcommand{\nota}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+%========================
+\newcommand{\palavraschaves}[1]{\renewcommand{\hyperrefkeywords}{{#1}}\renewcommand{\palavraschave}{{#1}}}
+%========================
+\newcommand{\banca}[2]{\renewcommand{\bancaum}{#1}\renewcommand{\bancados}{#2}}
+%==================================================================
+%datas
+\newcommand{\data}{%
+%\ifnum\the\day<10 0\fi\the\day/%
+%\ifnum\the\month<10 0\fi\the\month/%
+\the\year%
+}
+%==================================================================
+%Fonte
+\newcommand{\conteudofonte}{Os autores (2024)}
+\newcommand{\posfonte}{\centering}
+
+\newcommand{\fonte}[1][\conteudofonte]{
+
+\vspace{.1cm}%
+
+\posfonte
+Fonte: #1%
+}
+
+\makeatletter
+\def\ancoralongtable{\renewcommand{\fonte}[1][\conteudofonte]{Fonte: ##1}\renewcommand{\posfonte}{c}}
+\def\ancoralongquadro{\ancoralongtable}
+\makeatother
+%==================================================================
+%seção não numerada
+\newcommand{\capitulon}[1]{%
+\newpage
+
+\phantomsection\label{#1}%
+\addcontentsline{toc}{chapter}{\MakeUppercase{#1}}%
+\chapter*{#1}%
+}
+%==================================================================
+%seção pre listas
+\newcommand{\capitulop}[1]{%
+\newpage
+
+\phantomsection\label{#1}%
+\chapter*{#1}%
+}
+%==================================================================
+%titulo apendice
+\newcounter{apendnumb}
+\newcommand{\apend}{\secapendice\sumarioapendice}
+%==================================================================
+%anexo
+\newcounter{anexnumb}
+\newcommand{\anex}{\secanexo\sumarioanexo}
+%==================================================================
+%Tabelas py
+\makeatletter
+\@ifpackageloaded{booktabs}
+{\typeout{Booktabs já foi carregado}}
+{%
+\typeout{Fazendo comandos de tabelas}
+\newcommand{\toprule}{\noalign{\hrule height 2.2pt}}
+\newcommand{\midrule}{\hline}
+\newcommand{\cmidrule}[1]{\cline{#1}}
+\newcommand{\bottomrule}{\noalign{\hrule height 2.2pt}}
+}
+\makeatother
+%==================================================================
+%referencias
+\newcommand{\makeref}[1]{%
+\sumarioref
+
+\capitulon{#1}
+
+\printbibliography[title=#1,heading=none]%
+}
+%==================================================================
+%Deitada
+%=============================================
+\ifdefined\pdfoutput
+\newenvironment{deitada}{%
+\newpage%
+\begin{landscape}%
+}{%
+\end{landscape}%
+\newpage%
+}
+\fi
+%=============================================
+\ifdefined\directlua
+\newenvironment{deitada}{%
+\newpage%
+\begin{landscape}%
+}{
+\end{landscape}%
+\newpage%
+}
+\fi
+%=============================================
+\ifdefined\XeTeXversion
+\newenvironment{deitada}{%
+\newpage%
+%\eject \pdfpagewidth=29.7cm \pdfpageheight=21cm%
+\newgeometry{
+includehead = false,
+includefoot = false,
+twoside = false,
+footskip = 1cm,
+headheight = 2cm,
+headsep = .5cm,
+top = 3cm,
+bottom = 10cm,
+left = 3cm,
+right = -6.7cm}%
+\fancyhf{}%
+\fancyhead[L]{}%
+\fancyhead[C]{}%
+\fancyhead[R]{\special{papersize=29.7cm,21cm}\footnotesize\thepage\hspace{-7.7cm}}%
+\fancyfoot[L]{}%
+\fancyfoot[C]{}%
+\fancyfoot[R]{}%
+}{%
+\newpage%
+%\eject \pdfpagewidth=21cm \pdfpageheight=29.7cm%
+\input{Pre ambulo/6.1 - pagstyle}%
+\input{Pre ambulo/2.1 - margens pos capa}%
+}
+\fi
+%==================================================================
+%Formatar usando Lua
+\ifdefined\directlua
+	\directlua{require("Pre ambulo/10.1 - lua cmds.lua")}
+	
+	\newcommand{\formatarporcent}[1]{\luaexec{
+			tex.sprint(formatar_n_casas(100*#1,2))}\%}
+
+	\newcommand{\formatarinteiro}[1]{\luaexec{
+			tex.sprint(formatar_n_casas(#1,0))}}
+
+	\newcommand{\formatarduascasas}[1]{\luaexec{
+			tex.sprint(formatar_n_casas(#1,2))}}
+
+	\newcommand{\formatarmoeda}[1]{R\$ \luaexec{
+			tex.sprint(formatar_n_casas(#1,2))}}
+
+	\newcommand{\formataroutro}[2]{\luaexec{
+			tex.sprint(formatar_n_casas(#1,#2))}}
+
+	\newcommand{\formatartexto}[1]{\luaexec{
+			tex.sprint(#1)}}
+\fi
+%==================================================================
+
+\typeout{precomandos feitos}

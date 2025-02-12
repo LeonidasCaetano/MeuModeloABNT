@@ -1,0 +1,36 @@
+\usepackage[
+backend=biber,%copila com biber
+style = abnt, %biblatex abnt
+%style = authortitle,
+extrayear, %2017a
+repeatfields, % podi repeti
+citestyle = abnt, %(AUTOR, year)
+sorting = anyt,%alf, nome, ano, titulo
+language = brazil, %ptbr
+hyperref = true,%hyperref
+backref=true,
+date = year,%... Local , 2023
+]{biblatex}%referencias
+%==============================================================================
+%arquivo .bib
+\IfFileExists{Refs/referencias.bib}{\addbibresource{Refs/referencias.bib}}{}
+%==============================================================================
+%configurações gerais
+\setlength{\bibitemsep}{1cm}%espaço entre itens
+\setlength{\bibhang}{0cm}%indentação
+\setcounter{abbrvpenalty}{10000}%nobreaks
+\setcounter{highnamepenalty}{10000}%nobreaks
+\setcounter{biburlnumpenalty}{8000}%nobreaks
+%==============================================================================
+%blocos
+\DeclareFieldFormat*{url}{Disponível em\addcolon\space\url{#1}.}
+\DeclareFieldFormat{urldate}{Acesso em\addcolon\space{#1}}
+\DeclareFieldFormat{pages}{p. #1}
+\DeclareFieldFormat{pagetotal}{#1 p.}
+\DeclareFieldFormat{volume}{v.#1}
+\DeclareFieldFormat[online]{title}{\textbf{#1}}
+%==============================================================================
+%Usar preferencialmente os modelos descritos no pacote BibLaTeX-ABNT, @patent ou @legislation, caso necessario use outros
+
+
+\typeout{referencias carregadas e atualizadas}
