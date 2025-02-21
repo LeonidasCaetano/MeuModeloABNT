@@ -1,0 +1,24 @@
+\usepackage[style=brazilian]{csquotes}%auxilio citações e bibliografia
+\usepackage{quoting}%citações longas
+%======================================================================
+%configurações gerais e comandos de citação
+%para lembrar: \cite[|apud|][|paginas|]{|chave|}
+%======================================================================
+\newcommand{\longcite}[3]{%
+\ifstrequal{#3}{pos}{}{#1}:
+
+\begin{quoting}[rightmargin=0cm,leftmargin=\indentquote]
+\footnotesize\linespread{1}\selectfont\noindent#2\ifstrequal{#3}{pos}{#1}{}.
+\end{quoting}
+}
+%======================================================================
+\newcommand{\shortcite}[3]{%
+\ifstrequal{#3}{pos}{}{#1} ``#2"%
+\ifstrequal{#3}{pos}{#1}{}%
+}
+%======================================================================
+
+%comandos a usar: \cite[][]{}, \citeyear[][]{}, \citetitle[][]{}, \cites[]{}[]{}[]{}, etc
+
+
+\typeout{citacoes prontas}

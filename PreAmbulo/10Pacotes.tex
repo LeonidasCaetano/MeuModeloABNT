@@ -1,0 +1,70 @@
+%==================================================================
+%pacotes
+\usepackage[english,brazil]{babel}%Pacote BR
+%=========================================================
+\usepackage[normalem]{ulem}%sublinhar, etc
+\usepackage{soul}
+%=========================================================
+\usepackage{mathtools}%equações matematicas
+\usepackage{amsfonts}%letras matematicas
+\usepackage{siunitx}%Unidades
+\sisetup{detect-all}
+\usepackage{polynom}%divisão polinomial
+\usepackage{chemfig}%quimica 
+%=========================================================
+\usepackage{multicol}%multicoluna
+\usepackage{graphicx}%Inserir imagem
+\usepackage{xcolor}%cores
+%=========================================================
+%Tabelas
+\usepackage{multirow}%multilinha
+\usepackage{array}%basicão
+\usepackage{tabularx}%tabela estranha
+\usepackage{colortbl}%cor na cll
+\usepackage{booktabs}%solo for py
+%=========================================================
+\usepackage[T1]{fontenc}%acentos
+\usepackage{setspace}%definir distancia entre linhas, etc
+\usepackage{anyfontsize}
+\usepackage{indentfirst}%recuo 1º paragrafo
+\usepackage{parskip}%distancia entre paragrafos
+%=========================================================
+%\usepackage{qrcode}%QRCode
+%=========================================================
+\usepackage{calc}%operação com variaveis
+\usepackage[section]{placeins}
+\usepackage{float}%posição absoluta
+\usepackage[absolute]{textpos}%posicionar textos livremente
+%=========================================================
+\usepackage{datatool}%organizar listas
+\usepackage{etoolbox}
+\usepackage{imakeidx}\makeindex[columns=1, title=ÍNDICE,intoc]
+%=========================================================
+\ifdefined\directlua
+	\usepackage{fontspec}%mudar fonte
+	\usepackage{pdflscape}
+	\usepackage{luacode}
+	\usepackage{Pacotes/luasiglas}
+\fi
+\ifdefined\pdfoutput
+	\usepackage{helvet}
+	\renewcommand{\familydefault}{\sfdefault}%Arial
+	\usepackage{pdflscape}
+\fi
+\ifdefined\XeTeXversion
+	\usepackage{mathspec}%mudar fonte
+\fi
+%\usepackage{contour}%fonte aberta
+%=========================================================
+\usepackage{lipsum}%txt randomico
+\usepackage{pgffor}%loop option 1 
+\usepackage{forloop}%loop option 2
+\usepackage{lscape}%pag deitada
+%=========================================================
+\usepackage{appendix}
+%=========================================================
+\usepackage[text=Fiado\space só \\dia\space  30/02]{draftwatermark}%marca d'gua
+\usepackage[percent]{overpic}%escrever sobre fts
+%==================================================================
+
+\typeout{Pacotes carregados}

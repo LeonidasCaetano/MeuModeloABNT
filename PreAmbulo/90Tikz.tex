@@ -1,0 +1,15 @@
+\usepackage{tikz}%inserir ¿imagens?
+\usepackage{pgfplots}%inserir gráfico
+%=========================================================
+%configurações do pacote tikz e pgfplots tal como configurações gerais e comandos especificos
+\pgfplotsset{compat=1.9} %compatibilidade 
+\usepgfplotslibrary{external}
+
+\usetikzlibrary{calc}
+\tikzset{x=1cm,y=1cm}
+
+\usetikzlibrary{patterns}
+
+\IfFileExists{Ilustrações/TIKZ commands/Tikz cmds}{\input{Ilustrações/TIKZ commands/Tikz cmds}}{}
+
+\typeout{Tikz e pgf loaded}

@@ -1,0 +1,414 @@
+\NeedsTeXFormat{LaTeX2e}[1995/06/01]
+\ProvidesPackage{longquadro}
+          [2020/01/07 v4.13 Multi-page Quadro package (DPC)]
+\def\LQ@err{\PackageError{longquadro}}
+\def\LQ@warn{\PackageWarning{longquadro}}
+\def\LQ@final@warn{%
+  \AtEndDocument{%
+    \LQ@warn{Quadro \@width s have changed. Rerun LaTeX.\@gobbletwo}}%
+  \global\let\LQ@final@warn\relax}
+\DeclareOption{errorshow}{%
+  \def\LQ@warn{\PackageInfo{longquadro}}}
+\DeclareOption{pausing}{%
+  \def\LQ@warn#1{%
+    \LQ@err{#1}{This is not really an error}}}
+\DeclareOption{set}{}
+\DeclareOption{final}{}
+\ProcessOptions
+\newskip\LQleft       \LQleft=\fill
+\newskip\LQright      \LQright=\fill
+\newskip\LQpre        \LQpre=\bigskipamount
+\newskip\LQpost       \LQpost=\bigskipamount
+\newcount\LQchunksize \LQchunksize=20
+\let\c@LQchunksize\LQchunksize
+\newdimen\LQcapwidth  \LQcapwidth=4in
+\newbox\LQ@head
+\newbox\LQ@firsthead
+\newbox\LQ@foot
+\newbox\LQ@lastfoot
+\newcount\LQ@cols
+\newcount\LQ@rows
+\newcounter{LQ@quadros}
+\newcounter{LQ@chunks}[LQ@quadros]
+\ifx\c@quadro\undefined
+  \newcounter{quadro}
+  \def\fnum@quadro{\quadroname~\thequadro}
+\fi
+\ifx\quadroname\undefined
+  \def\quadroname{Quadro}
+\fi
+\newtoks\LQ@p@ftn
+\mathchardef\LQ@end@pen=30000
+\def\insidelong{0}
+\def\longquadro{\def\insidelong{1}%
+  \par
+  \ifx\multicols\@undefined
+  \else
+     \ifnum\col@number>\@ne
+       \@twocolumntrue
+     \fi
+  \fi
+  \if@twocolumn
+    \LQ@err{longquadro not in 1-column mode}\@ehc
+  \fi
+  \begingroup
+  \@ifnextchar[\LQ@array{\LQ@array[x]}}
+\def\LQ@array[#1]#2{%
+  \refstepcounter{quadro}\stepcounter{LQ@quadros}%
+  \if l#1%
+    \LQleft\z@ \LQright\fill
+  \else\if r#1%
+    \LQleft\fill \LQright\z@
+  \else\if c#1%
+    \LQleft\fill \LQright\fill
+  \fi\fi\fi
+  \let\LQ@mcol\multicolumn
+  \let\LQ@@tabarray\@tabarray
+  \let\LQ@@hl\hline
+  \def\@tabarray{%
+    \let\hline\LQ@@hl
+    \LQ@@tabarray}%
+  \let\\\LQ@tabularcr\let\tabularnewline\\%
+  \def\newpage{\noalign{\break}}%
+  \def\pagebreak{\noalign{\ifnum`}=0\fi\@testopt{\LQ@no@pgbk-}4}%
+  \def\nopagebreak{\noalign{\ifnum`}=0\fi\@testopt\LQ@no@pgbk4}%
+  \let\hline\LQ@hline \let\kill\LQ@kill\let\caption\LQ@caption
+  \@tempdima\ht\strutbox
+  \let\@endpbox\LQ@endpbox
+  \ifx\extrarowheight\@undefined
+    \let\@acol\@tabacol
+    \let\@classz\@tabclassz \let\@classiv\@tabclassiv
+    \def\@startpbox{\vtop\LQ@startpbox}%
+    \let\@@startpbox\@startpbox
+    \let\@@endpbox\@endpbox
+    \let\LQ@LL@FM@cr\@tabularcr
+  \else
+    \advance\@tempdima\extrarowheight
+    \col@sep\tabcolsep
+    \let\@startpbox\LQ@startpbox\let\LQ@LL@FM@cr\@arraycr
+  \fi
+  \setbox\@arstrutbox\hbox{\vrule
+    \@height \arraystretch \@tempdima
+    \@depth \arraystretch \dp \strutbox
+    \@width \z@}%
+  \let\@sharp##\let\protect\relax
+   \begingroup
+    \@mkpream{#2}%
+    \xdef\LQ@bchunk{%
+       \global\advance\c@LQ@chunks\@ne
+       \global\LQ@rows\z@\setbox\z@\vbox\bgroup
+       \LQ@setprevdepth
+       \tabskip\LQleft \noexpand\halign to\hsize\bgroup
+      \tabskip\z@ \@arstrut \@preamble \tabskip\LQright \cr}%
+  \endgroup
+  \expandafter\LQ@nofcols\LQ@bchunk&\LQ@nofcols
+  \LQ@make@row
+  \m@th\let\par\@empty
+  \everycr{}\lineskip\z@\baselineskip\z@
+  \LQ@bchunk}
+\def\LQ@no@pgbk#1[#2]{\penalty #1\@getpen{#2}\ifnum`{=0\fi}}
+\def\LQ@start{%
+  \let\LQ@start\endgraf
+  \endgraf\penalty\z@\vskip\LQpre\endgraf
+  \dimen@\pagetotal
+  \advance\dimen@ \ht\ifvoid\LQ@firsthead\LQ@head\else\LQ@firsthead\fi
+  \advance\dimen@ \dp\ifvoid\LQ@firsthead\LQ@head\else\LQ@firsthead\fi
+  \advance\dimen@ \ht\LQ@foot
+  \dimen@ii\vfuzz
+  \vfuzz\maxdimen
+    \setbox\tw@\copy\z@
+    \setbox\tw@\vsplit\tw@ to \ht\@arstrutbox
+    \setbox\tw@\vbox{\unvbox\tw@}%
+  \vfuzz\dimen@ii
+  \advance\dimen@ \ht
+        \ifdim\ht\@arstrutbox>\ht\tw@\@arstrutbox\else\tw@\fi
+  \advance\dimen@\dp
+        \ifdim\dp\@arstrutbox>\dp\tw@\@arstrutbox\else\tw@\fi
+  \advance\dimen@ -\pagegoal
+  \ifdim \dimen@>\z@\vfil\break\fi
+      \global\@colroom\@colht
+  \ifvoid\LQ@foot\else
+    \advance\vsize-\ht\LQ@foot
+    \global\advance\@colroom-\ht\LQ@foot
+    \dimen@\pagegoal\advance\dimen@-\ht\LQ@foot\pagegoal\dimen@
+    \maxdepth\z@
+  \fi
+  \ifvoid\LQ@firsthead\copy\LQ@head\else\box\LQ@firsthead\fi\nobreak
+  \output{\LQ@output}}
+\def\endlongquadro{\def\insidelong{0}%
+  \crcr
+  \noalign{%
+    \let\LQ@entry\LQ@entry@chop
+    \xdef\LQ@save@row{\LQ@save@row}}%
+  \LQ@echunk
+  \LQ@start
+  \unvbox\z@
+  \LQ@get@widths
+  \if@filesw
+    {\let\LQ@entry\LQ@entry@write\immediate\write\@auxout{%
+      \gdef\expandafter\noexpand
+        \csname LQ@\romannumeral\c@LQ@quadros\endcsname
+          {\LQ@save@row}}}%
+  \fi
+  \ifx\LQ@save@row\LQ@@save@row
+  \else
+    \LQ@warn{Column \@width s have changed\MessageBreak
+             in quadro \thequadro}%
+    \LQ@final@warn
+  \fi
+  \endgraf\penalty -\LQ@end@pen
+  \endgroup
+  \global\@mparbottom\z@
+  \pagegoal\vsize
+  \endgraf\penalty\z@\addvspace\LQpost
+  \ifvoid\footins\else\insert\footins{}\fi}
+\def\LQ@nofcols#1&{%
+  \futurelet\@let@token\LQ@n@fcols}
+\def\LQ@n@fcols{%
+  \advance\LQ@cols\@ne
+  \ifx\@let@token\LQ@nofcols
+    \expandafter\@gobble
+  \else
+    \expandafter\LQ@nofcols
+  \fi}
+\def\LQ@tabularcr{%
+  \relax\iffalse{\fi\ifnum0=`}\fi
+  \@ifstar
+    {\def\crcr{\LQ@crcr\noalign{\nobreak}}\let\cr\crcr
+     \LQ@t@bularcr}%
+    {\LQ@t@bularcr}}
+\let\LQ@crcr\crcr
+\let\LQ@setprevdepth\relax
+\def\LQ@t@bularcr{%
+  \global\advance\LQ@rows\@ne
+  \ifnum\LQ@rows=\LQchunksize
+    \gdef\LQ@setprevdepth{%
+      \prevdepth\z@\global
+      \global\let\LQ@setprevdepth\relax}%
+    \expandafter\LQ@xtabularcr
+  \else
+    \ifnum0=`{}\fi
+    \expandafter\LQ@LL@FM@cr
+  \fi}
+\def\LQ@xtabularcr{%
+  \@ifnextchar[\LQ@argtabularcr\LQ@ntabularcr}
+\def\LQ@ntabularcr{%
+  \ifnum0=`{}\fi
+  \LQ@echunk
+  \LQ@start
+  \unvbox\z@
+  \LQ@get@widths
+  \LQ@bchunk}
+\def\LQ@argtabularcr[#1]{%
+  \ifnum0=`{}\fi
+  \ifdim #1>\z@
+    \unskip\@xargarraycr{#1}%
+  \else
+    \@yargarraycr{#1}%
+  \fi
+  \LQ@echunk
+  \LQ@start
+  \unvbox\z@
+  \LQ@get@widths
+  \LQ@bchunk}
+\def\LQ@echunk{%
+  \crcr\LQ@save@row\cr\egroup
+  \global\setbox\@ne\lastbox
+    \unskip
+  \egroup}
+\def\LQ@entry#1#2{%
+  \ifhmode\@firstofone{&}\fi\omit
+  \ifnum#1=\c@LQ@chunks
+  \else
+    \kern#2\relax
+  \fi}
+\def\LQ@entry@chop#1#2{%
+  \noexpand\LQ@entry
+    {\ifnum#1>\c@LQ@chunks
+       1}{0pt%
+     \else
+       #1}{#2%
+     \fi}}
+\def\LQ@entry@write{%
+  \noexpand\LQ@entry^^J%
+  \@spaces}
+\def\LQ@kill{%
+  \LQ@echunk
+  \LQ@get@widths
+  \expandafter\LQ@rebox\LQ@bchunk}
+\def\LQ@rebox#1\bgroup{%
+  #1\bgroup
+  \unvbox\z@
+  \unskip
+  \setbox\z@\lastbox}
+\def\LQ@blank@row{%
+  \xdef\LQ@save@row{\expandafter\LQ@build@blank
+    \romannumeral\number\LQ@cols 001 }}
+\def\LQ@build@blank#1{%
+  \if#1m%
+    \noexpand\LQ@entry{1}{0pt}%
+    \expandafter\LQ@build@blank
+  \fi}
+\def\LQ@make@row{%
+  \global\expandafter\let\expandafter\LQ@save@row
+    \csname LQ@\romannumeral\c@LQ@quadros\endcsname
+  \ifx\LQ@save@row\relax
+    \LQ@blank@row
+  \else
+    {\let\LQ@entry\or
+     \if!%
+         \ifcase\expandafter\expandafter\expandafter\LQ@cols
+         \expandafter\@gobble\LQ@save@row
+         \or
+         \else
+           \relax
+         \fi
+        !%
+     \else
+       \aftergroup\LQ@blank@row
+     \fi}%
+  \fi}
+\let\setlongquadros\relax
+\def\LQ@get@widths{%
+  \setbox\tw@\hbox{%
+    \unhbox\@ne
+    \let\LQ@old@row\LQ@save@row
+    \global\let\LQ@save@row\@empty
+    \count@\LQ@cols
+    \loop
+      \unskip
+      \setbox\tw@\lastbox
+    \ifhbox\tw@
+      \LQ@def@row
+      \advance\count@\m@ne
+    \repeat}%
+  \ifx\LQ@@save@row\@undefined
+    \let\LQ@@save@row\LQ@save@row
+  \fi}
+\def\LQ@def@row{%
+  \let\LQ@entry\or
+  \edef\@tempa{%
+    \ifcase\expandafter\count@\LQ@old@row
+    \else
+      {1}{0pt}%
+    \fi}%
+  \let\LQ@entry\relax
+  \xdef\LQ@save@row{%
+    \LQ@entry
+    \expandafter\LQ@max@sel\@tempa
+    \LQ@save@row}}
+\def\LQ@max@sel#1#2{%
+  {\ifdim#2=\wd\tw@
+     #1%
+   \else
+     \number\c@LQ@chunks
+   \fi}%
+  {\the\wd\tw@}}
+\def\LQ@hline{%
+  \noalign{\ifnum0=`}\fi
+    \penalty\@M
+    \futurelet\@let@token\LQ@@hline}
+\def\LQ@@hline{%
+  \ifx\@let@token\hline
+    \global\let\@gtempa\@gobble
+    \gdef\LQ@sep{\penalty-\@medpenalty\vskip\doublerulesep}%
+  \else
+    \global\let\@gtempa\@empty
+    \gdef\LQ@sep{\penalty-\@lowpenalty\vskip-\arrayrulewidth}%
+  \fi
+  \ifnum0=`{\fi}%
+  \multispan\LQ@cols
+     \unskip\leaders\hrule\@height\arrayrulewidth\hfill\cr
+  \noalign{\LQ@sep}%
+  \multispan\LQ@cols
+     \unskip\leaders\hrule\@height\arrayrulewidth\hfill\cr
+  \noalign{\penalty\@M}%
+  \@gtempa}
+\def\LQ@caption{%
+  \noalign\bgroup
+    \@ifnextchar[{\egroup\LQ@c@ption\@firstofone}\LQ@capti@n}
+\def\LQ@c@ption#1[#2]#3{%
+  \LQ@makecaption#1\fnum@quadro{#3}%
+  \def\@tempa{#2}%
+  \ifx\@tempa\@empty\else
+     {\let\\\space
+     \addcontentsline{loq}{quadro}{\protect\numberline{\thequadro}{#2}}}%
+  \fi}
+\def\LQ@capti@n{%
+  \@ifstar
+    {\egroup\LQ@c@ption\@gobble[]}%
+    {\egroup\@xdblarg{\LQ@c@ption\@firstofone}}}
+\def\LQ@makecaption#1#2#3{%
+  \LQ@mcol\LQ@cols c{\hbox to\z@{\hss\parbox[t]\LQcapwidth{%
+    \sbox\@tempboxa{\bfseries\normalsize#1{#2: }#3}
+    %===========================
+    \ifdim\wd\@tempboxa>\hsize
+     \bfseries\normalsize #1{#2: }#3
+     %===============================================
+    \else
+      \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+    \fi
+    \endgraf\vskip\baselineskip}%
+  \hss}}}
+\def\LQ@output{%
+  \ifnum\outputpenalty <-\@Mi
+    \ifnum\outputpenalty > -\LQ@end@pen
+      \LQ@err{floats and marginpars not allowed in a longquadro}\@ehc
+    \else
+      \setbox\z@\vbox{\unvbox\@cclv}%
+      \ifdim \ht\LQ@lastfoot>\ht\LQ@foot
+        \dimen@\pagegoal
+        \advance\dimen@-\ht\LQ@lastfoot
+        \ifdim\dimen@<\ht\z@
+          \setbox\@cclv\vbox{\unvbox\z@\copy\LQ@foot\vss}%
+          \@makecol
+          \@outputpage
+          \setbox\z@\vbox{\box\LQ@head}%
+        \fi
+      \fi
+      \global\@colroom\@colht
+      \global\vsize\@colht
+      \vbox
+        {\unvbox\z@\box\ifvoid\LQ@lastfoot\LQ@foot\else\LQ@lastfoot\fi}%
+    \fi
+  \else
+    \setbox\@cclv\vbox{\unvbox\@cclv\copy\LQ@foot\vss}%
+    \@makecol
+    \@outputpage
+      \global\vsize\@colroom
+    \copy\LQ@head\nobreak
+  \fi}
+\def\LQ@end@hd@ft#1{%
+  \LQ@echunk
+  \ifx\LQ@start\endgraf
+    \LQ@err
+     {Longquadro head or foot not at start of quadro}%
+     {Increase LQchunksize}%
+  \fi
+  \setbox#1\box\z@
+  \LQ@get@widths
+  \LQ@bchunk}
+\def\endfirsthead{\if\insidelong1\LQ@end@hd@ft\LQ@firsthead\else \LT@end@hd@ft\LT@firsthead\fi}
+\def\endhead{\if\insidelong1\LQ@end@hd@ft\LQ@head\else \LT@end@hd@ft\LT@head\fi}
+\def\endfoot{\if\insidelong1\LQ@end@hd@ft\LQ@foot\else \LT@end@hd@ft\LT@foot\fi}
+\def\endlastfoot{\if\insidelong1\LQ@end@hd@ft\LQ@lastfoot\else \LT@end@hd@ft\LT@lastfoot\fi}
+\def\LQ@startpbox#1{%
+  \bgroup
+    \color@begingroup
+    \let\@footnotetext\LQ@p@ftntext
+    \setlength\hsize{#1}%
+    \@arrayparboxrestore
+    \vrule \@height \ht\@arstrutbox \@width \z@}
+\def\LQ@endpbox{%
+  \@finalstrut\@arstrutbox
+  \color@endgroup
+  \egroup
+  \the\LQ@p@ftn
+  \global\LQ@p@ftn{}%
+  \hfil}
+\def\LQ@p@ftntext#1{%
+  \edef\@tempa{\the\LQ@p@ftn\noexpand\footnotetext[\the\c@footnote]}%
+  \global\LQ@p@ftn\expandafter{\@tempa{#1}}}%
+\endinput
+%%
+%% End of file `longquadro.sty'.

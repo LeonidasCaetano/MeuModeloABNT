@@ -1,0 +1,194 @@
+%tipo né
+\documentclass[12pt]{report}
+%==================================================================
+%pacotes
+\input{PreAmbulo/10Pacotes}
+%==================================================================
+%foia
+\input{PreAmbulo/20Margens}
+%==================================================================
+%contadores e medidas
+\input{PreAmbulo/22LengthsAndCounters}
+%==================================================================
+%legendas
+\input{PreAmbulo/40Legendas}
+%==================================================================
+%Formatar sumário
+\input{PreAmbulo/30Sumario2}
+%==================================================================
+%titles & alineas
+\usepackage[shortlabels]{enumitem}%listas
+\usepackage{titlesec}%Formatar titulos
+\input{PreAmbulo/50Titulos}
+%==================================================================
+%cabeçalho e rodapé
+\input{PreAmbulo/60Pagstyle}
+%==================================================================
+%formatar referencias e citações
+\input{PreAmbulo/70Ref}
+\input{PreAmbulo/71Ref}
+%==================================================================
+%formatar citações
+\input{PreAmbulo/80Quotes}
+%==================================================================
+%tikz
+\input{PreAmbulo/90Tikz}
+%\usetikzlibrary{external}
+%\tikzexternalize[prefix=Ilustrações/Tikz/]
+%==================================================================
+%newcommands
+\input{PreAmbulo/100Newcommands}
+%==================================================================
+%mudando funções mat gringas
+\input{PreAmbulo/110Renewsmath}
+%==================================================================
+%estilo indice
+\indexsetup{firstpagestyle=fancy}
+\let\addaoindice\index
+\renewcommand{\index}[1]{\addaoindice{\MakeTitlecase{#1}}}
+%==================================================================
+%indentifymodel
+%====================
+\titulo{Meu modelo ABNT}
+\subtitulo{}
+%====================
+\local{Pinhais, Paraná}
+\institui{Escolinha de TeX}
+\campus{}
+%====================
+\autorum{Leonidas Caetano da Silva}
+\autordos{}
+\autortre{}
+\autorqua{}
+%====================
+\orientador{}
+\coorientador{}
+%====================
+\notasandt{}
+%====================
+\palavraschaves{"TeX", "LuaLaTeX", "Python", "ABNT"}
+%====================
+\banca{}{}
+%====================
+%\renewcommand{\dedique}{}
+%=========================================================================================
+%\usepackage{todonotes}
+\makeatletter
+\@ifpackageloaded{todonotes}{}{
+\def\missingfigure#1{#1}
+\def\todo[#1]#2{}}
+\makeatother
+%=========================================================
+\usepackage[
+			linktoc = all,
+			hidelinks,
+			%draft,
+			pdfpagemode=FullScreen,
+			pdftitle=\hyperreftit,
+			pdfauthor=\hyperrefautores,
+			pdfcreator={Leonidas Caetano},
+			pdfsubject=\hyperrefsubtit,
+			pdfkeywords={\hyperrefkeywords},
+			]{hyperref}%links
+\linespread{1.5}\selectfont
+\counterwithout{footnote}{chapter}
+\begin{document}
+\input{PreAmbulo/120SetsIniciais}
+%==================================================================
+\begin{titlepage}
+\makeatletter
+\@ifpackageloaded{todonotes}{
+\listoftodos[Coisas a fazer]
+}{}
+\makeatother
+\end{titlepage}
+\begin{titlepage}
+	\linespread{1}\selectfont
+    \input{1PreTxT/1Capa}
+\end{titlepage}
+\newpage
+
+%==================================================================
+\input{PreAmbulo/21Margens}
+
+\begingroup
+\linespread{1}\selectfont
+\input{1PreTxT/2FolhaDeRosto}
+\endgroup
+\newpage
+
+%\input{1PreTxT/3FichaCatalografica}
+\newpage
+
+%\input{1PreTxT/4Errata}
+\newpage
+
+%\begingroup
+%\input{1PreTxT/5FolhaDeAprovacao}
+%\endgroup
+%\newpage
+
+\input{1PreTxT/6Dedicatoria}
+
+\input{1PreTxT/7Agradecimentos}
+\newpage
+
+%\input{1PreTxT/8Epigrafe}
+
+%\input{1PreTxT/9Resumo}
+
+\input{1PreTxT/10Listas}
+
+\typeout{Pre texto feito}
+
+%==================================================================
+
+\input{PreAmbulo/61Pagstyle}
+\input{PreAmbulo/51Titulos}
+
+%==================================================================
+
+%Resumo
+
+\input{2Textual/1Desenvolvimento/D1}
+
+\input{2Textual/1Desenvolvimento/D2}
+
+\input{2Textual/1Desenvolvimento/D3}
+
+\input{2Textual/1Desenvolvimento/D4}
+
+\input{2Textual/1Desenvolvimento/D5}
+
+\input{2Textual/1Desenvolvimento/D6}
+
+%==================================================================
+
+\typeout{parte textual feita}
+
+%==================================================================
+
+\input{PreAmbulo/50Titulos}
+
+\begingroup
+\linespread{1}\selectfont
+\input{3PosTxT/1Referencias}
+\endgroup
+
+\input{3PosTxT/2Glossario}
+
+\begin{appendices}
+\apend
+
+\end{appendices}
+
+\appendix
+%
+
+\input{3PosTxT/5Indices}
+
+\typeout{Documento terminado}
+
+%==================================================================
+\end{document}
+%=========================================================================================

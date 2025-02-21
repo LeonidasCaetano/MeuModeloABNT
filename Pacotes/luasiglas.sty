@@ -1,0 +1,114 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{luasiglas}[2024/08/06 Pacote para listas de palavras]
+
+\ifdefined\directlua
+\else
+    \PackageError{luasiglas}{Necessário LuaLaTeX}{}
+    \typeout{Execute o arquivo utilizando LuaLaTeX}
+    \batchmode
+    \expandafter\stop
+\fi
+
+\RequirePackage{luacode}
+\RequirePackage{siunitx}
+
+\def\siglalistin{siglas}
+\def\abrevlistin{abrevs}
+\def\simbololistin{simbolos}
+\def\mathlistin{simbolos}
+\def\unidadelistin{simbolos}
+\def\glosslistin{gloss}
+
+\DeclareOption{4math}{\def\mathlistin{matematicas}}
+\DeclareOption{4units}{\def\unidadelistin{unidades}}
+\DeclareOption*{\PackageWarning{sigla}{‘\CurrentOption’ desconhecida}}
+\ProcessOptions\relax
+
+\def\siglalistname{Lista de siglas}
+\def\abrevlistname{Lista de abreviaturas}
+\def\simbololistname{Lista de simbolos}
+\def\mathlistname{Lista de simbolos matemáticos}
+\def\unidadelistname{Lista de unidades}
+\def\glosslistname{Glossário}
+
+\ifdefined\chapter
+\def\headeroftables#1{\chapter*{#1}}
+\else 
+\def\headeroftables#1{\section*{#1}}
+\fi
+
+\newcommand{\addtomylow}[4]{\immediate\write\minhalow{table.insert(#1,{order="#2 #3",comp="#2",desc="#3",tipo="#4"})}}
+
+\newcommand{\addtosiglas}[2]{\addtomylow{\siglalistin}{#1}{#2}{sigla}}
+\newcommand{\addtoabrevs}[2]{\addtomylow{\abrevlistin}{#1}{#2}{abrev}}
+\newcommand{\addtosimbolos}[2]{\addtomylow{\simbololistin}{#1}{#2}{simb}}
+\newcommand{\addtomaths}[3]{\addtomylow{\mathlistin}{\unexpanded{$\\csname #1\\endcsname{#2}$}}{#3}{math}}
+\newcommand{\addtounits}[2]{\addtomylow{\unidadelistin}{\unexpanded{\\unit{#1}}}{#2}{unit}}
+\newcommand{\addtogloss}[2]{\addtomylow{\glosslistin}{#1}{#2}{gloss}}
+
+\newcommand{\sigla}[2]{#1\addtosiglas{#1}{#2}}
+\newcommand{\abrev}[2]{#1\addtoabrevs{#1}{#2}}
+\newcommand{\simbolo}[2]{#1\addtosimbolos{#1}{#2}}
+\newcommand{\mat}[3]{\csname#1\endcsname{#2}\addtomaths{#1}{#2}{#3}}
+\newcommand{\unidade}[2]{\unit{#1}\addtounits{#1}{#2}}
+\newcommand{\gloss}[2]{#1\addtogloss{#1}{#2}}
+
+\luaexec{
+    siglas={}
+    abrevs={}
+    simbolos={}
+    unidades={}
+    matematicas={}
+    gloss={}
+    }%
+
+\typeout{b4}
+
+\IfFileExists{\jobname.lua}{%
+\luaexec{require("\jobname"..".lua")}
+\luaexec{%
+    table.sort(\siglalistin, function (a, b) return string.lower(a.order) < string.lower(b.order) end)
+    table.sort(\abrevlistin, function (a, b) return string.lower(a.order) < string.lower(b.order) end)
+    table.sort(\glosslistin, function (a, b) return string.lower(a.order) < string.lower(b.order) end)
+    function mostrar(x, y, z)
+        if x == "gloss" then
+            return ("\\noindent "..y:lower():gsub("^\%l", string.upper)..": "..z.."\\par")
+        else
+            return ("\\item["..y.."]"..z)
+       end
+    end
+}
+}{}%
+
+\def\printlistade#1#2{\luaexec{
+	if #1[1]~=nil then
+		tex.sprint("\\headeroftables{#2}")
+		if "#1" ~= "gloss" then
+    			tex.sprint("\\begin{itemize}")
+			for i, lista in ipairs(#1) do
+				tex.sprint(mostrar(lista.tipo , lista.comp , lista.desc ))
+			end
+			tex.sprint("\\end{itemize}")
+		else
+			for i, lista in ipairs(#1) do
+				tex.sprint(mostrar(lista.tipo , lista.comp , lista.desc ))
+			end
+		end
+	end
+}}
+
+\def\printlistadesiglas{\printlistade{siglas}{\siglalistname}}%
+\def\printlistadeabreviaturas{\printlistade{abrevs}{\abrevlistname}}
+\def\printlistadesimbolos{\printlistade{simbolos}{\simbololistname}}
+\def\printlistademats{\printlistade{matematicas}{\mathlistname}}
+\def\printlistadeunidades{\printlistade{unidades}{\unidadelistname}}
+\def\printglossario{\printlistade{gloss}{\glosslistname}}
+
+\AtBeginDocument{%
+\newwrite\minhalow%
+\immediate\openout\minhalow=\jobname.lua
+}
+
+\AtEndDocument{
+\immediate\closeout\minhalow
+}
