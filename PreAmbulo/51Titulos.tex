@@ -1,0 +1,66 @@
+%==================================================================TITULOS
+%formato
+\titleformat{\chapter}[hang]{\bfseries\normalsize\raggedright}{\thechapter}{1em}{\MakeUppercase}
+\titleformat{\section}[hang]{\normalsize\raggedright}{\thesection}{1em}{\MakeUppercase}
+\titleformat{\subsection}[hang]{\FloatBarrier\normalsize\raggedright}{\thesubsection}{1em}{\MakeTitlecase}
+\titleformat{\subsubsection}[hang]{\FloatBarrier\normalsize\raggedright}{\thesubsubsection}{1em}{\MakeTitlecase}
+\titleformat{\paragraph}[hang]{\FloatBarrier\normalsize\raggedright}{\theparagraph}{1em}{\MakeTitlecase}
+
+%espaçamento
+\titlespacing{\chapter}{0cm}{-.7cm}{36pt}
+\titlespacing{\section}{0em}{36pt}{36pt}
+\titlespacing{\subsection}{0em}{36pt}{36pt}
+\titlespacing{\subsubsection}{0em}{36pt}{36pt}
+\titlespacing{\paragraph}{0em}{36pt}{36pt}
+
+%formato  do numero
+\renewcommand{\thechapter}{\arabic{chapter}}
+\renewcommand{\thesection}{\arabic{chapter}.\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+\renewcommand{\theparagraph}{\arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.\arabic{paragraph}}
+
+%capitulo é fancy
+\assignpagestyle{\chapter}{fancy}
+%=================================================================
+
+\renewcommand{\labelenumi}{\alph{enumi}\hfill)}
+\renewcommand{\labelenumii}{--}
+
+\renewcommand{\labelitemi}{\textbullet}
+\renewcommand{\labelitemii}{--}
+
+\setlist[enumerate,1]{align = left,
+topsep = 0cm,
+itemindent = .5cm+1em,
+leftmargin = 1.5cm, 
+labelwidth = .5cm,
+labelsep = 1em, 
+labelindent = 0cm, 
+listparindent = 0.5cm+1em,
+itemsep = 0cm,
+parsep = 0cm%\parskip
+}
+
+\setlist[enumerate,2]{align = left,
+topsep = 0cm,
+itemindent = .5cm+1em,  
+leftmargin = 0cm, 
+labelwidth = .5cm,
+labelsep = 1em, 
+labelindent = 0cm, 
+listparindent = 0.5cm+1em,
+itemsep = 0cm,
+parsep = \parskip}
+
+\setlist[itemize,1]{align = left,
+topsep = 0cm,
+itemindent = .5cm+1em,
+leftmargin = 1.5cm, 
+labelwidth = .5cm,
+labelsep = 1em, 
+labelindent = 0cm, 
+listparindent = 0.5cm+1em,
+itemsep = 0cm,
+parsep = 0cm%\parskip
+}

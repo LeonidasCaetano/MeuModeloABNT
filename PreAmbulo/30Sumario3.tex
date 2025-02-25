@@ -1,0 +1,241 @@
+\usepackage{longtable}
+\IfFileExists{longquadro.sty}{\usepackage{longquadro}}{\newenvironment{longquadro}{\begin{longtable}}{\end{longtable}}}
+\usepackage{titletoc}%formatar sumario
+\usepackage{newfloat}%novos ambientes/listas
+\usepackage{listings}
+%===========================================================================
+%===========================================%ajuste em ambientes
+\SetupFloatingEnvironment{figure}{
+	fileext = lol,
+	placement = H,
+	chapterlistsgaps=off
+}
+\renewcommand{\thefigure}{\arabic{figure}}
+\SetupFloatingEnvironment{table}{
+	fileext = lol,
+	placement = H,
+	chapterlistsgaps=off
+}
+\renewcommand{\thetable}{\arabic{table}}
+%===========================================================================
+%===========================================%novos ambientes
+%lista de quadros
+\DeclareFloatingEnvironment[
+    fileext = lol,
+    listname = LISTA DE QUADROS,
+    name = Quadro,
+    placement = H,
+    chapterlistsgaps=off
+]{quadro}
+\renewcommand{\thequadro}{\arabic{quadro}}
+\makeatletter
+\def\LQ@c@ption#1[#2]#3{%
+  \LQ@makecaption#1\fnum@quadro{#3}%
+  \def\@tempa{#2}%
+  \ifx\@tempa\@empty\else
+     {\let\\\space
+     \addcontentsline{lol}{quadro}{\protect\numberline{\thequadro}{#2}}}%
+  \fi}
+\makeatother
+%=====================================
+%lista de graficos
+\DeclareFloatingEnvironment[
+    fileext = lol,
+    listname = LISTA DE GRÁFICOS,
+    name = Gráfico,
+    placement = H,
+    chapterlistsgaps=off
+]{grafico}
+\renewcommand{\thegrafico}{\arabic{grafico}}
+%=====================================
+%equações
+\DeclareFloatingEnvironment[
+    fileext = lol,
+    listname = LISTA DE EQUAÇÕES,
+    name = Equação,
+    placement = H,
+    chapterlistsgaps=off
+]{equacao}
+\renewcommand{\theequacao}{\arabic{equacao}}
+\renewcommand{\theequation}{\arabic{equation}}
+%=====================================
+%lista de programas
+\lstset{numberbychapter=false,
+backgroundcolor=\color{black}, 
+commentstyle=\color{green},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{purple}, 
+    breaklines=true,
+    basicstyle=\small\color{white}
+}
+\def\lstlistingname{Código}
+\def\lstlistlistingname{Lista de códigos}
+%=====================================
+\DeclareFloatingEnvironment[
+    fileext = lol,
+    listname = LISTA DE PROCESSOS,
+    name = Processo,
+    placement = H,
+    chapterlistsgaps=off
+]{processo}
+\renewcommand{\theprocesso}{\arabic{processo}}
+\DeclareFloatingEnvironment[
+    fileext = lol,
+    name = Subprocesso,
+    placement = H,
+    chapterlistsgaps=off
+]{subprocesso}
+\renewcommand{\thesubprocesso}{\arabic{processo}.\arabic{subprocesso}}
+%===========================================================================
+%===========================================%Lista principal
+\DeclareFloatingEnvironment[
+    fileext = lol,
+    listname = LISTA DE ILUSTRAÇÕES,
+    name = Ilustração,
+    placement = H,
+    chapterlistsgaps=off
+]{ilustracao}
+%===========================================================================
+%===========================================%formato
+%secão
+\titlecontents{chapter}[\caixalargsec]
+{\bfseries}
+{\contentslabel{\caixalargsec}\MakeUppercase}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%subseção
+\titlecontents{section}[\caixalargsec]
+{}
+{\contentslabel{\caixalargsec}\MakeUppercase}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+\titlecontents{subsection}[\caixalargsec]
+{}
+{\contentslabel{\caixalargsec}}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+\titlecontents{subsubsection}[\caixalargsec]
+{}
+{\contentslabel{\caixalargsec}}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+\titlecontents{paragraph}[\caixalargsec]
+{}
+{\contentslabel{\caixalargsec}}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%figuras
+\titlecontents{figure}[0cm]
+{}
+{Figura\space\thecontentslabel\space-\space}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%tabelas
+\titlecontents{table}[0cm]
+{}
+{Tabela\space\thecontentslabel\space-\space}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%quadros
+\titlecontents{quadro}[0cm]
+{}
+{Quadro\space\thecontentslabel\space-\space}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%graficos
+\titlecontents{grafico}[0cm]
+{}
+{Gráfico\space\thecontentslabel\space-\space}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%equações
+\titlecontents{equacao}[0cm]
+{}
+{Equação\space\thecontentslabel\space-\space}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%equações
+\titlecontents{lstlisting}[0cm]
+{}
+{\lstlistingname\space\thecontentslabel\space-\space}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+
+%equações
+\titlecontents{processo}[0cm]
+{}
+{Processo\space\thecontentslabel\space-\space}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%equações
+\titlecontents{subprocesso}[0cm]
+{}
+{Subprocesso\space\thecontentslabel\space-\space}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================================================
+\newcommand{\printlistasdeilustracoes}{%
+\listofilustracaos%
+}
+
+%(no) restart sempre que
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+\counterwithout{quadro}{chapter}
+\counterwithout{grafico}{chapter}
+\counterwithout{equacao}{chapter}
+\counterwithout{equation}{chapter}
+
+%Configuração gráfica
+\def\padraoilustra{%
+\footnotesize%
+\linespread{1}\selectfont%
+\centering%
+}
+
+%floats
+
+\atbeginenvironment{figure}{\padraoilustra}
+\atbeginenvironment{table}{\padraoilustra}
+\atbeginenvironment{quadro}{\padraoilustra}
+\atbeginenvironment{longtable}{\padraoilustra}
+\atbeginenvironment{longquadro}{\padraoilustra}
+\atbeginenvironment{grafico}{\padraoilustra}
+
+%==================================================================
+\def\sumarioref{}
+%apendice
+\def\sumarioapendice{\titlecontents{chapter}[\caixalargsec]{\bfseries}{APÊNDICE\space\thecontentslabel\space-\space\MakeUppercase}%
+{}{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}%
+[\phantomsection]}
+%anexo
+\def\sumarioanexo{\titlecontents{chapter}[\caixalargsec]{\bfseries}{ANEXO\space\thecontentslabel\space-\space\MakeUppercase}%
+{}{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}%
+[\phantomsection]}
+
+\typeout{sumario e listas atualizados}

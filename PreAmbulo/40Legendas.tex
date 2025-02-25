@@ -1,0 +1,13 @@
+\usepackage{caption}%legendas
+%==================================================================
+%legendas
+\DeclareCaptionTextFormat{geraltext}{#1}
+\DeclareCaptionLabelFormat{gerallabel}{#1\space#2}
+\DeclareCaptionLabelSeparator{geralsep}{:\space}
+\DeclareCaptionFont{geralfont}{\footnotesize}
+\DeclareCaptionFormat{geralformat}{\bfseries#1#2#3}
+
+\captionsetup{labelformat = gerallabel, textformat = geraltext, labelsep = geralsep, justification = centering, format = geralformat}
+
+
+\typeout{legendas atualizadas}

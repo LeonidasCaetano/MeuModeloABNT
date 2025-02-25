@@ -1,0 +1,274 @@
+%==================================================================
+%Formatar sumário
+\usepackage[titles]{tocloft}%formatar sumário
+\usepackage{newfloat}%novos ambientes/listas
+\usepackage{listings}
+%==================================================================
+%Adaptando sumário
+%chap
+\renewcommand{\cftchapfont}{\bfseries}
+\renewcommand{\cftchapleader}{\space\bfseries\cftdotfill{0.1}}
+\setlength{\cftchapindent}{\indentsec}
+\setlength{\cftchapnumwidth}{\caixalargsec}
+\renewcommand{\cftchappresnum}{}
+\renewcommand{\cftchapaftersnumb}{}
+\setlength{\cftbeforechapskip}{0cm}
+\renewcommand{\cftchappagefont}{\bfseries}
+\renewcommand{\cftchapafterpnum}{}
+
+%sec
+\renewcommand{\cftsecfont}{}
+\renewcommand{\cftsecleader}{\space\cftdotfill{0.1}}
+\setlength{\cftsecindent}{\indentsec}
+\setlength{\cftsecnumwidth}{\caixalargsec}
+\renewcommand{\cftsecpresnum}{}
+\renewcommand{\cftsecaftersnumb}{}
+%\renewcommand{\cftbeforesecskip}{\distanciasec}
+\renewcommand{\cftsecpagefont}{}
+\renewcommand{\cftsecafterpnum}{}
+
+%subsec
+\renewcommand{\cftsubsecfont}{}
+\renewcommand{\cftsubsecleader}{\space\cftdotfill{0.1}}
+\setlength{\cftsubsecindent}{\indentsec}
+\setlength{\cftsubsecnumwidth}{\caixalargsec}
+\renewcommand{\cftsubsecpresnum}{}
+\renewcommand{\cftsubsecaftersnumb}{}
+%\renewcommand{\cftbeforesecskip}{\distanciasec}
+\renewcommand{\cftsubsecpagefont}{}
+\renewcommand{\cftsubsecafterpnum}{}
+
+%subsubsec
+\renewcommand{\cftsubsubsecfont}{}
+\renewcommand{\cftsubsubsecleader}{\space\cftdotfill{0.1}}
+\setlength{\cftsubsubsecindent}{\indentsec}
+\setlength{\cftsubsubsecnumwidth}{\caixalargsec}
+\renewcommand{\cftsubsubsecpresnum}{}
+\renewcommand{\cftsubsubsecaftersnumb}{}
+%\renewcommand{\cftbeforesubsubsecskip}{\distanciasec}
+\renewcommand{\cftsubsubsecpagefont}{}
+\renewcommand{\cftsubsubsecafterpnum}{}
+
+%paragraph
+\renewcommand{\cftsecfont}{}
+\renewcommand{\cftsecleader}{\space\cftdotfill{0.1}}
+\setlength{\cftsecindent}{\indentsec}
+\setlength{\cftsecnumwidth}{\caixalargsec}
+\renewcommand{\cftsecpresnum}{}
+\renewcommand{\cftsecaftersnumb}{}
+%\renewcommand{\cftbeforesecskip}{\distanciasec}
+\renewcommand{\cftsecpagefont}{}
+\renewcommand{\cftsecafterpnum}{}
+%==================================================================
+%Listas pre existentes
+\SetupFloatingEnvironment{figure}{
+	placement = H,
+	chapterlistsgaps=off
+}
+\renewcommand{\cftfigfont}{}
+\renewcommand{\cftfigleader}{\space\cftdotfill{0.1}}
+\setlength{\cftfigindent}{\indentsec}
+\setlength{\cftfignumwidth}{\widthof{Figura 00}}
+\renewcommand{\cftfigpresnum}{Figura\hfill}
+\renewcommand{\cftfigaftersnumb}{: }
+\setlength{\cftbeforefigskip}{0cm}
+\renewcommand{\cftfigpagefont}{}
+\renewcommand{\cftfigafterpnum}{}
+
+\usepackage{longtable}
+\SetupFloatingEnvironment{table}{
+	placement = H,
+	chapterlistsgaps=off
+}
+\renewcommand{\cfttabfont}{}
+\renewcommand{\cfttableader}{\space\cftdotfill{0.1}}
+\setlength{\cfttabindent}{\indentsec}
+\setlength{\cfttabnumwidth}{\widthof{Tabela 00}}
+\renewcommand{\cfttabpresnum}{Tabela\hfill}
+\renewcommand{\cfttabaftersnumb}{: }
+\setlength{\cftbeforetabskip}{0cm}
+\renewcommand{\cfttabpagefont}{}
+\renewcommand{\cfttabafterpnum}{}
+%==================================================================
+%novas listas
+%lista de quadros
+\newlistof{quadro}{loq}{LISTA DE QUADROS}
+\DeclareFloatingEnvironment[
+    fileext = loq,
+    listname = LISTA DE QUADROS,
+    name = Quadro,
+    placement = H,
+    chapterlistsgaps=off
+]{quadro}
+\renewcommand{\thequadro}{\arabic{quadro}}
+\IfFileExists{longquadro.sty}{\usepackage{longquadro}}{\newenvironment{longquadro}{\begin{longtable}}{\end{longtable}}}
+\makeatletter
+\def\LQ@c@ption#1[#2]#3{%
+  \LQ@makecaption#1\fnum@quadro{#3}%
+  \def\@tempa{#2}%
+  \ifx\@tempa\@empty\else
+     {\let\\\space
+     \addcontentsline{loq}{quadro}{\protect\numberline{\thequadro}{#2}}}%
+  \fi}
+\makeatother
+\renewcommand{\cftquadrofont}{}
+\renewcommand{\cftquadroleader}{\space\cftdotfill{0.1}}
+\setlength{\cftquadroindent}{\indentsec}
+\setlength{\cftquadronumwidth}{\widthof{Quadro 00}}
+\renewcommand{\cftquadropresnum}{Quadro\hfill}
+\renewcommand{\cftquadroaftersnumb}{: }
+\setlength{\cftbeforequadroskip}{0cm}
+\renewcommand{\cftquadropagefont}{}
+\renewcommand{\cftquadroafterpnum}{}
+%=====================================
+%lista de graficos
+\newlistof{grafico}{ldg}{LISTA DE GRÁFICOS}
+\DeclareFloatingEnvironment[
+    fileext = ldg,
+    listname = LISTA DE GRÁFICOS,
+    name = Gráfico,
+    placement = H,
+    chapterlistsgaps=off
+]{grafico}
+\renewcommand{\thegrafico}{\arabic{grafico}}
+\renewcommand{\cftgraficofont}{}
+\renewcommand{\cftgraficoleader}{\space\cftdotfill{0.1}}
+\setlength{\cftgraficoindent}{\indentsec}
+\setlength{\cftgraficonumwidth}{\widthof{Gráfico 00}}
+\renewcommand{\cftgraficopresnum}{Gráfico\hfill}
+\renewcommand{\cftgraficoaftersnumb}{: }
+\setlength{\cftbeforegraficoskip}{0cm}
+\renewcommand{\cftgraficopagefont}{}
+\renewcommand{\cftgraficoafterpnum}{}
+%=====================================
+%equações
+\newlistof{equacao}{loe}{LISTA DE EQUAÇÕES}
+\DeclareFloatingEnvironment[
+    fileext = loe,
+    listname = LISTA DE EQUAÇÕES,
+    name = Equação,
+    placement = H,
+    chapterlistsgaps=off
+]{equacao}
+\renewcommand{\theequacao}{\arabic{equacao}}
+\renewcommand{\theequation}{\arabic{equation}}
+\renewcommand{\cftequacaofont}{}
+\renewcommand{\cftequacaoleader}{\space\cftdotfill{0.1}}
+\setlength{\cftequacaoindent}{\indentsec}
+\setlength{\cftequacaonumwidth}{\widthof{Equação 00}}
+\renewcommand{\cftequacaopresnum}{Equação\hfill}
+\renewcommand{\cftequacaoaftersnumb}{: }
+\setlength{\cftbeforeequacaoskip}{0cm}
+\renewcommand{\cftequacaopagefont}{}
+\renewcommand{\cftequacaoafterpnum}{}
+%=====================================
+%lista de programas
+\lstset{numberbychapter=false,
+backgroundcolor=\color{black}, 
+commentstyle=\color{green},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{purple}, 
+    breaklines=true,
+    basicstyle=\small\color{white}
+}
+\def\lstlistingname{Código}
+\def\lstlistlistingname{Lista de códigos}
+%===========================================================================
+%==================================================================
+\newcommand{\printlistasdeilustracoes}{%
+\listoffigures
+%\newpage
+
+\listoftables
+%\newpage
+
+\listofquadros
+%\newpage
+
+\listofgraficos
+%\newpage
+
+\listofequacaos
+%\newpage
+
+\lstlistoflistings
+\newpage%
+}
+
+%(no) restart sempre que
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+\counterwithout{quadro}{chapter}
+\counterwithout{grafico}{chapter}
+\counterwithout{equacao}{chapter}
+\counterwithout{equation}{chapter}
+
+%Configuração gráfica
+\def\padraoilustra{%
+\footnotesize%
+\linespread{1}\selectfont%
+\centering%
+}
+
+%floats
+
+\let\substitutoquadro\quadro
+\renewcommand{\quadro}[1][H]{%
+\substitutoquadro[#1]
+\padraoilustra%
+}
+
+\let\substitutofigure\figure
+\renewcommand{\figure}[1][H]{%
+\substitutofigure[#1]
+\padraoilustra%
+}%
+
+\let\substitutotable\table
+\renewcommand{\table}[1][H]{%
+\substitutotable[#1]
+\padraoilustra%
+}%
+
+\let\substitutografico\grafico
+\renewcommand{\grafico}[1][H]{%
+\substitutografico[#1]
+\padraoilustra%
+}%
+
+%longs
+
+\let\substitutolongquadro\longquadro
+\renewcommand{\longquadro}[1]{%
+\begingroup%
+\padraoilustra%
+\substitutolongquadro{#1}}%
+
+\let\substitutoendlongquadro\endlongquadro
+\renewcommand{\endlongquadro}{%
+\substitutoendlongquadro\endgroup}%
+
+%
+
+\let\substitutolongtable\longtable
+\renewcommand{\longtable}[1]{%
+\begingroup%
+\padraoilustra%
+\substitutolongtable{#1}}%
+
+\let\substitutoendlongtable\endlongtable
+\renewcommand{\endlongtable}{%
+\substitutoendlongtable\endgroup}%
+%==================================================================
+
+\def\sumarioref{\addtocontents{toc}{\setlength{\cftchapindent}{\caixalargsec}}}
+\def\sumarioapendice{%
+%\addtocontents{toc}{\setlength{\cftchapnumwidth}{\widthof{Apêndice M}}}%
+%\addtocontents{toc}{\renewcommand{\cftchappresnum}{Apêndice\hfill}}%
+%\addtocontents{toc}{\unexpanded{\renewcommand\cftchapaftersnumb{ - }}}%
+}
+\def\sumarioanexo{}
+
+
+\typeout{sumario e listas atualizados}

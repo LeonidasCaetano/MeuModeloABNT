@@ -1,0 +1,42 @@
+%==================================================================
+%====================Fontes
+\ifdefined\pdfoutput%
+    %\typeout{Compile em XeLaTeX}
+    %\batchmode
+    %\expandafter\stop
+\fi
+\ifdefined\directlua
+    \setmainfont{Arial}%Arial :)
+\fi%
+\ifdefined\XeTeXversion
+    \setmainfont{Arial}%Arial :)
+\fi%
+%====================Lengths
+\setlength{\parskip}{3pt}%Distancia entre paragrafos
+\setlength{\parindent}{1.5cm}%Recuo da primeira linha
+\setlength{\caixalargsec}{2cm}%Tamanho da caixadas listas
+\setlength{\indentquote}{4cm}%Indentação da citação
+\setlength{\distanciasecs}{0.1cm}%Distância vertical entre listas flutuantes
+%====================Counters
+\setcounter{secnumdepth}{5}%Até seção quintenária
+\setcounter{tocdepth}{5}%Até seção quintenária
+%====================Espaçamento
+%\onehalfspacing%distancia
+%\fontsize{12pt}{18pt}\selectfont
+%====================
+%====================
+%\pagecolor{black}
+%\color{white}
+%====================
+\makeatletter%
+\@ifpackageloaded{textpos}{%
+\setlength{\TPVertModule}{1cm}%
+\setlength{\TPHorizModule}{1cm}%
+}{}%
+\makeatother%
+%====================
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.5}
+
+
+\typeout{sets iniciais feitos}%

@@ -1,0 +1,64 @@
+\usepackage{etoc}%formatar sumario
+\usepackage{newfloat}%novos ambientes/listas
+%===========================================================================
+%===========================================%ajuste em ambientes
+\SetupFloatingEnvironment{figure}{
+	fileext = loi,
+	placement = !htb}
+\renewcommand{\thefigure}{\arabic{figure}}
+\SetupFloatingEnvironment{table}{
+	fileext = loi,
+	placement = !htb}
+\renewcommand{\thetable}{\arabic{table}}
+%===========================================================================
+%===========================================%novos ambientes
+%lista de quadros
+\DeclareFloatingEnvironment[
+    fileext = loi,
+    listname = LISTA DE QUADROS,
+    name = Quadro,
+    placement = !htb
+]{quadro}
+\renewcommand{\thequadro}{\arabic{quadro}}
+%=====================================
+%lista de graficos
+\DeclareFloatingEnvironment[
+    fileext = loi,
+    listname = LISTA DE GRÁFICOS,
+    name = Gráfico
+    placement = !htb
+]{grafico}
+\renewcommand{\thegrafico}{\arabic{grafico}}
+%=====================================
+%equações
+\DeclareFloatingEnvironment[
+    fileext = loi,
+    listname = LISTA DE EQUAÇÕES,
+    name = Equação
+    placement = !htb
+]{equacao}
+\renewcommand{\theequacao}{\arabic{equacao}}
+%=====================================
+%lista de programas
+\DeclareFloatingEnvironment[
+    fileext = loi,
+    listname = LISTA DE PROGRAMAS,
+    name = Programa
+    placement = !htb
+]{programa}
+\renewcommand{\theprograma}{\arabic{programa}}
+%===========================================================================
+%===========================================%Lista principal
+\DeclareFloatingEnvironment[
+    fileext = loi,
+    listname = LISTA DE ILUSTRAÇÕES,
+    name = Ilustração
+    placement = !htb
+]{ilustracao}
+%===========================================================================
+%===========================================%formato
+
+%===========================================================================
+\newcommand{\printlistasdeilustracoes}{\listofilustracaos}
+
+\typeout{sumario e listas atualizados}
