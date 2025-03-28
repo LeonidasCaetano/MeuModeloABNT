@@ -1,5 +1,5 @@
-\usepackage{longtable}
-\IfFileExists{longquadro.sty}{\usepackage{longquadro}}{\newenvironment{longquadro}{\begin{longtable}}{\end{longtable}}}
+\IfFileExists{Pacotes/longquadro.sty}{\usepackage{Pacotes/longquadro}}{}
+\IfFileExists{Pacotes/longtab.sty}{\usepackage{Pacotes/longtab}\let\longtable\longtabela\relax\let\endlongtable\endlongtabela\relax}{}
 \usepackage{titletoc}%formatar sumario
 \usepackage{newfloat}%novos ambientes/listas
 \usepackage{listings}
@@ -48,17 +48,6 @@
 ]{grafico}
 \renewcommand{\thegrafico}{\arabic{grafico}}
 %=====================================
-%equações
-\DeclareFloatingEnvironment[
-    fileext = lol,
-    listname = LISTA DE EQUAÇÕES,
-    name = Equação,
-    placement = H,
-    chapterlistsgaps=off
-]{equacao}
-\renewcommand{\theequacao}{\arabic{equacao}}
-\renewcommand{\theequation}{\arabic{equation}}
-%=====================================
 %lista de programas
 \lstset{numberbychapter=false,
 backgroundcolor=\color{black}, 
@@ -71,22 +60,6 @@ commentstyle=\color{green},
 }
 \def\lstlistingname{Código}
 \def\lstlistlistingname{Lista de códigos}
-%=====================================
-\DeclareFloatingEnvironment[
-    fileext = lol,
-    listname = LISTA DE PROCESSOS,
-    name = Processo,
-    placement = H,
-    chapterlistsgaps=off
-]{processo}
-\renewcommand{\theprocesso}{\arabic{processo}}
-\DeclareFloatingEnvironment[
-    fileext = lol,
-    name = Subprocesso,
-    placement = H,
-    chapterlistsgaps=off
-]{subprocesso}
-\renewcommand{\thesubprocesso}{\arabic{processo}.\arabic{subprocesso}}
 %===========================================================================
 %===========================================%Lista principal
 \DeclareFloatingEnvironment[
@@ -168,33 +141,9 @@ commentstyle=\color{green},
 []
 %===========================================
 %equações
-\titlecontents{equacao}[0cm]
-{}
-{Equação\space\thecontentslabel\space-\space}
-{}
-{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
-[]
-%===========================================
-%equações
 \titlecontents{lstlisting}[0cm]
 {}
 {\lstlistingname\space\thecontentslabel\space-\space}
-{}
-{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
-[]
-
-%equações
-\titlecontents{processo}[0cm]
-{}
-{Processo\space\thecontentslabel\space-\space}
-{}
-{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
-[]
-%===========================================
-%equações
-\titlecontents{subprocesso}[0cm]
-{}
-{Subprocesso\space\thecontentslabel\space-\space}
 {}
 {\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
 []
@@ -204,6 +153,7 @@ commentstyle=\color{green},
 }
 
 %(no) restart sempre que
+\renewcommand{\theequation}{\arabic{equation}}
 \counterwithout{figure}{chapter}
 \counterwithout{table}{chapter}
 \counterwithout{quadro}{chapter}
@@ -219,13 +169,7 @@ commentstyle=\color{green},
 }
 
 %floats
-
-\atbeginenvironment{figure}{\padraoilustra}
-\atbeginenvironment{table}{\padraoilustra}
-\atbeginenvironment{quadro}{\padraoilustra}
-\atbeginenvironment{longtable}{\padraoilustra}
-\atbeginenvironment{longquadro}{\padraoilustra}
-\atbeginenvironment{grafico}{\padraoilustra}
+%padrão ilustra under dev
 
 %==================================================================
 \def\sumarioref{}
