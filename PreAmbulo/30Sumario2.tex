@@ -14,6 +14,17 @@
 	placement = H,
 	chapterlistsgaps=off}
 \renewcommand{\thetable}{\arabic{table}}
+
+\renewcommand{\thetable}{\arabic{table}}
+\makeatletter
+\def\LTT@c@ption#1[#2]#3{%
+  \LTT@makecaption#1\fnum@table{#3}%
+  \def\@tempa{#2}%
+  \ifx\@tempa\@empty\else
+     {\let\\\space
+     \addcontentsline{lot}{table}{\protect\numberline{\thetable}{#2}}}%
+  \fi}
+\makeatother
 %===========================================================================
 %===========================================%novos ambientes
 %lista de quadros
@@ -25,6 +36,15 @@
 	chapterlistsgaps=off
 ]{quadro}
 \renewcommand{\thequadro}{\arabic{quadro}}
+\makeatletter
+\def\LQ@c@ption#1[#2]#3{%
+  \LQ@makecaption#1\fnum@quadro{#3}%
+  \def\@tempa{#2}%
+  \ifx\@tempa\@empty\else
+     {\let\\\space
+     \addcontentsline{loq}{quadro}{\protect\numberline{\thequadro}{#2}}}%
+  \fi}
+\makeatother
 %=====================================
 %lista de graficos
 \DeclareFloatingEnvironment[
@@ -35,17 +55,6 @@
 	chapterlistsgaps=off
 ]{grafico}
 \renewcommand{\thegrafico}{\arabic{grafico}}
-%=====================================
-%equações
-\DeclareFloatingEnvironment[
-	fileext = loe,
-	listname = LISTA DE EQUAÇÕES,
-	name = Equação,
-	placement = H,
-	chapterlistsgaps=off
-]{equacao}
-\renewcommand{\theequacao}{\arabic{equacao}}
-\renewcommand{\theequation}{\arabic{equation}}
 %=====================================
 %lista de programas
 \lstset{
@@ -61,43 +70,87 @@
 \def\lstlistingname{Código}
 \def\lstlistlistingname{Lista de códigos}
 %===========================================================================
-\luaexec{
-	local listinha = {
-		{"table",	"LTT",	"lot"},
-		{"quadro",	"LQ",	"loq"}
-	}
-	for k, v in ipairs(listinha) do
-		tex.sprint("\\makeatletter\\def\\"..v[2].."@c@ption\#1[\#2]\#3{ \\"	..v[2].."@makecaption\#1\\fnum@"..v[1].."{\#3}\\def\\@tempa{\#2}\\ifx\\@tempa\\@empty\\else {\\let\\\\\\space \\addcontentsline{"..v[3].."}{"..v[1].."}{\\protect\\numberline{\\the"..v[1].."}{\#2}}} \\fi} \\makeatother")
-	end
-}
 %===========================================%formato
-\luaexec{%
-	local listinha = {
-		{"chapter", 		"\\bfseries", 	"\\MakeUppercase"},
-		{"section", 		"", 		"\\MakeUppercase"},
-		{"subsection", 	"", 		""},
-		{"subsubsection", 	"", 		""},
-		{"paragraph", 	"", 		""}
-	 }
-	 for _, v in ipairs(listinha) do
-	 	tex.sprint("\\titlecontents{"..v[1].."}[\\caixalargsec]{"..v[2].."}{\\contentslabel{\\caixalargsec}"..v[3].."}{}{\\space\\titlerule*[.3pc]{.}\\contentspage\\vspace{\\distanciasecs}}[]")
-	 end
-}
-
+%chapter
+\titlecontents{chapter}[\caixalargsec]
+{\bfseries}
+{\contentslabel{\caixalargsec}\MakeUppercase}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
 %===========================================
-\luaexec{%
-	local listinha = {
-		"figure"	,
-		"table"	,
-		"quadro"	,
-		"grafico"	,
-		"equacao"	,
-		"lstlisting"
-	}
-	for _, v in ipairs(listinha) do
-		tex.sprint("\\titlecontents{"..v.."}[0cm]{}{\\"..v.."name\\space\\thecontentslabel\\space-\\space}{}{\\space\\titlerule*[.3pc]{.}\\contentspage\\vspace{\\distanciasecs}}[]")
-	end
-}
+%seção
+\titlecontents{section}[\caixalargsec]
+{}
+{\contentslabel{\caixalargsec}\MakeUppercase}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%subseção
+\titlecontents{subsection}[\caixalargsec]
+{}
+{\contentslabel{\caixalargsec}}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%4º
+\titlecontents{subsubsection}[\caixalargsec]
+{}
+{\contentslabel{\caixalargsec}}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%5º
+\titlecontents{paragraph}[\caixalargsec]
+{}
+{\contentslabel{\caixalargsec}}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%figuras
+\titlecontents{figure}[0cm]
+{}
+{Figura\space\thecontentslabel\space-\space}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%tabelas
+\titlecontents{table}[0cm]
+{}
+{Tabela\space\thecontentslabel\space-\space}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%quadros
+\titlecontents{quadro}[0cm]
+{}
+{Quadro\space\thecontentslabel\space-\space}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%graficos
+\titlecontents{grafico}[0cm]
+{}
+{Gráfico\space\thecontentslabel\space-\space}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%equações
+\titlecontents{lstlisting}[0cm]
+{}
+{\lstlistingname\space\thecontentslabel\space-\space}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
 %===========================================================================
 \newcommand{\printlistasdeilustracoes}{%
 \listoffigures
@@ -112,9 +165,6 @@
 %\listofgraficos
 %\newpage
 
-%\listofequacaos
-%\newpage
-
 \lstlistoflistings
 \newpage%
 }
@@ -124,8 +174,9 @@
 \counterwithout{table}{chapter}
 \counterwithout{quadro}{chapter}
 \counterwithout{grafico}{chapter}
-\counterwithout{equacao}{chapter}
+
 \counterwithout{equation}{chapter}
+\renewcommand{\theequation}{\arabic{equation}}
 
 %Configuração gráfica
 \def\padraoilustra{%

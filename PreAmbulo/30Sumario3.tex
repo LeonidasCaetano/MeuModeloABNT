@@ -17,6 +17,15 @@
 	chapterlistsgaps=off
 }
 \renewcommand{\thetable}{\arabic{table}}
+\makeatletter
+\def\LTT@c@ption#1[#2]#3{%
+  \LTT@makecaption#1\fnum@table{#3}%
+  \def\@tempa{#2}%
+  \ifx\@tempa\@empty\else
+     {\let\\\space
+     \addcontentsline{lol}{table}{\protect\numberline{\thetable}{#2}}}%
+  \fi}
+\makeatother
 %===========================================================================
 %===========================================%novos ambientes
 %lista de quadros
@@ -71,7 +80,7 @@ commentstyle=\color{green},
 ]{ilustracao}
 %===========================================================================
 %===========================================%formato
-%secão
+%chapter
 \titlecontents{chapter}[\caixalargsec]
 {\bfseries}
 {\contentslabel{\caixalargsec}\MakeUppercase}
@@ -79,7 +88,7 @@ commentstyle=\color{green},
 {\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
 []
 %===========================================
-%subseção
+%seção
 \titlecontents{section}[\caixalargsec]
 {}
 {\contentslabel{\caixalargsec}\MakeUppercase}
@@ -87,6 +96,7 @@ commentstyle=\color{green},
 {\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
 []
 %===========================================
+%subseção
 \titlecontents{subsection}[\caixalargsec]
 {}
 {\contentslabel{\caixalargsec}}
@@ -94,6 +104,7 @@ commentstyle=\color{green},
 {\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
 []
 %===========================================
+%4º
 \titlecontents{subsubsection}[\caixalargsec]
 {}
 {\contentslabel{\caixalargsec}}
@@ -101,6 +112,7 @@ commentstyle=\color{green},
 {\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
 []
 %===========================================
+%5º
 \titlecontents{paragraph}[\caixalargsec]
 {}
 {\contentslabel{\caixalargsec}}
@@ -158,8 +170,9 @@ commentstyle=\color{green},
 \counterwithout{table}{chapter}
 \counterwithout{quadro}{chapter}
 \counterwithout{grafico}{chapter}
-\counterwithout{equacao}{chapter}
+
 \counterwithout{equation}{chapter}
+\renewcommand{\theequation}{\arabic{equation}}
 
 %Configuração gráfica
 \def\padraoilustra{%
