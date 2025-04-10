@@ -92,6 +92,7 @@
 			]{hyperref}%links
 \linespread{1.5}\selectfont
 \counterwithout{footnote}{chapter}
+\renewcommand{\theequation}{\arabic{equation}}
 \begin{document}
 \input{PreAmbulo/120SetsIniciais}
 %==================================================================
@@ -104,7 +105,7 @@
 \end{titlepage}
 \begin{titlepage}
 	\linespread{1}\selectfont
-    \input{1PreTxT/1Capa}
+	\input{1PreTxT/1Capa}
 \end{titlepage}
 \newpage
 
@@ -112,8 +113,8 @@
 \input{PreAmbulo/21Margens}
 
 \begingroup
-\linespread{1}\selectfont
-\input{1PreTxT/2FolhaDeRosto}
+	\linespread{1}\selectfont
+	\input{1PreTxT/2FolhaDeRosto}
 \endgroup
 \newpage
 
@@ -170,10 +171,7 @@
 
 \input{PreAmbulo/50Titulos}
 
-\begingroup
-\linespread{1}\selectfont
 \input{3PosTxT/1Referencias}
-\endgroup
 
 \input{3PosTxT/2Glossario}
 
@@ -183,7 +181,6 @@
 \end{appendices}
 
 \appendix
-%
 
 \input{3PosTxT/5Indices}
 

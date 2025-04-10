@@ -171,9 +171,6 @@ commentstyle=\color{green},
 \counterwithout{quadro}{chapter}
 \counterwithout{grafico}{chapter}
 
-\counterwithout{equation}{chapter}
-\renewcommand{\theequation}{\arabic{equation}}
-
 %Configuração gráfica
 \def\padraoilustra{%
 \footnotesize%
@@ -185,7 +182,6 @@ commentstyle=\color{green},
 %padrão ilustra under dev
 
 %==================================================================
-\def\sumarioref{}
 %apendice
 \def\sumarioapendice{\titlecontents{chapter}[\caixalargsec]{\bfseries}{APÊNDICE\space\thecontentslabel\space-\space\MakeUppercase}%
 {}{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}%

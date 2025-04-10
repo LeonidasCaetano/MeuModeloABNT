@@ -106,11 +106,13 @@ Fonte: #1%
 %==================================================================
 %referencias
 \newcommand{\makeref}[1]{%
-\sumarioref
+\begingroup
+\linespread{1}\selectfont
 
 \capitulon{#1}
 
 \printbibliography[title=#1,heading=none]%
+\endgroup
 }
 %==================================================================
 %Deitada
