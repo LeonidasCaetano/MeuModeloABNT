@@ -1,5 +1,5 @@
 %tipo né
-\documentclass[12pt]{report}
+\documentclass[12pt]{article}
 %==================================================================
 %pacotes
 \input{PreAmbulo/10Pacotes}
@@ -69,8 +69,6 @@
 \palavraschaves{"TeX", "LuaLaTeX", "Python", "ABNT"}
 %====================
 \banca{}{}
-%====================
-%\renewcommand{\dedique}{}
 %=========================================================================================
 %\usepackage{todonotes}
 \makeatletter
@@ -91,7 +89,6 @@
 			pdfkeywords={\hyperrefkeywords},
 			]{hyperref}%links
 \linespread{1.5}\selectfont
-\counterwithout{footnote}{chapter}
 \begin{document}
 \input{PreAmbulo/120SetsIniciais}
 %==================================================================
@@ -170,10 +167,7 @@
 
 \input{PreAmbulo/50Titulos}
 
-\begingroup
-\linespread{1}\selectfont
 \input{3PosTxT/1Referencias}
-\endgroup
 
 \input{3PosTxT/2Glossario}
 

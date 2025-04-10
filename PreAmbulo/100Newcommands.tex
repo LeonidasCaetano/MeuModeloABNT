@@ -67,7 +67,7 @@ Fonte: #1%
 
 %==================================================================
 %seção não numerada
-\newcommand{\capitulon}[1]{%
+\newcommand{\secaon}[1]{%
 \newpage
 
 \phantomsection\label{#1}%
@@ -76,7 +76,7 @@ Fonte: #1%
 }
 %==================================================================
 %seção pre listas
-\newcommand{\capitulop}[1]{%
+\newcommand{\secaop}[1]{%
 \newpage
 
 \phantomsection\label{#1}%
@@ -106,11 +106,12 @@ Fonte: #1%
 %==================================================================
 %referencias
 \newcommand{\makeref}[1]{%
-\sumarioref
-
-\capitulon{#1}
+\begingroup
+\linespread{1}\selectfont
+\secaon{#1}
 
 \printbibliography[title=#1,heading=none]%
+\endgroup
 }
 %==================================================================
 %Deitada

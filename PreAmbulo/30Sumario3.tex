@@ -7,14 +7,12 @@
 %===========================================%ajuste em ambientes
 \SetupFloatingEnvironment{figure}{
 	fileext = lol,
-	placement = H,
-	chapterlistsgaps=off
+	placement = H
 }
 \renewcommand{\thefigure}{\arabic{figure}}
 \SetupFloatingEnvironment{table}{
 	fileext = lol,
-	placement = H,
-	chapterlistsgaps=off
+	placement = H
 }
 \renewcommand{\thetable}{\arabic{table}}
 \makeatletter
@@ -33,8 +31,7 @@
     fileext = lol,
     listname = LISTA DE QUADROS,
     name = Quadro,
-    placement = H,
-    chapterlistsgaps=off
+    placement = H
 ]{quadro}
 \renewcommand{\thequadro}{\arabic{quadro}}
 \makeatletter
@@ -52,8 +49,7 @@
     fileext = lol,
     listname = LISTA DE GRÁFICOS,
     name = Gráfico,
-    placement = H,
-    chapterlistsgaps=off
+    placement = H
 ]{grafico}
 \renewcommand{\thegrafico}{\arabic{grafico}}
 %=====================================
@@ -75,13 +71,12 @@ commentstyle=\color{green},
     fileext = lol,
     listname = LISTA DE ILUSTRAÇÕES,
     name = Ilustração,
-    placement = H,
-    chapterlistsgaps=off
+    placement = H
 ]{ilustracao}
 %===========================================================================
 %===========================================%formato
 %chapter
-\titlecontents{chapter}[\caixalargsec]
+\titlecontents{section}[\caixalargsec]
 {\bfseries}
 {\contentslabel{\caixalargsec}\MakeUppercase}
 {}
@@ -89,7 +84,7 @@ commentstyle=\color{green},
 []
 %===========================================
 %seção
-\titlecontents{section}[\caixalargsec]
+\titlecontents{subsection}[\caixalargsec]
 {}
 {\contentslabel{\caixalargsec}\MakeUppercase}
 {}
@@ -97,14 +92,6 @@ commentstyle=\color{green},
 []
 %===========================================
 %subseção
-\titlecontents{subsection}[\caixalargsec]
-{}
-{\contentslabel{\caixalargsec}}
-{}
-{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
-[]
-%===========================================
-%4º
 \titlecontents{subsubsection}[\caixalargsec]
 {}
 {\contentslabel{\caixalargsec}}
@@ -112,8 +99,16 @@ commentstyle=\color{green},
 {\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
 []
 %===========================================
-%5º
+%4º
 \titlecontents{paragraph}[\caixalargsec]
+{}
+{\contentslabel{\caixalargsec}}
+{}
+{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+[]
+%===========================================
+%5º
+\titlecontents{subparagraph}[\caixalargsec]
 {}
 {\contentslabel{\caixalargsec}}
 {}
@@ -164,16 +159,6 @@ commentstyle=\color{green},
 \listofilustracaos%
 }
 
-%(no) restart sempre que
-\renewcommand{\theequation}{\arabic{equation}}
-\counterwithout{figure}{chapter}
-\counterwithout{table}{chapter}
-\counterwithout{quadro}{chapter}
-\counterwithout{grafico}{chapter}
-
-\counterwithout{equation}{chapter}
-\renewcommand{\theequation}{\arabic{equation}}
-
 %Configuração gráfica
 \def\padraoilustra{%
 \footnotesize%
@@ -185,13 +170,12 @@ commentstyle=\color{green},
 %padrão ilustra under dev
 
 %==================================================================
-\def\sumarioref{}
 %apendice
-\def\sumarioapendice{\titlecontents{chapter}[\caixalargsec]{\bfseries}{APÊNDICE\space\thecontentslabel\space-\space\MakeUppercase}%
+\def\sumarioapendice{\titlecontents{section}[\caixalargsec]{\bfseries}{APÊNDICE\space\thecontentslabel\space-\space\MakeUppercase}%
 {}{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}%
 [\phantomsection]}
 %anexo
-\def\sumarioanexo{\titlecontents{chapter}[\caixalargsec]{\bfseries}{ANEXO\space\thecontentslabel\space-\space\MakeUppercase}%
+\def\sumarioanexo{\titlecontents{section}[\caixalargsec]{\bfseries}{ANEXO\space\thecontentslabel\space-\space\MakeUppercase}%
 {}{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}%
 [\phantomsection]}
 

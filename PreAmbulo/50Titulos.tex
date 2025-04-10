@@ -1,15 +1,14 @@
 %==================================================================TITULOS
 %formato
-\titleformat{\chapter}[hang]{\bfseries\normalsize\centering}{}{0em}{\MakeUppercase}
-%espaçamento
-\titlespacing{\chapter}{0em}{-.7cm}{36pt}
-%formato  do numero
+\titleformat{\section}[hang]{\bfseries\normalsize\centering}{}{0em}{\MakeUppercase}
+\titlespacing{\section}{0em}{0cm}{36pt}
 \renewcommand{\thechapter}{}
+
 %=================================================================
-%apendice
-\def\secapendice{\titleformat{\chapter}[hang]{\bfseries\normalsize\centering}{APÊNDICE \thechapter - }{0em}{\MakeUppercase}}
-%anexo
-\def\secanexo{\titleformat{\chapter}[hang]{\bfseries\normalsize\centering}{ANEXO \thechapter - }{0em}{\MakeUppercase}}
+%Formato dos extras
+\def\secapendice{\titleformat{\section}[hang]{\bfseries\normalsize\centering}{APÊNDICE \thechapter - }{0em}{\MakeUppercase}}
+\def\secanexo{\titleformat{\section}[hang]{\bfseries\normalsize\centering}{ANEXO \thechapter - }{0em}{\MakeUppercase}}
+
 %=================================================================
 \renewcommand{\labelenumi}{\alph{enumi}\hfill)}
 \renewcommand{\labelenumii}{--}
