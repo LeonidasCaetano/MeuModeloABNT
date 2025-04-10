@@ -56,21 +56,15 @@
 }
 %==================================================================
 %Fonte
-\newcommand{\conteudofonte}{Os autores (2024)}
+\newcommand{\conteudofonte}{Os autores (\the\year)}
 \newcommand{\posfonte}{\centering}
 
 \newcommand{\fonte}[1][\conteudofonte]{
-
-\vspace{.1cm}%
 
 \posfonte
 Fonte: #1%
 }
 
-\makeatletter
-\def\ancoralongtable{\renewcommand{\fonte}[1][\conteudofonte]{Fonte: ##1}\renewcommand{\posfonte}{c}}
-\def\ancoralongquadro{\ancoralongtable}
-\makeatother
 %==================================================================
 %seção não numerada
 \newcommand{\capitulon}[1]{%
