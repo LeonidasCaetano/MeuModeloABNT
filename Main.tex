@@ -43,9 +43,13 @@
 \input{PreAmbulo/110Renewsmath}
 %==================================================================
 %estilo indice
+\makeatletter
+\@ifpackageloaded{imakeidx}{
 \indexsetup{firstpagestyle=fancy}
 \let\addaoindice\index
 \renewcommand{\index}[1]{\addaoindice{\MakeTitlecase{#1}}}
+}{}
+\makeatother
 %==================================================================
 %indentifymodel
 %====================
@@ -99,9 +103,10 @@
 }{}
 \makeatother
 \end{titlepage}
+%
 \begin{titlepage}
 	\linespread{1}\selectfont
-    \input{1PreTxT/1Capa}
+ 	\input{1PreTxT/1Capa}
 \end{titlepage}
 \newpage
 
@@ -109,8 +114,8 @@
 \input{PreAmbulo/21Margens}
 
 \begingroup
-\linespread{1}\selectfont
-\input{1PreTxT/2FolhaDeRosto}
+	\linespread{1}\selectfont
+	\input{1PreTxT/2FolhaDeRosto}
 \endgroup
 \newpage
 

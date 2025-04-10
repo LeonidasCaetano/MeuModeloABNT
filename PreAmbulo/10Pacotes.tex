@@ -7,8 +7,7 @@
 %=========================================================
 \usepackage{mathtools}%equações matematicas
 \usepackage{amsfonts}%letras matematicas
-\usepackage{siunitx}%Unidades
-\sisetup{detect-all}
+\usepackage{siunitx}\sisetup{detect-all}%Unidades
 \usepackage{polynom}%divisão polinomial
 \usepackage{chemfig}%quimica 
 %=========================================================
@@ -37,8 +36,8 @@
 \usepackage[absolute]{textpos}%posicionar textos livremente
 %=========================================================
 \usepackage{datatool}%organizar listas
-\usepackage{etoolbox}
-\usepackage{imakeidx}\makeindex[columns=1, title=ÍNDICE,intoc]
+\usepackage{etoolbox}%logic
+\usepackage{imakeidx}\makeindex[columns=1, title=ÍNDICE,intoc]%indice
 %=========================================================
 \ifdefined\directlua
 	\usepackage{fontspec}%mudar fonte
@@ -53,13 +52,13 @@
 \fi
 \ifdefined\XeTeXversion
 	\usepackage{mathspec}%mudar fonte
+	\usepackage{lscape}%pag deitada
 \fi
 %\usepackage{contour}%fonte aberta
 %=========================================================
 \usepackage{lipsum}%txt randomico
 \usepackage{pgffor}%loop option 1 
 \usepackage{forloop}%loop option 2
-\usepackage{lscape}%pag deitada
 %=========================================================
 \usepackage{appendix}
 %=========================================================
