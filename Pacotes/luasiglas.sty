@@ -64,7 +64,7 @@
 
 \typeout{b4}
 
-\IfFileExists{\jobname.lua}{%
+\IfFileExists{\jobname.sig.lua}{%
 \luaexec{require("\jobname"..".lua")}
 \luaexec{%
     table.sort(\siglalistin, function (a, b) return string.lower(a.order) < string.lower(b.order) end)
@@ -118,7 +118,7 @@
 
 \AtBeginDocument{%
 \newwrite\minhalow%
-\immediate\openout\minhalow=\jobname.lua
+\immediate\openout\minhalow=\jobname.sig.lua
 }
 
 \AtEndDocument{

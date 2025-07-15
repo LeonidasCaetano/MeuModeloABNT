@@ -7,7 +7,7 @@
 *.ind
 *.log
 *.lol
-*.lua
+*.sig.lua
 *.out
 *.run.xml
 *.synctex.gz
