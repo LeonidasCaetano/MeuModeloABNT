@@ -156,51 +156,53 @@
 %novos comandos
 %==================================================================
 %definemodel
-\newcommand{\tit}{\hspace*{1cm}}
-\newcommand{\subtit}{}
-\newcommand{\loc}{\hspace*{1cm}}
-\newcommand{\inst}{\hspace*{1cm}}
-\newcommand{\campi}{\hspace*{1cm}}
-\newcommand{\autum}{\hspace*{1cm}}
-\newcommand{\autdos}{\hspace*{1cm}}
-\newcommand{\auttre}{\hspace*{1cm}}
-\newcommand{\autqua}{\hspace*{1cm}}
-\newcommand{\ori}{\hspace*{1cm}}
-\newcommand{\coori}{\hspace*{1cm}}
-\newcommand{\nota}{\hspace*{1cm}}
-\newcommand{\palavraschave}{}
-%=============================================
-\newcommand{\hyperreftit}{Modelo ABNT}
+\newcommand{\@titulo}{\ }
+\newcommand{\@subtitulo}{}
+\newcommand{\@local}{\ }
+\newcommand{\@institution}{\ }
+\newcommand{\@campus}{\ }
+
+\newcommand{\@autorum}{\ }
+\newcommand{\@autordois}{\ }
+\newcommand{\@autortres}{\ }
+\newcommand{\@autorquatro}{\ }
+\newcommand{\@orientador}{\ }
+\newcommand{\@coorientador}{\ }
+
+\newcommand{\@nota}{\ }
+\newcommand{\@palavraschaves}{\ }
+\newcommand{\@epigraphy}{\parbox{10cm}{``I heard a definition of an intellectual, that I thought was very interesting: a man who takes more words than are necessary to tell more than he knows."\par Dwight D. Eisenhower}}
+\newcommand{\@dedique}{A família}
+\newcommand{\@bancaum}{\ }
+\newcommand{\@bancadois}{\ }
+%==================================================================
+\newcommand{\hyperreftit}{}
 \newcommand{\hyperrefsubtit}{}
-\newcommand{\hyperrefautum}{Leonidas Caetano}
+\newcommand{\hyperrefautum}{}
 \newcommand{\hyperrefautdos}{}
 \newcommand{\hyperrefauttre}{}
 \newcommand{\hyperrefautqua}{}
-\newcommand{\hyperrefautores}{{\hyperrefautum; \hyperrefautdos;\hyperrefauttre; \hyperrefautqua}}
-\newcommand{\hyperrefkeywords}{ABNT; LaTeX}
-%=============================================
-\newcommand{\epigraphy}{\parbox{10cm}{``I heard a definition of an intellectual, that I thought was very interesting: a man who takes more words than are necessary to tell more than he knows."\par Dwight D. Eisenhower}}
-\newcommand{\dedique}{A família}
-%=============================================
-\newcommand{\bancaum}{medo}
-\newcommand{\bancados}{me salva}
-%=============================================
-\newcommand{\titulo}[1]{\renewcommand{\hyperreftit}{#1}\renewcommand{\tit}{#1}}
-\newcommand{\subtitulo}[1]{\renewcommand{\hyperrefsubtit}{#1}\renewcommand{\subtit}{\ifstrequal{#1}{}{}{: {#1}}}}
-\newcommand{\local}[1]{\renewcommand{\loc}{#1}}
-\newcommand{\institui}[1]{\renewcommand{\inst}{\ifstrequal{#1}{}{\hspace*{1cm}}{\MakeUppercase{#1}}}}
-\newcommand{\campus}[1]{\renewcommand{\campi}{\ifstrequal{#1}{}{\hspace*{1cm}}{\MakeUppercase{#1}}}}
-\newcommand{\autorum}[1]{\renewcommand{\hyperrefautum}{#1}\renewcommand{\autum}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
-\newcommand{\autordos}[1]{\renewcommand{\hyperrefautdos}{#1}\renewcommand{\autdos}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
-\newcommand{\autortre}[1]{\renewcommand{\hyperrefauttre}{#1}\renewcommand{\auttre}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
-\newcommand{\autorqua}[1]{\renewcommand{\hyperrefautqua}{#1}\renewcommand{\autqua}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
-\newcommand{\orientador}[1]{\renewcommand{\ori}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
-\newcommand{\coorientador}[1]{\renewcommand{\coori}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
-\newcommand{\notasandt}[1]{\renewcommand{\nota}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
-%=============================================
-\newcommand{\palavraschaves}[1]{\renewcommand{\hyperrefkeywords}{{#1}}\renewcommand{\palavraschave}{{#1}}}
-%=============================================
-\newcommand{\banca}[2]{\renewcommand{\bancaum}{#1}\renewcommand{\bancados}{#2}}
+\newcommand{\hyperrefautores}{{\hyperrefautum\hyperrefautdos\hyperrefauttre\hyperrefautqua}}
+\newcommand{\hyperrefkeywords}{}
+%==================================================================
+\newcommand{\titulo}[1]{\renewcommand{\hyperreftit}{#1}\renewcommand{\@titulo}{#1}}
+\newcommand{\subtitulo}[1]{\renewcommand{\hyperrefsubtit}{#1}\renewcommand{\@subtitulo}{\ifstrequal{#1}{}{}{: {#1}}}}
+\newcommand{\local}[1]{\renewcommand{\@local}{#1}}
+\newcommand{\institution}[1]{\renewcommand{\@institution}{\ifstrequal{#1}{}{\ }{\MakeUppercase{#1}}}}
+\newcommand{\campus}[1]{\renewcommand{\@campus}{\ifstrequal{#1}{}{\ }{\MakeUppercase{#1}}}}
+
+\newcommand{\autorum}[1]	{\ifstrequal{#1}{}{}{\renewcommand{\hyperrefautum} {; #1}\renewcommand{\@autorum}{#1}}}
+\newcommand{\autordois}[1]	{\ifstrequal{#1}{}{}{\renewcommand{\hyperrefautdos}{; #1}\renewcommand{\@autordois}{#1}}}
+\newcommand{\autortres}[1]	{\ifstrequal{#1}{}{}{\renewcommand{\hyperrefauttre}{; #1}\renewcommand{\@autortres}{#1}}}
+\newcommand{\autorquatro}[1]{\ifstrequal{#1}{}{}{\renewcommand{\hyperrefautqua}{; #1}\renewcommand{\@autorquatro}{#1}}}
+\newcommand{\orientador}[1]	{\renewcommand{\@orientador}{\ifstrequal{#1}{}{\ }{#1}}}
+\newcommand{\coorientador}[1]{\renewcommand{\@coorientador}{\ifstrequal{#1}{}{\ }{#1}}}
+
+\newcommand{\nota}[1]{\renewcommand{\@nota}{\ifstrequal{#1}{}{\ }{#1}}}
+\newcommand{\palavraschaves}[1]{\renewcommand{\hyperrefkeywords}{{#1}}\renewcommand{\@palavraschaves}{{#1}}}
+\newcommand{\epigraphy}[1]{\ifstrequal{#1}{}{}{\renewcommand{\@epigraphy}{\parbox{10cm}{#1}}}}
+\newcommand{\dedique}[1]{\ifstrequal{#1}{}{}{\renewcommand{\@dedique}{#1}}}
+\newcommand{\banca}[2]{\renewcommand{\@bancaum}{#1}\renewcommand{\@bancadois}{#2}}
 %==================================================================
 %datas
 \newcommand{\data}{%
