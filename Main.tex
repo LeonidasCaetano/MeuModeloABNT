@@ -12,7 +12,7 @@
 \usepackage{Pacotes/sumario}
 %==================================================================
 %formatar referencias e citações
-\usepackage[Refs/referencias.bib]{Pacotes/refs}
+\usepackage[5-Refs/referencias.bib]{Pacotes/refs}
 %==================================================================
 %tikz
 \input{PreAmbulo/90Tikz}
@@ -50,48 +50,34 @@
 \makeatother
 \end{titlepage}
 %=============================================
-\begin{titlepage}
-	\linespread{1}\selectfont
-	\input{1PreTxT/1Capa}
-\end{titlepage}
+
+\frontpages
+
+%==================================================================
+
+\input{1-PreTextual/FichaCatalografica}
 \newpage
-%==================================================================
 
-\bodygeometry
+\input{1-PreTextual/Errata}
+\newpage
 
-%==================================================================
-
-\begingroup
-	\linespread{1}\selectfont
-	\input{1PreTxT/2FolhaDeRosto}
-\endgroup
+\input{1-PreTextual/FolhaDeAprovacao}
 \newpage
 
 %==================================================================
 
-\input{1PreTxT/3FichaCatalografica}
+\printdedicatoria
+
+\input{1-PreTextual/Agradecimentos}
 \newpage
 
-\input{1PreTxT/4Errata}
-\newpage
+\printepigraphy
 
-\input{1PreTxT/5FolhaDeAprovacao}
-\newpage
+\input{1-PreTextual/Resumo}
 
 %==================================================================
 
-\input{1PreTxT/6Dedicatoria}
-
-\input{1PreTxT/7Agradecimentos}
-\newpage
-
-\input{1PreTxT/8Epigrafe}
-
-\input{1PreTxT/9Resumo}
-
-%==================================================================
-
-\input{1PreTxT/10Listas}
+\input{1-PreTextual/Listas}
 
 %==================================================================
 
@@ -101,17 +87,17 @@
 
 %Resumo
 
-\input{2Textual/1Desenvolvimento/D1}
+\input{2-Textual/1Desenvolvimento/D1}
 
-\input{2Textual/1Desenvolvimento/D2}
+\input{2-Textual/1Desenvolvimento/D2}
 
-\input{2Textual/1Desenvolvimento/D3}
+\input{2-Textual/1Desenvolvimento/D3}
 
-\input{2Textual/1Desenvolvimento/D4}
+\input{2-Textual/1Desenvolvimento/D4}
 
-\input{2Textual/1Desenvolvimento/D5}
+\input{2-Textual/1Desenvolvimento/D5}
 
-\input{2Textual/1Desenvolvimento/D6}
+\input{2-Textual/1Desenvolvimento/D6}
 
 %==================================================================
 
@@ -119,17 +105,16 @@
 
 %==================================================================
 
-\input{3PosTxT/Referencias}
+\makeref{Referências}\nocite{*}
 
-\input{3PosTxT/Glossario}
+\printglossario
 
 %==================================================================
 
+\let\tmp\chapter
 \let\chapter\append
 
 %appendices here
-
-\chapter{Teste}
 
 %==================================================================
 
@@ -139,7 +124,8 @@
 
 %==================================================================
 
-\input{3PosTxT/Indices}
+\let\chapter\tmp
+\ifdefined\printindex \printindex \fi
 
 %==================================================================
 \end{document}

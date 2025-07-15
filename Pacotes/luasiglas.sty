@@ -102,7 +102,19 @@
 \def\printlistadesimbolos{\printlistade{simbolos}{\simbololistname}}
 \def\printlistademats{\printlistade{matematicas}{\mathlistname}}
 \def\printlistadeunidades{\printlistade{unidades}{\unidadelistname}}
-\def\printglossario{\printlistade{gloss}{\glosslistname}}
+\def\printglossario{
+	\begingroup
+		\setlength{\parskip}{8pt}
+		\luaexec{
+			if gloss[1]~=nil then
+				tex.sprint("\\phantomsection")
+				tex.sprint("\\addcontentsline{toc}{chapter}{\\MakeUppercase{Glossário}}")
+				tex.sprint("\\label{glossario}")
+			end
+		}
+		\printlistade{gloss}{\glosslistname}
+	\endgroup
+}
 
 \AtBeginDocument{%
 \newwrite\minhalow%

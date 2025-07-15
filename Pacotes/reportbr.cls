@@ -204,6 +204,58 @@
 \newcommand{\dedique}[1]{\ifstrequal{#1}{}{}{\renewcommand{\@dedique}{#1}}}
 \newcommand{\banca}[2]{\renewcommand{\@bancaum}{#1}\renewcommand{\@bancadois}{#2}}
 %==================================================================
+\def\frontpages{
+	\begin{titlepage}
+		\linespread{1}\selectfont
+		\begin{center}
+			{\@institution}\par {\@campus}
+			\vspace*{2cm}
+			\@autorum\par \@autordois\par \@autortres\par \@autorquatro
+
+			\vspace*{4.3cm}
+
+			\textbf{\MakeUppercase\@titulo}\@subtitulo
+	
+			\vfill \@local\\ \data
+		\end{center}
+	\end{titlepage}
+	\newpage
+
+	\bodygeometry
+
+	\begingroup
+		\linespread{1}\selectfont
+		\begin{center}
+			\@autorum\par \@autordois\par \@autortres\par \@autorquatro
+
+			\vspace*{8cm} \MakeUppercase{\@titulo}\@subtitulo
+
+			\vspace{1cm}
+    
+			\hfill \normalsize {\parbox{8cm}{\footnotesize\@nota
+			\vspace*{0.5cm}
+    
+			Orientadora: \@orientador\par Coorientador: \@coorientador}}
+			\vfill	\@local\\ \data
+		\end{center}
+	\endgroup
+	\newpage
+}
+%==================================================================
+\def\printdedicatoria{
+	\vspace*{\fill}
+	\begin{flushright}
+   		\@dedique
+	\end{flushright}
+}
+%==================================================================
+\def\printepigraphy{
+	\vspace*{\fill}
+	\begin{flushright}
+		\@epigraphy
+	\end{flushright}
+}
+%==================================================================
 %datas
 \newcommand{\data}{%
 %\ifnum\the\day<10 0\fi\the\day/%
