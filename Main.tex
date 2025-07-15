@@ -5,11 +5,11 @@
 %pacotes
 \input{PreAmbulo/10Pacotes}
 %==================================================================
-%Formatar sumário
-\usepackage{Pacotes/sumario}
-%==================================================================
 %titles & alineas
 \usepackage{Pacotes/pagesec}
+%==================================================================
+%Formatar sumário
+\usepackage{Pacotes/sumario}
 %==================================================================
 %formatar referencias e citações
 \usepackage[Refs/referencias.bib]{Pacotes/refs}
@@ -20,24 +20,24 @@
 %\tikzexternalize[prefix=Ilustrações/Tikz/]
 %==================================================================
 %indentifymodel
-\titulo{Meu modelo ABNT}
-\subtitulo{}
-\local{Pinhais, Paraná}
-\institution{Escolinha de TeX}
-\campus{}
+\titulo			{Meu modelo ABNT}
+\subtitulo		{}
+\local			{Pinhais, Paraná}
+\institution	{Escolinha de TeX}
+\campus			{}
 %=============================================
-\autorum{Leonidas Caetano da Silva}
-\autordois{}
-\autortres{}
-\autorquatro{}
-\orientador{}
-\coorientador{}
+\autorum	 	{Leonidas Caetano da Silva}
+\autordois	 	{}
+\autortres	 	{}
+\autorquatro 	{}
+\orientador	 	{}
+\coorientador	{}
 %=============================================
-\nota{}
-\palavraschaves{}
-\epigraphy{}
-\dedique{}
-\banca{}{}
+\nota			{}
+\palavraschaves	{}
+\epigraphy		{}
+\dedique		{}
+\banca			{}{}
 %==================================================================
 %\usepackage{todonotes}
 %=========================================================================================
@@ -49,14 +49,17 @@
 	\@ifpackageloaded{todonotes}{\listoftodos[Coisas a fazer]}{}
 \makeatother
 \end{titlepage}
+%=============================================
 \begin{titlepage}
 	\linespread{1}\selectfont
 	\input{1PreTxT/1Capa}
 \end{titlepage}
 \newpage
+%==================================================================
+
+\bodygeometry
 
 %==================================================================
-\bodygeometry
 
 \begingroup
 	\linespread{1}\selectfont
@@ -64,16 +67,18 @@
 \endgroup
 \newpage
 
+%==================================================================
+
 \input{1PreTxT/3FichaCatalografica}
 \newpage
 
 \input{1PreTxT/4Errata}
 \newpage
 
-\begingroup
 \input{1PreTxT/5FolhaDeAprovacao}
-\endgroup
 \newpage
+
+%==================================================================
 
 \input{1PreTxT/6Dedicatoria}
 
@@ -84,9 +89,9 @@
 
 \input{1PreTxT/9Resumo}
 
-\input{1PreTxT/10Listas}
+%==================================================================
 
-\typeout{Pre texto feito}
+\input{1PreTxT/10Listas}
 
 %==================================================================
 
@@ -110,26 +115,31 @@
 
 %==================================================================
 
-\typeout{parte textual feita}
+\initsec
 
 %==================================================================
 
-\initsec
+\input{3PosTxT/Referencias}
 
-\input{3PosTxT/1Referencias}
+\input{3PosTxT/Glossario}
 
-\input{3PosTxT/2Glossario}
+%==================================================================
 
-\begin{appendices}
-\apend
+\let\chapter\append
 
-\end{appendices}
+%appendices here
 
-\appendix
+\chapter{Teste}
 
-\input{3PosTxT/5Indices}
+%==================================================================
 
-\typeout{Documento terminado}
+\let\chapter\anex
+
+%anexes here
+
+%==================================================================
+
+\input{3PosTxT/Indices}
 
 %==================================================================
 \end{document}

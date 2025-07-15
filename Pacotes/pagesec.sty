@@ -1,5 +1,6 @@
+%=========================================================================================
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{pagesec}[2024/08/06 Pacote para listas de palavras]
+\ProvidesPackage{pagesec}[2025/07/15]
 
 \RequirePackage{fancyhdr}%estilo de pag
 \RequirePackage{titlesec}%Formatar titulos
@@ -11,7 +12,7 @@
 %===========================================
 \renewcommand{\headrule}{}%retira linha
 \renewcommand{\footrule}{}
-%===========================================sumario
+%===========================================
 \fancypagestyle{plain}{
 \fancyhf{}%\renewcommand{\headrulewidth}{15pt}
 }
@@ -21,7 +22,21 @@
 \fancyhead[R]{\footnotesize\hyperref[sumario]{\thepage}\hspace{1cm}}%
 }
 
-%==================================================================TITULOS
+%==================================================================
+\newcounter{append}\setcounter{append}{0}
+\renewcommand{\theappend}{\Alph{append}}
+\titleclass{\append}[0]{straight}
+\titleformat{\append}[hang]{\bfseries\inittit}{APÊNDICE \theappend\ - }{0em}{\MakeUppercase}
+\titlespacing{\append}{0em}{0cm}{36pt}
+\def\appendautorefname{Apêndice}
+
+\newcounter{anex}\setcounter{anex}{0}
+\renewcommand{\theanex}{\Alph{anex}}
+\titleclass{\anex}[0]{straight}
+\titleformat{\anex}[hang]{\bfseries\inittit}{Anexo \theanex\ - }{0em}{\MakeUppercase}
+\titlespacing{\anex}{0em}{0cm}{36pt}
+\def\anexautorefname{Anexo}
+%==================================================================
 \def\padtit{\normalsize\filright}
 \def\inittit{\normalsize\centering}
 \def\initsec{

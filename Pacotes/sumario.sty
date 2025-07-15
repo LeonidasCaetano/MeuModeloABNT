@@ -86,7 +86,23 @@
 	font=\normalsize, 
 	format=\normalfont
 }
-
+%==================================================================
+%apendice
+\titlecontents{append}[\caixalargsec]
+{\bfseries}
+{APÊNDICE\space\thecontentslabel\space-\space\MakeUppercase}
+{}
+{\linhapad}
+[]
+%==================================================================
+%anexo
+\titlecontents{anex}[\caixalargsec]
+{\bfseries}
+{ANEXO\space\thecontentslabel\space-\space\MakeUppercase}
+{}
+{\linhapad}
+[]
+%==================================================================
 %chapter
 \titlecontents{chapter}[\caixalargsec]
 {\bfseries}
@@ -190,12 +206,5 @@
 %padrão ilustra under dev
 
 %=========================================================================================
-%apendice
-\def\sumarioapendice{\titlecontents{chapter}[\caixalargsec]{\bfseries}{APÊNDICE\space\thecontentslabel\space-\space\MakeUppercase}%
-{}{\linhapad}%
-[\phantomsection]}
-%anexo
-\def\sumarioanexo{\titlecontents{chapter}[\caixalargsec]{\bfseries}{ANEXO\space\thecontentslabel\space-\space\MakeUppercase}%
-{}{\linhapad}%
-[\phantomsection]}
+
 

@@ -239,14 +239,6 @@ Fonte: #1%
 \chapter*{#1}%
 }
 %==================================================================
-%titulo apendice
-\newcounter{apendnumb}
-\newcommand{\apend}{\secapendice\sumarioapendice}
-%==================================================================
-%anexo
-\newcounter{anexnumb}
-\newcommand{\anex}{\secanexo\sumarioanexo}
-%==================================================================
 %Tabelas py
 \@ifpackageloaded{booktabs}{
 	\typeout{Booktabs already loaded}
@@ -260,12 +252,11 @@ Fonte: #1%
 %==================================================================
 %referencias
 \newcommand{\makeref}[1]{%
+\newpage
 \begingroup
 \linespread{1}\selectfont
-
-\capitulon{#1}
-
-\printbibliography[title=#1,heading=none]%
+\addcontentsline{toc}{chapter}{\MakeUppercase{#1}}
+\printbibliography[title=#1]%
 \endgroup
 }
 %==================================================================
@@ -293,7 +284,7 @@ Fonte: #1%
 %==================================================================
 %Formatar usando Lua
 \ifdefined\directlua
-	\directlua{require("PreAmbulo/101LuaCmds.lua")}
+	\directlua{require("Pacotes/LuaCmds.lua")}
 	
 	\newcommand{\formatarporcent}[1]{\luaexec{
 			tex.sprint(formatar_n_casas(100*#1,2))}\%}

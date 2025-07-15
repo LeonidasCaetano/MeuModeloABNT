@@ -1,0 +1,13 @@
+\newpage
+
+\ifdefined\printglossario
+\begingroup
+\setlength{\parskip}{8pt}
+\luaexec{
+	if gloss[1]~=nil then
+		tex.sprint("\\phantomsection\\addcontentsline{toc}{chapter}{\\MakeUppercase{Glossário}}\\label{glossario}")
+	end
+}
+\printglossario
+\endgroup
+\fi
