@@ -1,6 +1,11 @@
 \NeedsTeXFormat{LaTeX2e}[1995/06/01]
 \ProvidesPackage{longquadro}
           [2020/01/07 v4.13 Multi-page Quadro package (DPC)]
+
+\DeclareOption*{\ifdefined\loi \PackageWarning{longquadro}{More than one list passed}\else \def\loi{\CurrentOption} \fi}
+\ProcessOptions\relax
+\ifdefined\loi \else \def\loi{loq} \fi
+
 \def\LQ@err{\PackageError{longquadro}}
 \def\LQ@warn{\PackageWarning{longquadro}}
 \def\LQ@final@warn{%
@@ -332,7 +337,7 @@
   \def\@tempa{#2}%
   \ifx\@tempa\@empty\else
      {\let\\\space
-     \addcontentsline{loq}{quadro}{\protect\numberline{\thequadro}{#2}}}%
+     \addcontentsline{\loi}{quadro}{\protect\numberline{\thequadro}{#2}}}%
   \fi}
 \def\LQ@capti@n{%
   \@ifstar

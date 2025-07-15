@@ -1,0 +1,184 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{sumario}[sumario]
+
+\RequirePackage{Pacotes/luasiglas}
+\RequirePackage{titletoc}%formatar sumario
+\RequirePackage{newfloat}%novos ambientes/listas
+\RequirePackage{listings}
+\RequirePackage{pgffor}
+%===========================================================================
+%===========================================%ajuste em ambientes
+\SetupFloatingEnvironment{figure}{
+	fileext = lol,
+	placement = H,
+	chapterlistsgaps=off
+}
+\renewcommand{\thefigure}{\arabic{figure}}
+\SetupFloatingEnvironment{table}{
+	fileext = lol,
+	placement = H,
+	chapterlistsgaps=off
+}
+\IfFileExists{Pacotes/longtab.sty}{\RequirePackage[lol]{Pacotes/longtab}\let\longtable\longtabela\relax\let\endlongtable\endlongtabela\relax}{}
+\renewcommand{\thetable}{\arabic{table}}
+%===========================================================================
+%===========================================%novos ambientes
+%lista de quadros
+\DeclareFloatingEnvironment[
+    fileext = lol,
+    listname = LISTA DE QUADROS,
+    name = Quadro,
+    placement = H,
+    chapterlistsgaps=off
+]{quadro}
+\IfFileExists{Pacotes/longquadro.sty}{\RequirePackage[lol]{Pacotes/longquadro}}{}
+\renewcommand{\thequadro}{\arabic{quadro}}
+%=====================================
+%lista de graficos
+\DeclareFloatingEnvironment[
+    fileext = lol,
+    listname = LISTA DE GRÁFICOS,
+    name = Gráfico,
+    placement = H,
+    chapterlistsgaps=off
+]{grafico}
+\renewcommand{\thegrafico}{\arabic{grafico}}
+%=====================================
+%lista de programas
+\lstset{numberbychapter=false,
+	backgroundcolor=\color{black}, 
+	commentstyle=\color{green},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{purple}, 
+    breaklines=true,
+    basicstyle=\small\color{white}
+}
+\def\lstlistingname{Código}
+\def\lstlistlistingname{Lista de códigos}
+%===========================================================================
+%===========================================%Lista principal
+\DeclareFloatingEnvironment[
+    fileext = lol,
+    listname = LISTA DE ILUSTRAÇÕES,
+    name = Ilustração,
+    chapterlistsgaps=off
+]{ilustracao}
+%===========================================================================
+\def\linhapad{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
+\newlength{\caixalargsec}
+\newlength{\distanciasecs}
+\setlength{\caixalargsec}{2cm}
+\setlength{\distanciasecs}{0cm}
+%===========================================%formato
+%chapter
+\titlecontents{chapter}[\caixalargsec]
+{\bfseries}
+{\contentslabel{\caixalargsec}\MakeUppercase}
+{}
+{\linhapad}
+[]
+%===========================================
+%seção
+\titlecontents{section}[\caixalargsec]
+{}
+{\contentslabel{\caixalargsec}\MakeUppercase}
+{}
+{\linhapad}
+[]
+%===========================================
+%subseção
+\titlecontents{subsection}[\caixalargsec]
+{}
+{\contentslabel{\caixalargsec}}
+{}
+{\linhapad}
+[]
+%===========================================
+%4º
+\titlecontents{subsubsection}[\caixalargsec]
+{}
+{\contentslabel{\caixalargsec}}
+{}
+{\linhapad}
+[]
+%===========================================
+%5º
+\titlecontents{paragraph}[\caixalargsec]
+{}
+{\contentslabel{\caixalargsec}}
+{}
+{\linhapad}
+[]
+%===========================================
+%figuras
+\titlecontents{figure}[0cm]
+{}
+{Figura\space\thecontentslabel\space-\space}
+{}
+{\linhapad}
+[]
+%===========================================
+%tabelas
+\titlecontents{table}[0cm]
+{}
+{Tabela\space\thecontentslabel\space-\space}
+{}
+{\linhapad}
+[]
+%===========================================
+%quadros
+\titlecontents{quadro}[0cm]
+{}
+{Quadro\space\thecontentslabel\space-\space}
+{}
+{\linhapad}
+[]
+%===========================================
+%graficos
+\titlecontents{grafico}[0cm]
+{}
+{\\space\thecontentslabel\space-\space}
+{}
+{\linhapad}
+[]
+%===========================================
+%equações
+\titlecontents{lstlisting}[0cm]
+{}
+{\lstlistingname\space\thecontentslabel\space-\space}
+{}
+{\linhapad}
+[]
+%===========================================================================
+\newcommand{\printlistasdeilustracoes}{%
+\listofilustracaos%
+}
+
+%(no) restart sempre que
+\ifdefined\chapter 
+	\counterwithout{figure}	{chapter}
+	\counterwithout{table}	{chapter}
+	\counterwithout{quadro}	{chapter}
+	\counterwithout{grafico}{chapter}
+\fi
+
+%Configuração gráfica
+\def\padraoilustra{%
+\footnotesize%
+\linespread{1}\selectfont%
+\centering%
+}
+
+%floats
+%padrão ilustra under dev
+
+%==================================================================
+%apendice
+\def\sumarioapendice{\titlecontents{chapter}[\caixalargsec]{\bfseries}{APÊNDICE\space\thecontentslabel\space-\space\MakeUppercase}%
+{}{\linhapad}%
+[\phantomsection]}
+%anexo
+\def\sumarioanexo{\titlecontents{chapter}[\caixalargsec]{\bfseries}{ANEXO\space\thecontentslabel\space-\space\MakeUppercase}%
+{}{\linhapad}%
+[\phantomsection]}

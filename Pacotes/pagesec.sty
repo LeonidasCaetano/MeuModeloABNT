@@ -1,0 +1,66 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{pagesec}[2024/08/06 Pacote para listas de palavras]
+
+\RequirePackage{fancyhdr}%estilo de pag
+\RequirePackage{titlesec}%Formatar titulos
+
+%==================================================================
+%cabeçalho e rodapé
+\pagestyle{fancy}
+\fancyhf{}%limpa estilo prédefiido
+%===========================================
+\renewcommand{\headrule}{}%retira linha
+\renewcommand{\footrule}{}
+%===========================================sumario
+\fancypagestyle{plain}{
+\fancyhf{}%\renewcommand{\headrulewidth}{15pt}
+}
+
+\fancypagestyle{body}{%
+\fancyhf{}%
+\fancyhead[R]{\footnotesize\hyperref[sumario]{\thepage}\hspace{1cm}}%
+}
+
+%==================================================================TITULOS
+\def\padtit{\normalsize\filright}
+\def\inittit{\normalsize\centering}
+\def\initsec{
+	\titleformat{\chapter}[hang]{\bfseries\inittit}{}{0em}{\MakeUppercase}
+	\titlespacing{\chapter}{0em}{0cm}{36pt}
+	\renewcommand{\thechapter}{}
+}
+
+%apendice
+\def\secapendice{
+	\titleformat{\chapter}[hang]{\bfseries\padtit}{APÊNDICE \thechapter - }{0em}{\MakeUppercase}
+}
+%anexo
+\def\secanexo{
+	\titleformat{\chapter}[hang]{\bfseries\padtit}{ANEXO \thechapter - }{0em}{\MakeUppercase}
+}
+
+\def\bodysec{
+	\titleformat{\chapter}		[hang]{\bfseries\padtit}	{\thechapter}		{1em}{\MakeUppercase}
+	\titleformat{\section}		[hang]{\padtit}				{\thesection}		{1em}	{\MakeUppercase}
+	\titleformat{\subsection}	[hang]{\FloatBarrier\padtit}{\thesubsection}	{1em}{}
+	\titleformat{\subsubsection}[hang]{\FloatBarrier\padtit}{\thesubsubsection}	{1em}{}
+	\titleformat{\paragraph}	[hang]{\FloatBarrier\padtit}{\theparagraph}		{1em}{}
+
+	%espaçamento
+	\titlespacing{\chapter}		 {0cm}{0cm} {36pt}
+	\titlespacing{\section}		 {0em}{36pt}{36pt}
+	\titlespacing{\subsection}	 {0em}{36pt}{36pt}
+	\titlespacing{\subsubsection}{0em}{36pt}{36pt}
+	\titlespacing{\paragraph}	 {0em}{36pt}{36pt}
+
+	%formato  do numero
+	\renewcommand{\thechapter}		{\arabic{chapter}}
+	\renewcommand{\thesection}		{\thechapter.\arabic{section}}
+	\renewcommand{\thesubsection}	{\thesection.\arabic{subsection}}
+	\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+	\renewcommand{\theparagraph}	{\thesubsubsection.\arabic{paragraph}}
+
+	%capitulo é fancy
+	\assignpagestyle{\chapter}{body}
+	\pagestyle{body}
+}

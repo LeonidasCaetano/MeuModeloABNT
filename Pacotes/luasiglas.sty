@@ -84,11 +84,11 @@
 	if #1[1]~=nil then
 		tex.sprint("\\headeroftables{#2}")
 		if "#1" ~= "gloss" then
-    			tex.sprint("\\begin{itemize}")
+    			tex.sprint("\\begin{description}")
 			for i, lista in ipairs(#1) do
 				tex.sprint(mostrar(lista.tipo , lista.comp , lista.desc ))
 			end
-			tex.sprint("\\end{itemize}")
+			tex.sprint("\\end{description}")
 		else
 			for i, lista in ipairs(#1) do
 				tex.sprint(mostrar(lista.tipo , lista.comp , lista.desc ))

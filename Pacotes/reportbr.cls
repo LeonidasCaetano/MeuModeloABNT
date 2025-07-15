@@ -1,0 +1,371 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{reportbr}[2014/08/16 Example LaTeX class]
+
+\DeclareOption{booktabs}{\def\@bktbspkg{\RequirePackage{booktabs}}}
+\DeclareOption{imakeidx}{\def\@imkidxpkg{\RequirePackage{imakeidx}}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}}
+\ProcessOptions\relax
+\LoadClass{report}
+
+%==================================================================
+%pacotes
+\RequirePackage[english,brazil]{babel}%Pacote BR
+%=========================================================
+\RequirePackage{mathtools}%equações matematicas
+\RequirePackage{amsfonts}%letras matematicas
+\RequirePackage{siunitx}\sisetup{detect-all}%Unidades
+\RequirePackage{polynom}%divisão polinomial
+\RequirePackage{chemfig}%quimica
+%=========================================================
+\RequirePackage{graphicx}%Inserir imagem
+\RequirePackage{xcolor}%cores
+%=========================================================
+%Tabelas
+\RequirePackage{multirow}%multilinha
+\RequirePackage{array}%basicão
+\RequirePackage{tabularx}%tabela estranha
+\RequirePackage{colortbl}%cores
+\ifdefined\@bktbspkg \@bktbspkg\fi%solo for py
+%=========================================================
+\RequirePackage[T1]{fontenc}%acentos
+\RequirePackage{indentfirst}%recuo 1º paragrafo
+\RequirePackage{parskip}%distancia entre paragrafos
+%=========================================================
+\RequirePackage{calc}%operação com variaveis
+\RequirePackage[section]{placeins}
+\RequirePackage{float}%posição absoluta
+%=========================================================
+\RequirePackage{etoolbox}
+\ifdefined\@imkidxpkg \@imkidxpkg\fi
+\@ifpackageloaded{imakeidx}{
+\makeindex[columns=1, title=ÍNDICE,intoc]
+\indexsetup{firstpagestyle=fancy}
+\let\addaoindice\index
+\renewcommand{\index}[1]{\addaoindice{\MakeTitlecase{#1}}}
+}{}
+%=========================================================
+\ifdefined\directlua
+	\RequirePackage{fontspec}%mudar fonte
+	\RequirePackage{pdflscape}
+	\RequirePackage{luacode}
+\fi
+\ifdefined\pdfoutput
+	\RequirePackage{helvet}
+	\renewcommand{\familydefault}{\sfdefault}%Arial
+	\RequirePackage{pdflscape}
+\fi
+\ifdefined\XeTeXversion
+	\RequirePackage{mathspec}%mudar fonte
+	\RequirePackage{lscape}%pag deitada
+\fi
+%=========================================================
+\RequirePackage{pgffor}%loop option 1 
+\RequirePackage{forloop}%loop option 2
+%=========================================================
+\RequirePackage{appendix}
+%==================================================================
+
+\RequirePackage[
+a4paper,
+]{geometry}%Margens e página
+%=========================================================
+\geometry{
+	includehead = false,
+	includefoot = false,
+	twoside 	= false,
+	footskip 	= 1cm,
+	headheight 	= 2cm,
+	headsep 	= 0.5pt,
+	top 		= 3cm,
+	bottom 		= 2cm,
+	left 		= 2cm,
+	right 		= 2cm
+}
+
+
+\def\bodygeometry{\newgeometry{
+	includehead = false,
+	includefoot = false,
+	twoside 	= false,
+	footskip 	= 1cm,
+	headheight 	= 3cm,
+	headsep 	= .5cm,
+	top 		= 3cm,
+	bottom 		= 2cm,
+	left 		= 3cm,
+	right 		= 2cm
+}}
+
+
+
+
+\RequirePackage{caption}%legendas
+\DeclareCaptionTextFormat{geraltext}{#1}
+\DeclareCaptionLabelFormat{gerallabel}{#1\space#2}
+\DeclareCaptionLabelSeparator{geralsep}{:\space}
+\DeclareCaptionFont{geralfont}{\footnotesize}
+\DeclareCaptionFormat{geralformat}{\bfseries#1#2#3}
+\captionsetup{labelformat = gerallabel, textformat = geraltext, labelsep = geralsep, justification = centering, format = geralformat}
+
+
+
+\RequirePackage[shortlabels]{enumitem}%listas
+
+\renewcommand{\labelenumi}{\alph{enumi}\hfill)}
+\renewcommand{\labelenumii}{--}
+
+\renewcommand{\labelitemi}{\textbullet}
+\renewcommand{\labelitemii}{--}
+
+\setlist[description,1]{align = left,
+	topsep = 0cm,
+	itemindent = 0cm,  
+	leftmargin = \caixalargsec, 
+	labelwidth = \caixalargsec,
+	labelsep = 0em, 
+	labelindent = 0cm, 
+	listparindent = \parindent,
+	itemsep = \distanciasecs,
+	parsep = \parskip,
+	font=\normalsize, 
+	format=\normalfont
+}
+
+\setlist[enumerate,1]{align = left,
+	topsep = 0cm,
+	itemindent = .5cm+1em,
+	leftmargin = 1.5cm, 
+	labelwidth = .5cm,
+	labelsep = 1em, 
+	labelindent = 0cm, 
+	listparindent = 0.5cm+1em,
+	itemsep = 0cm,
+	parsep = \parskip
+}
+
+\setlist[enumerate,2]{align = left,
+	topsep = 0cm,
+	itemindent = .5cm+1em,  
+	leftmargin = 0cm, 
+	labelwidth = .5cm,
+	labelsep = 1em, 
+	labelindent = 0cm, 
+	listparindent = 0.5cm+1em,
+	itemsep = 0cm,
+	parsep = \parskip
+}
+
+%==================================================================
+%novos comandos
+%==================================================================
+%definemodel
+\newcommand{\tit}{\hspace*{1cm}}
+\newcommand{\subtit}{}
+\newcommand{\loc}{\hspace*{1cm}}
+\newcommand{\inst}{\hspace*{1cm}}
+\newcommand{\campi}{\hspace*{1cm}}
+\newcommand{\autum}{\hspace*{1cm}}
+\newcommand{\autdos}{\hspace*{1cm}}
+\newcommand{\auttre}{\hspace*{1cm}}
+\newcommand{\autqua}{\hspace*{1cm}}
+\newcommand{\ori}{\hspace*{1cm}}
+\newcommand{\coori}{\hspace*{1cm}}
+\newcommand{\nota}{\hspace*{1cm}}
+\newcommand{\palavraschave}{}
+%========================
+\newcommand{\hyperreftit}{Modelo ABNT}
+\newcommand{\hyperrefsubtit}{}
+\newcommand{\hyperrefautum}{Leonidas Caetano}
+\newcommand{\hyperrefautdos}{}
+\newcommand{\hyperrefauttre}{}
+\newcommand{\hyperrefautqua}{}
+\newcommand{\hyperrefautores}{{\hyperrefautum; \hyperrefautdos;\hyperrefauttre; \hyperrefautqua}}
+\newcommand{\hyperrefkeywords}{ABNT; LaTeX}
+%========================
+\newcommand{\epigraphy}{\parbox{10cm}{``I heard a definition of an intellectual, that I thought was very interesting: a man who takes more words than are necessary to tell more than he knows."\par Dwight D. Eisenhower}}
+\newcommand{\dedique}{A família}
+%========================
+\newcommand{\bancaum}{medo}
+\newcommand{\bancados}{me salva}
+%================================================
+\newcommand{\titulo}[1]{\renewcommand{\hyperreftit}{#1}\renewcommand{\tit}{#1}}
+\newcommand{\subtitulo}[1]{\renewcommand{\hyperrefsubtit}{#1}\renewcommand{\subtit}{\ifstrequal{#1}{}{}{: {#1}}}}
+\newcommand{\local}[1]{\renewcommand{\loc}{#1}}
+\newcommand{\institui}[1]{\renewcommand{\inst}{\ifstrequal{#1}{}{\hspace*{1cm}}{\MakeUppercase{#1}}}}
+\newcommand{\campus}[1]{\renewcommand{\campi}{\ifstrequal{#1}{}{\hspace*{1cm}}{\MakeUppercase{#1}}}}
+\newcommand{\autorum}[1]{\renewcommand{\hyperrefautum}{#1}\renewcommand{\autum}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+\newcommand{\autordos}[1]{\renewcommand{\hyperrefautdos}{#1}\renewcommand{\autdos}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+\newcommand{\autortre}[1]{\renewcommand{\hyperrefauttre}{#1}\renewcommand{\auttre}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+\newcommand{\autorqua}[1]{\renewcommand{\hyperrefautqua}{#1}\renewcommand{\autqua}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+\newcommand{\orientador}[1]{\renewcommand{\ori}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+\newcommand{\coorientador}[1]{\renewcommand{\coori}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+\newcommand{\notasandt}[1]{\renewcommand{\nota}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
+%========================
+\newcommand{\palavraschaves}[1]{\renewcommand{\hyperrefkeywords}{{#1}}\renewcommand{\palavraschave}{{#1}}}
+%========================
+\newcommand{\banca}[2]{\renewcommand{\bancaum}{#1}\renewcommand{\bancados}{#2}}
+%==================================================================
+%datas
+\newcommand{\data}{%
+%\ifnum\the\day<10 0\fi\the\day/%
+%\ifnum\the\month<10 0\fi\the\month/%
+\the\year%
+}
+%==================================================================
+%Fonte
+\newcommand{\conteudofonte}{Os autores (\the\year)}
+\newcommand{\posfonte}{\centering}
+
+\newcommand{\fonte}[1][\conteudofonte]{
+
+\posfonte
+Fonte: #1%
+}
+
+%==================================================================
+%seção não numerada
+\newcommand{\capitulon}[1]{%
+\newpage
+
+\phantomsection\label{#1}%
+\addcontentsline{toc}{chapter}{\MakeUppercase{#1}}%
+\chapter*{#1}%
+}
+%==================================================================
+%seção pre listas
+\newcommand{\capitulop}[1]{%
+\newpage
+
+\phantomsection\label{#1}%
+\chapter*{#1}%
+}
+%==================================================================
+%titulo apendice
+\newcounter{apendnumb}
+\newcommand{\apend}{\secapendice\sumarioapendice}
+%==================================================================
+%anexo
+\newcounter{anexnumb}
+\newcommand{\anex}{\secanexo\sumarioanexo}
+%==================================================================
+%Tabelas py
+\@ifpackageloaded{booktabs}{
+	\typeout{Booktabs already loaded}
+}{%
+	\typeout{Emulating booktabs commands}
+	\newcommand{\toprule}{\noalign{\hrule height 2.2pt}}
+	\newcommand{\midrule}{\hline}
+	\newcommand{\cmidrule}[1]{\cline{#1}}
+	\newcommand{\bottomrule}{\noalign{\hrule height 2.2pt}}
+}
+%==================================================================
+%referencias
+\newcommand{\makeref}[1]{%
+\begingroup
+\linespread{1}\selectfont
+
+\capitulon{#1}
+
+\printbibliography[title=#1,heading=none]%
+\endgroup
+}
+%==================================================================
+%Deitada
+%=============================================
+\ifdefined\pdfoutput
+	\newenvironment{deitada}{%
+		\newpage%
+		\begin{landscape}%
+	}{%
+		\end{landscape}%
+		\newpage%
+	}
+\fi
+%=============================================
+\ifdefined\directlua
+	\newenvironment{deitada}{%
+		\newpage%
+		\begin{landscape}%
+	}{
+		\end{landscape}%
+		\newpage%
+	}
+\fi
+%==================================================================
+%Formatar usando Lua
+\ifdefined\directlua
+	\directlua{require("PreAmbulo/101LuaCmds.lua")}
+	
+	\newcommand{\formatarporcent}[1]{\luaexec{
+			tex.sprint(formatar_n_casas(100*#1,2))}\%}
+
+	\newcommand{\formatarinteiro}[1]{\luaexec{
+			tex.sprint(formatar_n_casas(#1,0))}}
+
+	\newcommand{\formatarduascasas}[1]{\luaexec{
+			tex.sprint(formatar_n_casas(#1,2))}}
+
+	\newcommand{\formatarmoeda}[1]{R\$ \luaexec{
+			tex.sprint(formatar_n_casas(#1,2))}}
+
+	\newcommand{\formataroutro}[2]{\luaexec{
+			tex.sprint(formatar_n_casas(#1,#2))}}
+
+	\newcommand{\formatartexto}[1]{\luaexec{
+			tex.sprint(#1)}}
+\fi
+%==================================================================
+
+\@ifpackageloaded{mathspec}{
+	\setmathfont(Digits){Arial}%Latin Modern Math
+	\setmathfont(Latin){Arial}%Fira Math
+	\setmathfont(Greek){Arial}
+	\setmathrm{Arial}
+	%aplicar a letras gregas
+	\begingroup\lccode`~=`"
+		\lowercase{\endgroup
+		\everymath{\let~\eu@active@quote}
+		\everydisplay{\let~\eu@active@quote}
+		}
+}{
+	%se não for carregado, não há edição
+}
+
+\renewcommand{\sin}{\mathop\mathrm{sen}\nolimits}
+\renewcommand{\cos}{\mathop\mathrm{cos}\nolimits}
+\renewcommand{\tan}{\mathop\mathrm{tg}\nolimits}
+\renewcommand{\csc}{\mathop\mathrm{csc}\nolimits}
+\renewcommand{\sec}{\mathop\mathrm{sec}\nolimits}
+\renewcommand{\cot}{\mathop\mathrm{cotg}\nolimits}
+\renewcommand{\arcsin}{\mathop\mathrm{sen}^{-1}\nolimits}
+\renewcommand{\arccos}{\mathop\mathrm{cos}^{-1}\nolimits}
+\renewcommand{\arctan}{\mathop\mathrm{tg}^{-1}\nolimits}
+
+\pretocmd{\document}{
+	\typeout{Debug comzo do bge}
+	\makeatletter
+		\typeout{Debug pre check}
+		\@ifpackageloaded{todonotes}{}{
+			\typeout{Debug in check 1}
+			\def\missingfigure#1{#1}
+			\def\todo[#1]#2{}
+			\typeout{Debug in check}
+		}
+		\typeout{Debug pos check}
+	\makeatother
+	\typeout{Debug antes de hyper}
+	\usepackage[
+			linktoc = all,
+			hidelinks,
+			%draft,
+			pdfpagemode=FullScreen,
+			pdftitle=\hyperreftit,
+			pdfauthor=\hyperrefautores,
+			pdfcreator={Leonidas Caetano},
+			pdfsubject=\hyperrefsubtit,
+			pdfkeywords={\hyperrefkeywords},
+			]{hyperref}%links
+}{}{\errmessage{Couldn't patch \string\document}}
+
+\ifdefined\chapter \counterwithout{footnote}{chapter}\fi
+\renewcommand{\theequation}{\arabic{equation}}

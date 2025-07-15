@@ -1,6 +1,11 @@
 \NeedsTeXFormat{LaTeX2e}[1995/06/01]
 \ProvidesPackage{longtab}
           [2020/01/07 v4.13 Multi-page Tabela package (DPC)]
+
+\DeclareOption*{\ifdefined\loi \PackageWarning{longquadro}{More than one list passed}\else \def\loi{\CurrentOption} \fi}
+\ProcessOptions\relax
+\ifdefined\loi \else \def\loi{lot} \fi
+
 \def\LTT@err{\PackageError{longtable}}
 \def\LTT@warn{\PackageWarning{longtable}}
 \def\LTT@final@warn{%
@@ -338,7 +343,7 @@
   \def\@tempa{#2}%
   \ifx\@tempa\@empty\else
      {\let\\\space
-     \addcontentsline{lot}{table}{\protect\numberline{\thetable}{#2}}}%
+     \addcontentsline{\loi}{table}{\protect\numberline{\thetable}{#2}}}%
   \fi}
 \def\LTT@capti@n{%
   \@ifstar

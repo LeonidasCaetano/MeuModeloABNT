@@ -1,51 +1,22 @@
 %tipo né
-\documentclass[12pt]{report}
+\documentclass[12pt, imakeidx]{Pacotes/reportbr}
 %==================================================================
 %pacotes
 \input{PreAmbulo/10Pacotes}
 %==================================================================
-%foia
-\input{PreAmbulo/20Margens}
-%==================================================================
-%contadores e medidas
-\input{PreAmbulo/22LengthsAndCounters}
-%==================================================================
-%legendas
-\input{PreAmbulo/40Legendas}
-%==================================================================
 %Formatar sumário
-\input{PreAmbulo/30Sumario3}
+\usepackage{Pacotes/sumario}
 %==================================================================
 %titles & alineas
-\usepackage[shortlabels]{enumitem}%listas
-\usepackage{titlesec}%Formatar titulos
-\input{PreAmbulo/50Titulos}
-%==================================================================
-%cabeçalho e rodapé
-\input{PreAmbulo/60Pagstyle}
+\usepackage{Pacotes/pagesec}
 %==================================================================
 %formatar referencias e citações
-\input{PreAmbulo/70Ref}
-\input{PreAmbulo/71Ref}
-%==================================================================
-%formatar citações
-\input{PreAmbulo/80Quotes}
+\usepackage[Refs/referencias.bib]{Pacotes/refs}
 %==================================================================
 %tikz
 \input{PreAmbulo/90Tikz}
 %\usetikzlibrary{external}
 %\tikzexternalize[prefix=Ilustrações/Tikz/]
-%==================================================================
-%newcommands
-\input{PreAmbulo/100Newcommands}
-%==================================================================
-%mudando funções mat gringas
-\input{PreAmbulo/110Renewsmath}
-%==================================================================
-%estilo indice
-\indexsetup{firstpagestyle=fancy}
-\let\addaoindice\index
-\renewcommand{\index}[1]{\addaoindice{\MakeTitlecase{#1}}}
 %==================================================================
 %indentifymodel
 %====================
@@ -73,26 +44,7 @@
 %\renewcommand{\dedique}{}
 %=========================================================================================
 %\usepackage{todonotes}
-\makeatletter
-\@ifpackageloaded{todonotes}{}{
-\def\missingfigure#1{#1}
-\def\todo[#1]#2{}}
-\makeatother
 %=========================================================
-\usepackage[
-			linktoc = all,
-			hidelinks,
-			%draft,
-			pdfpagemode=FullScreen,
-			pdftitle=\hyperreftit,
-			pdfauthor=\hyperrefautores,
-			pdfcreator={Leonidas Caetano},
-			pdfsubject=\hyperrefsubtit,
-			pdfkeywords={\hyperrefkeywords},
-			]{hyperref}%links
-\linespread{1.5}\selectfont
-\counterwithout{footnote}{chapter}
-\renewcommand{\theequation}{\arabic{equation}}
 \begin{document}
 \input{PreAmbulo/120SetsIniciais}
 %==================================================================
@@ -110,7 +62,7 @@
 \newpage
 
 %==================================================================
-\input{PreAmbulo/21Margens}
+\bodygeometry
 
 \begingroup
 	\linespread{1}\selectfont
@@ -144,12 +96,13 @@
 
 %==================================================================
 
-\input{PreAmbulo/61Pagstyle}
-\input{PreAmbulo/51Titulos}
+\bodysec
 
 %==================================================================
 
 %Resumo
+
+\index{teste}
 
 \input{2Textual/1Desenvolvimento/D1}
 
@@ -169,7 +122,7 @@
 
 %==================================================================
 
-\input{PreAmbulo/50Titulos}
+\initsec
 
 \input{3PosTxT/1Referencias}
 

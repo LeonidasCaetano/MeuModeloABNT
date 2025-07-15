@@ -12,23 +12,21 @@
 %====================Lengths
 \setlength{\parskip}{3pt}%Distancia entre paragrafos
 \setlength{\parindent}{1.5cm}%Recuo da primeira linha
-\setlength{\caixalargsec}{2cm}%Tamanho da caixadas listas
-\setlength{\indentquote}{4cm}%Indentação da citação
-\setlength{\distanciasecs}{0.1cm}%Distância vertical entre listas flutuantes
 %====================Counters
 \setcounter{secnumdepth}{5}%Até seção quintenária
 \setcounter{tocdepth}{5}%Até seção quintenária
 %====================Espaçamento
-%\onehalfspacing%distancia
 %\fontsize{12pt}{18pt}\selectfont
+\linespread{1.5}\selectfont
+\initsec
 %====================
 %\pagecolor{black}
 %\color{white}
 %====================
 \makeatletter%
 \@ifpackageloaded{textpos}{%
-\setlength{\TPVertModule}{1cm}%
-\setlength{\TPHorizModule}{1cm}%
+	\setlength{\TPVertModule}{1cm}%
+	\setlength{\TPHorizModule}{1cm}%
 }{}%
 \makeatother%
 %====================
