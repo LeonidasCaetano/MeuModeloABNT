@@ -1,13 +1,13 @@
+%=========================================================================================
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{sumario}[sumario]
-
+%=========================================================================================
 \RequirePackage{Pacotes/luasiglas}
 \RequirePackage{titletoc}%formatar sumario
 \RequirePackage{newfloat}%novos ambientes/listas
 \RequirePackage{listings}
-\RequirePackage{pgffor}
-%===========================================================================
-%===========================================%ajuste em ambientes
+\RequirePackage[shortlabels]{enumitem}
+%=========================================================================================
 \SetupFloatingEnvironment{figure}{
 	fileext = lol,
 	placement = H,
@@ -19,10 +19,12 @@
 	placement = H,
 	chapterlistsgaps=off
 }
-\IfFileExists{Pacotes/longtab.sty}{\RequirePackage[lol]{Pacotes/longtab}\let\longtable\longtabela\relax\let\endlongtable\endlongtabela\relax}{}
+\IfFileExists{Pacotes/longtab.sty}{
+\RequirePackage[lol]{Pacotes/longtab}
+\let\longtable\longtabela\relax
+\let\endlongtable\endlongtabela\relax}{}
 \renewcommand{\thetable}{\arabic{table}}
-%===========================================================================
-%===========================================%novos ambientes
+%==================================================================
 %lista de quadros
 \DeclareFloatingEnvironment[
     fileext = lol,
@@ -31,9 +33,10 @@
     placement = H,
     chapterlistsgaps=off
 ]{quadro}
-\IfFileExists{Pacotes/longquadro.sty}{\RequirePackage[lol]{Pacotes/longquadro}}{}
+\IfFileExists{Pacotes/longquadro.sty}{
+\RequirePackage[lol]{Pacotes/longquadro}}{}
 \renewcommand{\thequadro}{\arabic{quadro}}
-%=====================================
+
 %lista de graficos
 \DeclareFloatingEnvironment[
     fileext = lol,
@@ -43,7 +46,7 @@
     chapterlistsgaps=off
 ]{grafico}
 \renewcommand{\thegrafico}{\arabic{grafico}}
-%=====================================
+
 %lista de programas
 \lstset{numberbychapter=false,
 	backgroundcolor=\color{black}, 
@@ -56,21 +59,34 @@
 }
 \def\lstlistingname{Código}
 \def\lstlistlistingname{Lista de códigos}
-%===========================================================================
-%===========================================%Lista principal
+%==================================================================
 \DeclareFloatingEnvironment[
     fileext = lol,
     listname = LISTA DE ILUSTRAÇÕES,
     name = Ilustração,
     chapterlistsgaps=off
 ]{ilustracao}
-%===========================================================================
+%=========================================================================================
 \def\linhapad{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
 \newlength{\caixalargsec}
 \newlength{\distanciasecs}
 \setlength{\caixalargsec}{2cm}
 \setlength{\distanciasecs}{0cm}
-%===========================================%formato
+%==================================================================
+\setlist[description,1]{align = left,
+	topsep = 0cm,
+	itemindent = 0cm,  
+	leftmargin = \caixalargsec, 
+	labelwidth = \caixalargsec,
+	labelsep = 0em, 
+	labelindent = 0cm, 
+	listparindent = \parindent,
+	itemsep = \distanciasecs,
+	parsep = \parskip,
+	font=\normalsize, 
+	format=\normalfont
+}
+
 %chapter
 \titlecontents{chapter}[\caixalargsec]
 {\bfseries}
@@ -78,7 +94,7 @@
 {}
 {\linhapad}
 []
-%===========================================
+%==================================================================
 %seção
 \titlecontents{section}[\caixalargsec]
 {}
@@ -86,7 +102,7 @@
 {}
 {\linhapad}
 []
-%===========================================
+%==================================================================
 %subseção
 \titlecontents{subsection}[\caixalargsec]
 {}
@@ -94,7 +110,7 @@
 {}
 {\linhapad}
 []
-%===========================================
+%==================================================================
 %4º
 \titlecontents{subsubsection}[\caixalargsec]
 {}
@@ -102,7 +118,7 @@
 {}
 {\linhapad}
 []
-%===========================================
+%==================================================================
 %5º
 \titlecontents{paragraph}[\caixalargsec]
 {}
@@ -110,7 +126,7 @@
 {}
 {\linhapad}
 []
-%===========================================
+%==================================================================
 %figuras
 \titlecontents{figure}[0cm]
 {}
@@ -118,7 +134,7 @@
 {}
 {\linhapad}
 []
-%===========================================
+%==================================================================
 %tabelas
 \titlecontents{table}[0cm]
 {}
@@ -126,7 +142,7 @@
 {}
 {\linhapad}
 []
-%===========================================
+%==================================================================
 %quadros
 \titlecontents{quadro}[0cm]
 {}
@@ -134,7 +150,7 @@
 {}
 {\linhapad}
 []
-%===========================================
+%==================================================================
 %graficos
 \titlecontents{grafico}[0cm]
 {}
@@ -142,7 +158,7 @@
 {}
 {\linhapad}
 []
-%===========================================
+%==================================================================
 %equações
 \titlecontents{lstlisting}[0cm]
 {}
@@ -150,7 +166,7 @@
 {}
 {\linhapad}
 []
-%===========================================================================
+%=========================================================================================
 \newcommand{\printlistasdeilustracoes}{%
 \listofilustracaos%
 }
@@ -173,7 +189,7 @@
 %floats
 %padrão ilustra under dev
 
-%==================================================================
+%=========================================================================================
 %apendice
 \def\sumarioapendice{\titlecontents{chapter}[\caixalargsec]{\bfseries}{APÊNDICE\space\thecontentslabel\space-\space\MakeUppercase}%
 {}{\linhapad}%
@@ -182,3 +198,4 @@
 \def\sumarioanexo{\titlecontents{chapter}[\caixalargsec]{\bfseries}{ANEXO\space\thecontentslabel\space-\space\MakeUppercase}%
 {}{\linhapad}%
 [\phantomsection]}
+

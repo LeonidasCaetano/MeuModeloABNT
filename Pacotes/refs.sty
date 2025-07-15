@@ -19,7 +19,9 @@
 %======================================================================
 %arquivo .bib
 \DeclareOption*{
-	\IfFileExists{\CurrentOption}{\addbibresource{\CurrentOption}}{\PackageWarning{refs}{‘\CurrentOption’ not found}}
+	\IfFileExists{\CurrentOption}
+	{\edef\@@tmp{\noexpand\addbibresource{\CurrentOption}}\@@tmp}%Erro
+	{\PackageWarning{refs}{‘\CurrentOption’ not found}}
 }
 \ProcessOptions\relax
 

@@ -2,9 +2,7 @@
 \ProvidesPackage{longquadro}
           [2020/01/07 v4.13 Multi-page Quadro package (DPC)]
 
-\DeclareOption*{\ifdefined\loi \PackageWarning{longquadro}{More than one list passed}\else \def\loi{\CurrentOption} \fi}
-\ProcessOptions\relax
-\ifdefined\loi \else \def\loi{loq} \fi
+\DeclareOption*{\ifdefined\@loiq \PackageWarning{longquadro}{More than one list passed}\else \edef\@loiq{\CurrentOption} \fi}
 
 \def\LQ@err{\PackageError{longquadro}}
 \def\LQ@warn{\PackageWarning{longquadro}}
@@ -20,6 +18,9 @@
 \DeclareOption{set}{}
 \DeclareOption{final}{}
 \ProcessOptions
+
+\ifdefined\@loiq \else \def\@loiq{loq} \fi
+
 \newskip\LQleft       \LQleft=\fill
 \newskip\LQright      \LQright=\fill
 \newskip\LQpre        \LQpre=\bigskipamount
@@ -337,7 +338,7 @@
   \def\@tempa{#2}%
   \ifx\@tempa\@empty\else
      {\let\\\space
-     \addcontentsline{\loi}{quadro}{\protect\numberline{\thequadro}{#2}}}%
+     \addcontentsline{\@loiq}{quadro}{\protect\numberline{\thequadro}{#2}}}%
   \fi}
 \def\LQ@capti@n{%
   \@ifstar

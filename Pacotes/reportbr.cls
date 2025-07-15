@@ -1,3 +1,4 @@
+%=========================================================================================
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{reportbr}[2014/08/16 Example LaTeX class]
 
@@ -7,34 +8,34 @@
 \ProcessOptions\relax
 \LoadClass{report}
 
-%==================================================================
+%=========================================================================================
 %pacotes
 \RequirePackage[english,brazil]{babel}%Pacote BR
-%=========================================================
+%==================================================================
 \RequirePackage{mathtools}%equações matematicas
 \RequirePackage{amsfonts}%letras matematicas
 \RequirePackage{siunitx}\sisetup{detect-all}%Unidades
 \RequirePackage{polynom}%divisão polinomial
 \RequirePackage{chemfig}%quimica
-%=========================================================
+%==================================================================
 \RequirePackage{graphicx}%Inserir imagem
 \RequirePackage{xcolor}%cores
-%=========================================================
+%==================================================================
 %Tabelas
 \RequirePackage{multirow}%multilinha
 \RequirePackage{array}%basicão
 \RequirePackage{tabularx}%tabela estranha
 \RequirePackage{colortbl}%cores
 \ifdefined\@bktbspkg \@bktbspkg\fi%solo for py
-%=========================================================
+%==================================================================
 \RequirePackage[T1]{fontenc}%acentos
 \RequirePackage{indentfirst}%recuo 1º paragrafo
 \RequirePackage{parskip}%distancia entre paragrafos
-%=========================================================
+%==================================================================
 \RequirePackage{calc}%operação com variaveis
 \RequirePackage[section]{placeins}
 \RequirePackage{float}%posição absoluta
-%=========================================================
+%==================================================================
 \RequirePackage{etoolbox}
 \ifdefined\@imkidxpkg \@imkidxpkg\fi
 \@ifpackageloaded{imakeidx}{
@@ -43,7 +44,7 @@
 \let\addaoindice\index
 \renewcommand{\index}[1]{\addaoindice{\MakeTitlecase{#1}}}
 }{}
-%=========================================================
+%==================================================================
 \ifdefined\directlua
 	\RequirePackage{fontspec}%mudar fonte
 	\RequirePackage{pdflscape}
@@ -58,17 +59,15 @@
 	\RequirePackage{mathspec}%mudar fonte
 	\RequirePackage{lscape}%pag deitada
 \fi
-%=========================================================
+%==================================================================
 \RequirePackage{pgffor}%loop option 1 
 \RequirePackage{forloop}%loop option 2
-%=========================================================
-\RequirePackage{appendix}
 %==================================================================
+\RequirePackage{appendix}
 
-\RequirePackage[
-a4paper,
-]{geometry}%Margens e página
-%=========================================================
+%=========================================================================================
+
+\RequirePackage[a4paper]{geometry}%Margens e página
 \geometry{
 	includehead = false,
 	includefoot = false,
@@ -96,8 +95,7 @@ a4paper,
 	right 		= 2cm
 }}
 
-
-
+%=========================================================================================
 
 \RequirePackage{caption}%legendas
 \DeclareCaptionTextFormat{geraltext}{#1}
@@ -107,7 +105,7 @@ a4paper,
 \DeclareCaptionFormat{geralformat}{\bfseries#1#2#3}
 \captionsetup{labelformat = gerallabel, textformat = geraltext, labelsep = geralsep, justification = centering, format = geralformat}
 
-
+%=========================================================================================
 
 \RequirePackage[shortlabels]{enumitem}%listas
 
@@ -117,18 +115,16 @@ a4paper,
 \renewcommand{\labelitemi}{\textbullet}
 \renewcommand{\labelitemii}{--}
 
-\setlist[description,1]{align = left,
+\setlist[itemize,1]{align = left,
 	topsep = 0cm,
-	itemindent = 0cm,  
-	leftmargin = \caixalargsec, 
-	labelwidth = \caixalargsec,
-	labelsep = 0em, 
+	itemindent = .5cm+1em,
+	leftmargin = 1.5cm, 
+	labelwidth = .5cm,
+	labelsep = 1em, 
 	labelindent = 0cm, 
-	listparindent = \parindent,
-	itemsep = \distanciasecs,
-	parsep = \parskip,
-	font=\normalsize, 
-	format=\normalfont
+	listparindent = 0.5cm+1em,
+	itemsep = 0cm,
+	parsep = \parskip
 }
 
 \setlist[enumerate,1]{align = left,
@@ -155,7 +151,8 @@ a4paper,
 	parsep = \parskip
 }
 
-%==================================================================
+%=========================================================================================
+
 %novos comandos
 %==================================================================
 %definemodel
@@ -172,7 +169,7 @@ a4paper,
 \newcommand{\coori}{\hspace*{1cm}}
 \newcommand{\nota}{\hspace*{1cm}}
 \newcommand{\palavraschave}{}
-%========================
+%=============================================
 \newcommand{\hyperreftit}{Modelo ABNT}
 \newcommand{\hyperrefsubtit}{}
 \newcommand{\hyperrefautum}{Leonidas Caetano}
@@ -181,13 +178,13 @@ a4paper,
 \newcommand{\hyperrefautqua}{}
 \newcommand{\hyperrefautores}{{\hyperrefautum; \hyperrefautdos;\hyperrefauttre; \hyperrefautqua}}
 \newcommand{\hyperrefkeywords}{ABNT; LaTeX}
-%========================
+%=============================================
 \newcommand{\epigraphy}{\parbox{10cm}{``I heard a definition of an intellectual, that I thought was very interesting: a man who takes more words than are necessary to tell more than he knows."\par Dwight D. Eisenhower}}
 \newcommand{\dedique}{A família}
-%========================
+%=============================================
 \newcommand{\bancaum}{medo}
 \newcommand{\bancados}{me salva}
-%================================================
+%=============================================
 \newcommand{\titulo}[1]{\renewcommand{\hyperreftit}{#1}\renewcommand{\tit}{#1}}
 \newcommand{\subtitulo}[1]{\renewcommand{\hyperrefsubtit}{#1}\renewcommand{\subtit}{\ifstrequal{#1}{}{}{: {#1}}}}
 \newcommand{\local}[1]{\renewcommand{\loc}{#1}}
@@ -200,9 +197,9 @@ a4paper,
 \newcommand{\orientador}[1]{\renewcommand{\ori}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
 \newcommand{\coorientador}[1]{\renewcommand{\coori}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
 \newcommand{\notasandt}[1]{\renewcommand{\nota}{\ifstrequal{#1}{}{\hspace*{1cm}}{#1}}}
-%========================
+%=============================================
 \newcommand{\palavraschaves}[1]{\renewcommand{\hyperrefkeywords}{{#1}}\renewcommand{\palavraschave}{{#1}}}
-%========================
+%=============================================
 \newcommand{\banca}[2]{\renewcommand{\bancaum}{#1}\renewcommand{\bancados}{#2}}
 %==================================================================
 %datas
@@ -314,7 +311,8 @@ Fonte: #1%
 	\newcommand{\formatartexto}[1]{\luaexec{
 			tex.sprint(#1)}}
 \fi
-%==================================================================
+
+%=========================================================================================
 
 \@ifpackageloaded{mathspec}{
 	\setmathfont(Digits){Arial}%Latin Modern Math
@@ -330,7 +328,6 @@ Fonte: #1%
 }{
 	%se não for carregado, não há edição
 }
-
 \renewcommand{\sin}{\mathop\mathrm{sen}\nolimits}
 \renewcommand{\cos}{\mathop\mathrm{cos}\nolimits}
 \renewcommand{\tan}{\mathop\mathrm{tg}\nolimits}
@@ -341,19 +338,15 @@ Fonte: #1%
 \renewcommand{\arccos}{\mathop\mathrm{cos}^{-1}\nolimits}
 \renewcommand{\arctan}{\mathop\mathrm{tg}^{-1}\nolimits}
 
+%=========================================================================================
+
 \pretocmd{\document}{
-	\typeout{Debug comzo do bge}
 	\makeatletter
-		\typeout{Debug pre check}
 		\@ifpackageloaded{todonotes}{}{
-			\typeout{Debug in check 1}
 			\def\missingfigure#1{#1}
 			\def\todo[#1]#2{}
-			\typeout{Debug in check}
 		}
-		\typeout{Debug pos check}
 	\makeatother
-	\typeout{Debug antes de hyper}
 	\usepackage[
 			linktoc = all,
 			hidelinks,
@@ -369,3 +362,5 @@ Fonte: #1%
 
 \ifdefined\chapter \counterwithout{footnote}{chapter}\fi
 \renewcommand{\theequation}{\arabic{equation}}
+
+%=========================================================================================

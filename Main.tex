@@ -1,3 +1,4 @@
+%=========================================================================================
 %tipo né
 \documentclass[12pt, imakeidx]{Pacotes/reportbr}
 %==================================================================
@@ -19,40 +20,37 @@
 %\tikzexternalize[prefix=Ilustrações/Tikz/]
 %==================================================================
 %indentifymodel
-%====================
 \titulo{Meu modelo ABNT}
 \subtitulo{}
-%====================
+%=============================================
 \local{Pinhais, Paraná}
 \institui{Escolinha de TeX}
 \campus{}
-%====================
+%=============================================
 \autorum{Leonidas Caetano da Silva}
 \autordos{}
 \autortre{}
 \autorqua{}
-%====================
+%=============================================
 \orientador{}
 \coorientador{}
-%====================
+%=============================================
 \notasandt{}
-%====================
-\palavraschaves{"TeX", "LuaLaTeX", "Python", "ABNT"}
-%====================
+%=============================================
+\palavraschaves{"Python", "LuaLaTeX", "Lua", "ABNT"}
+%=============================================
 \banca{}{}
-%====================
+%=============================================
 %\renewcommand{\dedique}{}
-%=========================================================================================
+%==================================================================
 %\usepackage{todonotes}
-%=========================================================
+%=========================================================================================
 \begin{document}
 \input{PreAmbulo/120SetsIniciais}
 %==================================================================
 \begin{titlepage}
 \makeatletter
-\@ifpackageloaded{todonotes}{
-\listoftodos[Coisas a fazer]
-}{}
+	\@ifpackageloaded{todonotes}{\listoftodos[Coisas a fazer]}{}
 \makeatother
 \end{titlepage}
 \begin{titlepage}
@@ -86,9 +84,9 @@
 \input{1PreTxT/7Agradecimentos}
 \newpage
 
-%\input{1PreTxT/8Epigrafe}
+\input{1PreTxT/8Epigrafe}
 
-%\input{1PreTxT/9Resumo}
+\input{1PreTxT/9Resumo}
 
 \input{1PreTxT/10Listas}
 
@@ -101,8 +99,6 @@
 %==================================================================
 
 %Resumo
-
-\index{teste}
 
 \input{2Textual/1Desenvolvimento/D1}
 

@@ -2,9 +2,7 @@
 \ProvidesPackage{longtab}
           [2020/01/07 v4.13 Multi-page Tabela package (DPC)]
 
-\DeclareOption*{\ifdefined\loi \PackageWarning{longquadro}{More than one list passed}\else \def\loi{\CurrentOption} \fi}
-\ProcessOptions\relax
-\ifdefined\loi \else \def\loi{lot} \fi
+\DeclareOption*{\ifdefined\@loit \PackageWarning{longquadro}{More than one list passed}\else \edef\@loit{\CurrentOption} \fi}
 
 \def\LTT@err{\PackageError{longtable}}
 \def\LTT@warn{\PackageWarning{longtable}}
@@ -20,6 +18,9 @@
 \DeclareOption{set}{}
 \DeclareOption{final}{}
 \ProcessOptions
+
+\ifdefined\@loit \else \def\@loit{lot} \fi
+
 \newskip\LTTleft       \LTTleft=\fill
 \newskip\LTTright      \LTTright=\fill
 \newskip\LTTpre        \LTTpre=\bigskipamount
@@ -343,7 +344,7 @@
   \def\@tempa{#2}%
   \ifx\@tempa\@empty\else
      {\let\\\space
-     \addcontentsline{\loi}{table}{\protect\numberline{\thetable}{#2}}}%
+     \expandafter\addcontentsline{\@loit}{table}{\protect\numberline{\thetable}{#2}}}%
   \fi}
 \def\LTT@capti@n{%
   \@ifstar
