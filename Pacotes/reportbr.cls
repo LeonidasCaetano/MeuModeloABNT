@@ -208,14 +208,12 @@
 	\begin{titlepage}
 		\linespread{1}\selectfont
 		\begin{center}
-			{\@institution}\par {\@campus}
-			\vspace*{2cm}
-			\@autorum\par \@autordois\par \@autortres\par \@autorquatro
-
-			\vspace*{4.3cm}
-
-			\textbf{\MakeUppercase\@titulo}\@subtitulo
-	
+			{\@institution}\par {\@campus}\par 
+			\vspace*{2cm}\par
+			\@autorum\par \@autordois\par 
+			\@autortres\par \@autorquatro\par
+			\vspace*{4.3cm}\par
+			\textbf{\MakeUppercase\@titulo}\@subtitulo\par
 			\vfill \@local\\ \data
 		\end{center}
 	\end{titlepage}
@@ -226,16 +224,14 @@
 	\begingroup
 		\linespread{1}\selectfont
 		\begin{center}
-			\@autorum\par \@autordois\par \@autortres\par \@autorquatro
-
-			\vspace*{8cm} \MakeUppercase{\@titulo}\@subtitulo
-
-			\vspace{1cm}
-    
+			\@autorum\par \@autordois\par
+			\@autortres\par \@autorquatro\par
+			\vspace*{8cm} \MakeUppercase{\@titulo}\@subtitulo\par 
+			\vspace{1cm}\par
 			\hfill \normalsize {\parbox{8cm}{\footnotesize\@nota
-			\vspace*{0.5cm}
-    
-			Orientadora: \@orientador\par Coorientador: \@coorientador}}
+			\vspace*{0.5cm}\par
+			Orientadora: \@orientador\par
+			Coorientador: \@coorientador}}\par
 			\vfill	\@local\\ \data
 		\end{center}
 	\endgroup
@@ -307,13 +303,12 @@ Fonte: #1%
 \newpage
 \begingroup
 \linespread{1}\selectfont
-\addcontentsline{toc}{chapter}{\MakeUppercase{#1}}
+\phantomsection\addcontentsline{toc}{chapter}{\MakeUppercase{#1}}
 \printbibliography[title=#1]%
 \endgroup
 }
 %==================================================================
 %Deitada
-%=============================================
 \ifdefined\pdfoutput
 	\newenvironment{deitada}{%
 		\newpage%

@@ -14,6 +14,7 @@
 	chapterlistsgaps=off
 }
 \renewcommand{\thefigure}{\arabic{figure}}
+%=============================================
 \SetupFloatingEnvironment{table}{
 	fileext = lol,
 	placement = H,
@@ -25,29 +26,26 @@
 \let\endlongtable\endlongtabela\relax}{}
 \renewcommand{\thetable}{\arabic{table}}
 %==================================================================
-%lista de quadros
 \DeclareFloatingEnvironment[
     fileext = lol,
     listname = LISTA DE QUADROS,
     name = Quadro,
-    placement = H,
+    placement = !ht,
     chapterlistsgaps=off
 ]{quadro}
 \IfFileExists{Pacotes/longquadro.sty}{
 \RequirePackage[lol]{Pacotes/longquadro}}{}
 \renewcommand{\thequadro}{\arabic{quadro}}
-
-%lista de graficos
+%=============================================
 \DeclareFloatingEnvironment[
     fileext = lol,
     listname = LISTA DE GRÁFICOS,
     name = Gráfico,
-    placement = H,
+    placement = !ht,
     chapterlistsgaps=off
 ]{grafico}
 \renewcommand{\thegrafico}{\arabic{grafico}}
-
-%lista de programas
+%=============================================
 \lstset{numberbychapter=false,
 	backgroundcolor=\color{black}, 
 	commentstyle=\color{green},
@@ -58,6 +56,7 @@
     basicstyle=\small\color{white}
 }
 \def\lstlistingname{Código}
+\def\lstlistingautorefname{Código}
 \def\lstlistlistingname{Lista de códigos}
 %==================================================================
 \DeclareFloatingEnvironment[
@@ -143,45 +142,16 @@
 {\linhapad}
 []
 %==================================================================
-%figuras
-\titlecontents{figure}[0cm]
-{}
-{Figura\space\thecontentslabel\space-\space}
-{}
-{\linhapad}
-[]
-%==================================================================
-%tabelas
-\titlecontents{table}[0cm]
-{}
-{Tabela\space\thecontentslabel\space-\space}
-{}
-{\linhapad}
-[]
-%==================================================================
-%quadros
-\titlecontents{quadro}[0cm]
-{}
-{Quadro\space\thecontentslabel\space-\space}
-{}
-{\linhapad}
-[]
-%==================================================================
-%graficos
-\titlecontents{grafico}[0cm]
-{}
-{Gráfico\space\thecontentslabel\space-\space}
-{}
-{\linhapad}
-[]
-%==================================================================
-%equações
-\titlecontents{lstlisting}[0cm]
-{}
-{\lstlistingname\space\thecontentslabel\space-\space}
-{}
-{\linhapad}
-[]
+\newcommand{\@applytocfmt}[1]{
+\titlecontents{#1}[0cm]{}
+{\expandafter\csname #1autorefname\endcsname\space\thecontentslabel\space-\space}
+{}{\linhapad}[]
+}
+\@applytocfmt{figure}
+\@applytocfmt{table}
+\@applytocfmt{grafico}
+\@applytocfmt{quadro}
+\@applytocfmt{lstlisting}
 %=========================================================================================
 \newcommand{\printlistasdeilustracoes}{%
 \listofilustracaos%
@@ -195,16 +165,28 @@
 	\counterwithout{grafico}{chapter}
 \fi
 
+%=========================================================================================
+
 %Configuração gráfica
-\def\padraoilustra{%
+\def\@padraoilustra{%
 \footnotesize%
 \linespread{1}\selectfont%
 \centering%
 }
 
-%floats
-%padrão ilustra under dev
+\newcommand{\@applyfmt}[1]{\expandafter\renewcommand\csname #1\endcsname[1][]{
+	\ifstrequal{##1}{}{\@float{#1}\@padraoilustra}{\@float{#1}[##1]\@padraoilustra}
+}}
 
+%floats
+\@applyfmt{figure}
+\@applyfmt{table}
+\@applyfmt{quadro}
+\@applyfmt{grafico}
+
+%longs
+\AtBeginEnvironment{longtable} {\@padraoilustra}
+\AtBeginEnvironment{longquadro}{\@padraoilustra}
 %=========================================================================================
 
 
