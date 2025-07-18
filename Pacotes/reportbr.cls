@@ -37,13 +37,13 @@
 \RequirePackage{float}%posição absoluta
 %==================================================================
 \RequirePackage{etoolbox}
-\ifdefined\@imkidxpkg \@imkidxpkg\fi
-\@ifpackageloaded{imakeidx}{
-\makeindex[columns=1, title=ÍNDICE,intoc]
-\indexsetup{firstpagestyle=fancy}
-\let\addaoindice\index
-\renewcommand{\index}[1]{\addaoindice{\MakeTitlecase{#1}}}
-}{}
+\ifdefined\@imkidxpkg 
+	\@imkidxpkg
+	\indexsetup{level=\chapter}
+	\makeindex[columns=1, title=Índice]
+	\let\addaoindice\index
+	\renewcommand{\index}[1]{\addaoindice{\MakeTitlecase{#1}}}
+\fi
 %==================================================================
 \ifdefined\directlua
 	\RequirePackage{fontspec}%mudar fonte
