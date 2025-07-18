@@ -195,8 +195,8 @@
 \newcommand{\autordois}[1]	{\ifstrequal{#1}{}{}{\renewcommand{\hyperrefautdos}{; #1}\renewcommand{\@autordois}{#1}}}
 \newcommand{\autortres}[1]	{\ifstrequal{#1}{}{}{\renewcommand{\hyperrefauttre}{; #1}\renewcommand{\@autortres}{#1}}}
 \newcommand{\autorquatro}[1]{\ifstrequal{#1}{}{}{\renewcommand{\hyperrefautqua}{; #1}\renewcommand{\@autorquatro}{#1}}}
-\newcommand{\orientador}[1]	{\renewcommand{\@orientador}{\ifstrequal{#1}{}{\ }{#1}}}
-\newcommand{\coorientador}[1]{\renewcommand{\@coorientador}{\ifstrequal{#1}{}{\ }{#1}}}
+\newcommand{\orientador}[1]	{\renewcommand{\@orientador}{\ifstrequal{#1}{}{\ }{Orientador: #1}}}
+\newcommand{\coorientador}[1]{\renewcommand{\@coorientador}{\ifstrequal{#1}{}{\ }{Coorientador: #1}}}
 
 \newcommand{\nota}[1]{\renewcommand{\@nota}{\ifstrequal{#1}{}{\ }{#1}}}
 \newcommand{\palavraschaves}[1]{\renewcommand{\hyperrefkeywords}{{#1}}\renewcommand{\@palavraschaves}{{#1}}}
@@ -230,8 +230,8 @@
 			\vspace{1cm}\par
 			\hfill \normalsize {\parbox{8cm}{\footnotesize\@nota
 			\vspace*{0.5cm}\par
-			Orientadora: \@orientador\par
-			Coorientador: \@coorientador}}\par
+			\@orientador\par
+			\@coorientador}}\par
 			\vfill	\@local\\ \data
 		\end{center}
 	\endgroup
