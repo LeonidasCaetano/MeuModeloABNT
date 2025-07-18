@@ -29,6 +29,7 @@
 \titleformat{\append}[hang]{\bfseries\inittit}{APÊNDICE \theappend\ - }{0em}{\MakeUppercase}
 \titlespacing{\append}{0em}{0cm}{36pt}
 \def\appendautorefname{Apêndice}
+\pretocmd{\append}{\clearpage}{}{}
 
 \newcounter{anex}\setcounter{anex}{0}
 \renewcommand{\theanex}{\Alph{anex}}
@@ -36,6 +37,7 @@
 \titleformat{\anex}[hang]{\bfseries\inittit}{ANEXO \theanex\ - }{0em}{\MakeUppercase}
 \titlespacing{\anex}{0em}{0cm}{36pt}
 \def\anexautorefname{Anexo}
+\pretocmd{\anex}{\clearpage}{}{}
 
 \def\finalsectionautorefname{finalsection}
 \newcounter{finalsection}\setcounter{finalsection}{0}
@@ -44,6 +46,7 @@
 \titleformat{\finalsection}[hang]{\bfseries\inittit}{}{0em}{\MakeUppercase}
 \titlespacing{\finalsection}{0em}{0cm}{36pt}
 \def\finalsectionautorefname{}
+\pretocmd{\finalsection}{\clearpage}{}{}
 %==================================================================
 \def\padtit{\normalsize\filright}
 \def\inittit{\normalsize\centering}

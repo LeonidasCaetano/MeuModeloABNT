@@ -300,7 +300,6 @@ Fonte: #1%
 %==================================================================
 %referencias
 \newcommand{\makeref}[1]{%
-\newpage
 \begingroup
 \linespread{1}\selectfont
 \chapter{#1}%
