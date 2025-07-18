@@ -19,7 +19,7 @@
 
 \fancypagestyle{body}{%
 \fancyhf{}%
-\fancyhead[R]{\footnotesize\hyperref[sumario]{\thepage}\hspace{1cm}}%
+\fancyhead[R]{\footnotesize\hyperref[toc]{\thepage}\hspace{1cm}}%
 }
 
 %==================================================================
@@ -33,9 +33,17 @@
 \newcounter{anex}\setcounter{anex}{0}
 \renewcommand{\theanex}{\Alph{anex}}
 \titleclass{\anex}[0]{straight}
-\titleformat{\anex}[hang]{\bfseries\inittit}{Anexo \theanex\ - }{0em}{\MakeUppercase}
+\titleformat{\anex}[hang]{\bfseries\inittit}{ANEXO \theanex\ - }{0em}{\MakeUppercase}
 \titlespacing{\anex}{0em}{0cm}{36pt}
 \def\anexautorefname{Anexo}
+
+\def\finalsectionautorefname{finalsection}
+\newcounter{finalsection}\setcounter{finalsection}{0}
+\renewcommand{\thefinalsection}{}
+\titleclass{\finalsection}[0]{straight}
+\titleformat{\finalsection}[hang]{\bfseries\inittit}{}{0em}{\MakeUppercase}
+\titlespacing{\finalsection}{0em}{0cm}{36pt}
+\def\finalsectionautorefname{}
 %==================================================================
 \def\padtit{\normalsize\filright}
 \def\inittit{\normalsize\centering}
@@ -43,15 +51,6 @@
 	\titleformat{\chapter}[hang]{\bfseries\inittit}{}{0em}{\MakeUppercase}
 	\titlespacing{\chapter}{0em}{0cm}{36pt}
 	\renewcommand{\thechapter}{}
-}
-
-%apendice
-\def\secapendice{
-	\titleformat{\chapter}[hang]{\bfseries\padtit}{APÊNDICE \thechapter - }{0em}{\MakeUppercase}
-}
-%anexo
-\def\secanexo{
-	\titleformat{\chapter}[hang]{\bfseries\padtit}{ANEXO \thechapter - }{0em}{\MakeUppercase}
 }
 
 \def\bodysec{

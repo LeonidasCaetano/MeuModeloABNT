@@ -303,10 +303,14 @@ Fonte: #1%
 \newpage
 \begingroup
 \linespread{1}\selectfont
-\phantomsection\addcontentsline{toc}{chapter}{\MakeUppercase{#1}}
-\printbibliography[title=#1]%
+\chapter{#1}%
+\printbibliography[heading=none]%
 \endgroup
 }
+%==================================================================
+%sumário
+\patchcmd{\tableofcontents}{\@starttoc{toc}}{\label{toc}\@starttoc{toc}}{}{}
+\pretocmd{\tableofcontents}{\phantomsection}{}{}
 %==================================================================
 %Deitada
 \ifdefined\pdfoutput

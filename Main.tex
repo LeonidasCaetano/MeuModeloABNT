@@ -87,17 +87,29 @@
 
 %texto
 
-\input{2-Textual/1Desenvolvimento/D1}
+\input{2-Textual/1-Desenvolvimento/D1}
 
-\input{2-Textual/1Desenvolvimento/D2}
+\input{2-Textual/1-Desenvolvimento/D2}
 
-\input{2-Textual/1Desenvolvimento/D3}
+\input{2-Textual/1-Desenvolvimento/D3}
 
-\input{2-Textual/1Desenvolvimento/D4}
+\input{2-Textual/1-Desenvolvimento/D4}
 
-\input{2-Textual/1Desenvolvimento/D5}
+\input{2-Textual/1-Desenvolvimento/D5}
 
-\input{2-Textual/1Desenvolvimento/D6}
+\input{2-Textual/1-Desenvolvimento/D6}
+
+%==================================================================
+
+%texto
+
+\input{2-Textual/2-Desenvolvimento/D1}
+
+\input{2-Textual/2-Desenvolvimento/D2}
+
+\input{2-Textual/2-Desenvolvimento/D3}
+
+\input{2-Textual/2-Desenvolvimento/D4}
 
 %==================================================================
 
@@ -105,13 +117,15 @@
 
 %==================================================================
 
+\let\tmp\chapter
+\let\chapter\finalsection
+
 \makeref{Referências}\nocite{*}
 
-\printglossario
+\ifdefined\printglossario \printglossario\fi
 
 %==================================================================
 
-\let\tmp\chapter
 \let\chapter\append
 
 %appendices here
@@ -126,6 +140,7 @@
 
 \let\chapter\tmp
 \ifdefined\printindex \printindex \fi
+
 
 %==================================================================
 \end{document}
