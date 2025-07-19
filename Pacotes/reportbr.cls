@@ -334,7 +334,7 @@ Fonte: #1%
 %==================================================================
 %Formatar usando Lua
 \ifdefined\directlua
-	\directlua{require("Pacotes/LuaCmds.lua")}
+	\directlua{require("Pacotes/luacmds.lua")}
 	
 	\newcommand{\formatarporcent}[1]{\luaexec{
 			tex.sprint(formatar_n_casas(100*#1,2))}\%}
