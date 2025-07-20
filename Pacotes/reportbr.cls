@@ -336,22 +336,22 @@ Fonte: #1%
 \ifdefined\directlua
 	\directlua{require("Pacotes/luacmds.lua")}
 	
-	\newcommand{\formatarporcent}[1]{\luaexec{
+	\newcommand{\FPorc}[1]{\luaexec{
 			tex.sprint(formatar_n_casas(100*#1,2))}\%}
 
-	\newcommand{\formatarinteiro}[1]{\luaexec{
+	\newcommand{\FInt}[1]{\luaexec{
 			tex.sprint(formatar_n_casas(#1,0))}}
 
-	\newcommand{\formatarduascasas}[1]{\luaexec{
+	\newcommand{\FCents}[1]{\luaexec{
 			tex.sprint(formatar_n_casas(#1,2))}}
 
-	\newcommand{\formatarmoeda}[1]{R\$ \luaexec{
+	\newcommand{\FMoeda}[1]{R\$ \luaexec{
 			tex.sprint(formatar_n_casas(#1,2))}}
 
-	\newcommand{\formataroutro}[2]{\luaexec{
+	\newcommand{\FFloat}[2]{\luaexec{
 			tex.sprint(formatar_n_casas(#1,#2))}}
 
-	\newcommand{\formatartexto}[1]{\luaexec{
+	\newcommand{\FTxt}[1]{\luaexec{
 			tex.sprint(#1)}}
 \fi
 
