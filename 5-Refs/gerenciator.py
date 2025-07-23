@@ -1,31 +1,20 @@
 import Funcs as fx
 
 try:
-    data = fx.importdata()
+    data = fx.db2data()
+    basic_campus = fx.importbibconfig()
 except FileNotFoundError:
-    data = ###???
+    data = {}
 except Exception:
     print("Something went wrong")
 
 try: 
-    print("Bem vindo ao gerenciator!")
-    for i in range(1, 50):
-        match input("Escolha o que deseja fazer: "):
-            case 1:
-                #
-            case 2:
-                #
-            case 3:
-                #
-            case 4:
-                #
-            case 5:
-                #
-            case 6:
-                #
-            case 7:
-                #
-            case 8:
-                #
-            case _:
-                #
+    data = fx.Interface()
+except Exception:
+    print("Error")
+
+try:
+    Exportar2Db()
+    Exportar2Bib()
+except Exception:
+    print("Couldnt export")
