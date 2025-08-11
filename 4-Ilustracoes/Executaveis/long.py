@@ -1,3 +1,4 @@
+import re 
 import pandas
 from pandas.io.formats.style import Styler
 
@@ -16,37 +17,50 @@ def get_content(table: str):
             insidecontent = True
     return "\n".join(listofcont)
 
-def exportTeX(buf, content, environment, columns, caption, label, head, foot, lastfoot):
-    with open(buf, "w", encoding = "utf-8") as tex:
-        tex.write(f"\\begin{{{environment}}}{columns}\n")
-        tex.write(caption)
-        tex.write(label)
-        tex.write("\\endfirsthead\n")
-        tex.write(head)
-        tex.write("\\endhead\n")
-        tex.write(foot)
-        tex.write("\\endfoot\n")
-        tex.write(lastfoot)
-        tex.write("\\endlastfoot\n")
-        tex.write(f"{content}\n")
-        tex.write(f"\\end{{{environment}}}")
+def get_header(table: str):
+    firsthead_match = re.search(r"\\caption(.*?)\\endfirsthead", table, re.DOTALL)
+    head_match = re.search(r"\\endfirsthead(.*?)\\endhead", table, re.DOTALL)
+    firsthead = firsthead_match.group(1).strip() if firsthead_match else ""
+    head = head_match.group(1).strip() if head_match else ""
+    return f"\\caption{firsthead}\n\\endfirsthead\n{head}\n\\endhead"
+    
+def get_length(table: str):
+    match = re.search(r"\\endhead.*?\\multicolumn\{(\d+)\}", table, re.DOTALL)
+    return  match.group(1).strip() if match else ""
 
-def long(self, buf = "tmp.tex", environment = "longtable", 
-         columns = None, caption = None, label = None,
+def makefoot(fonte: str| None, continue_phrase: str| None, cols: int):
+    foot = f"\\midrule\n{f"\\multicolumn{{{cols}}}{{r}}{{{continue_phrase}}}\n" if continue_phrase else ""}\\endfoot\n"
+    lastfoot = f"\\bottomrule\n\\multicolumn{{{cols}}}{{c}}{{\\fonte{"["+fonte+"]" if fonte else ""}}}\n\\endlastfoot\n"
+    return foot + lastfoot
+
+def makestring(content: str, env: tuple, header: tuple):
+    head = f"\\begin{{{env[0]}}}{env[1]}\n{header[0]}\n{header[1]}" if env[0] and header[0] else ""
+    lastline = f"\n\\end{{{env[0]}}}" if env[0] and header[0] else ""
+    return f"{head}{content}{lastline}"
+
+def exportTeX(buf: str, table: str):
+  with open(buf, "w", encoding = "utf-8") as tex:
+        tex.write(table)
+
+def long(self: Styler, buf : str = "tmp.tex", environment = "longtable", 
+         column_format = None, caption = None, label = None,
          fonte = None, continue_phrase = "Continua na próxima página", 
          **kwargs):
-    longstr = self.to_latex(environment="longtable", **kwargs)
-    if not columns:
-        columns = get_columns(longstr)
-    num_colunas = self.data.shape[1]
-    thecaption = f"\\caption{{{caption}}}" if caption else ""
-    thelabel = f"\\label{{{label}}}\n" if label else "\n"
-    thehead = f"\\caption*{{{caption}}}\n" if caption else "\n"
-    thefoot = f"\\multicolumn{{{num_colunas}}}{{r}}{{{continue_phrase}}}"
-    thefonte = f"[{fonte}]" if fonte else ""
-    thelastfoot = f"\\multicolumn{{{num_colunas}}}{{r}}{{\\fonte{thefonte}}}"
+    longstr = self.to_latex(environment="longtable", caption = caption, label = label, **kwargs)
+    if not column_format:
+        column_format = get_columns(longstr)
+    headers = get_header(longstr)
+    num_colunas = get_length(longstr)
+    foot = makefoot(fonte, continue_phrase, num_colunas)
     tablecontent = get_content(longstr)
-    exportTeX(buf, tablecontent, environment, columns, thecaption, 
-              thelabel, thehead, thefoot, thelastfoot)
+    tablestr = makestring(tablecontent, (environment, column_format), (headers, foot)) if caption and environment else tablecontent
+    print(tablestr)
+    #exportTeX(buf, tablestr)
+
+def tex(self: Styler, buf : str = "tmp.tex", environment = "longtable", 
+         column_format = None, caption = None, label = None,
+         fonte = None, **kwargs):
+    pass
     
-Styler.long = long
+Styler.long_to_latex = long
+Styler.to_tex = tex
