@@ -21,7 +21,7 @@ def get_header(table: str):
     firsthead_match = re.search(r"\\begin\{longtable\}\{.*?\}(.*?)\\endfirsthead", table, re.DOTALL)
     head_match = re.search(r"\\endfirsthead(.*?)\\endhead", table, re.DOTALL)
     firsthead = firsthead_match.group(1).strip() if firsthead_match else ""
-    head = head_match.group(1).strip() if head_match else ""
+    head = (head_match.group(1).strip() if head_match else "").replace("\\toprule", "\\midrule", 1)
     return f"{firsthead}\n\\endfirsthead\n{head}\n\\endhead"
     
 def get_length(table: str):
@@ -43,16 +43,24 @@ def exportTeX(buf: str, table: str):
   with open(buf, "w", encoding = "utf-8") as tex:
         tex.write(table)
 
-def long(self: Styler, buf = None, environment = None, 
-         column_format = None, caption = None, label = None,
-         fonte = None, continue_phrase = "Continua na próxima página", 
-         **kwargs):
+def long(self: Styler, buf = None, environment = None, column_format = None, caption = None, label = None, fonte = None, continue_phrase = "Continua na próxima página", ruletype = "table", **kwargs):
+    """
+    Converte uma tabela Styler em uma tabela longtable ou similar;
+
+    Parameters
+    ----------
+        self: Objeto Styler
+
+    examples
+    --------
+        >>> sim
+    """
     longstr = self.to_latex(environment="longtable", caption = caption, label = label, hrules = True, **kwargs)
     if not column_format:
         column_format = get_columns(longstr)
     headers = get_header(longstr)
     num_colunas = get_length(longstr)
-    foot = makefoot(fonte, continue_phrase, num_colunas, environment == "longtable")
+    foot = makefoot(fonte, continue_phrase, num_colunas, ruletype == "table")
     tablecontent = get_content(longstr)
     tablestr = makestring(tablecontent, (environment, column_format), (headers, foot))
     if not buf:
@@ -61,14 +69,14 @@ def long(self: Styler, buf = None, environment = None,
 
 def tex(self: Styler, buf = None, environment = None, 
          column_format = None, caption = None, label = None,
-         fonte = None, **kwargs):
+         fonte = None, position = None, **kwargs):
     tablestr = self.to_latex(environment = environment, column_format = column_format, caption = caption, label = label, **kwargs)
     tablelist = tablestr.splitlines()
-    tablelist.insert(-1, "\\fonte" + (f"[{fonte}]" if fonte else ""))
+    tablelist.insert(-1, "\n\\fonte" + (f"[{fonte}]" if fonte else ""))
     tablestr = "\n".join(tablelist)
     if not buf:
         return tablestr
     exportTeX(buf, tablestr)
     
-Styler.long_to_latex = long
+Styler.to_longtex = long
 Styler.to_tex = tex
