@@ -32,9 +32,9 @@
 \def\glosslistname{Glossário}
 
 \ifdefined\chapter
-\let\headeroftables\chapter
+    \let\headeroftables\chapter
 \else 
-\let\headeroftables\section
+    \let\headeroftables\section
 \fi
 
 \newcommand{\addtomylow}[4]{\immediate\write\minhalow{table.insert(#1,{order="#2 #3",comp="#2",desc="#3",tipo="#4"})}}
@@ -60,35 +60,35 @@
     unidades={}
     matematicas={}
     gloss={}
-    }%
+}%
 
 \IfFileExists{\jobname.sig.lua}{%
-\luaexec{require("\jobname"..".sig.lua")}
-\luaexec{%
-    table.sort(\siglalistin, function (a, b) return string.lower(a.order) < string.lower(b.order) end)
-    table.sort(\abrevlistin, function (a, b) return string.lower(a.order) < string.lower(b.order) end)
-    table.sort(\glosslistin, function (a, b) return string.lower(a.order) < string.lower(b.order) end)
-    function mostrar(x, y, z)
-        if x == "gloss" then
-            return ("\\noindent "..y:lower():gsub("^\%l", string.upper)..": "..z.."\\par")
-        else
-            return ("\\item["..y.."]"..z)
-       end
-    end
-}
+    \luaexec{require("\jobname"..".sig.lua")}
+    \luaexec{%
+        table.sort(\siglalistin, function (a, b) return string.lower(a.order) < string.lower(b.order) end)
+        table.sort(\abrevlistin, function (a, b) return string.lower(a.order) < string.lower(b.order) end)
+        table.sort(\glosslistin, function (a, b) return string.lower(a.order) < string.lower(b.order) end)
+        function mostrar(x, y, z)
+            if x == "gloss" then
+                return ("\\noindent "..y:lower():gsub("^\%l", string.upper)..": "..z.."\\par")
+            else
+                return ("\\item["..y.."]"..z)
+           end
+        end
+    }
 }{}%
 
 \def\printlistade#1#2{\luaexec{
 	if #1[1]~=nil then
 		if "#1" ~= "gloss" then
 		    tex.sprint("\\headeroftables*{#2}")
-    			tex.sprint("\\begin{description}")
+    		tex.sprint("\\begin{description}")
 			for i, lista in ipairs(#1) do
 				tex.sprint(mostrar(lista.tipo , lista.comp , lista.desc ))
 			end
 			tex.sprint("\\end{description}")
 		else
-                tex.sprint("\\headeroftables{#2}")
+            tex.sprint("\\headeroftables{#2}")
 			for i, lista in ipairs(#1) do
 				tex.sprint(mostrar(lista.tipo , lista.comp , lista.desc ))
 			end

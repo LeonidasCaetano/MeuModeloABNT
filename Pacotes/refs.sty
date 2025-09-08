@@ -2,16 +2,16 @@
 \ProvidesPackage{refs}[2024/08/06 Pacote para listas de palavras]
 
 \RequirePackage[
-	backend=biber,%copila com biber
-	style = abnt, %biblatex abnt
-	extrayear, %2017a
-	repeatfields, % podi repeti
-	citestyle = abnt, %(AUTOR, year)
-	sorting = anyt,%alfabetico, nome, ano, titulo
-	language = brazil, %ptbr
-	hyperref = true,%hyperref
-	backref=true,
-	date = year,%... Local , 2023
+	backend		=biber,		%copila com biber
+	style 		= abnt, 	%biblatex abnt
+	extrayear, 				%2017a
+	repeatfields, 			% podi repeti
+	citestyle 	= abnt, 	%(AUTOR, year)
+	sorting 	= anyt,		%alfabetico, nome, ano, titulo
+	language 	= brazil, 	%ptbr
+	hyperref 	= true,		%hyperref
+	backref		= true,
+	date 		= year,		%... Local , 2023
 	]{biblatex}%referencias
 \RequirePackage[style=brazilian]{csquotes}%auxilio citações e bibliografia
 \RequirePackage{quoting}%citações longas
@@ -20,18 +20,19 @@
 %arquivo .bib
 \DeclareOption*{
 	\IfFileExists{\CurrentOption}
-	{\edef\@@tmp{\noexpand\addbibresource{\CurrentOption}}\@@tmp}%Erro
-	{\PackageWarning{refs}{‘\CurrentOption’ not found}}
+		{\edef\@@tmp{\noexpand\addbibresource{\CurrentOption}}\@@tmp}
+		{\PackageWarning{refs}{‘\CurrentOption’ not found}}
 }
 \ProcessOptions\relax
 
 %======================================================================
 %configurações gerais
-\setlength{\bibitemsep}{1cm}%espaço entre itens
-\setlength{\bibhang}{0cm}%indentação
-\setcounter{abbrvpenalty}{10000}%nobreaks
-\setcounter{highnamepenalty}{10000}%nobreaks
-\setcounter{biburlnumpenalty}{8000}%nobreaks
+\setlength{\bibitemsep}{1cm}				%espaço entre itens
+\setlength{\bibhang}{0cm}					%indentação
+\setcounter{abbrvpenalty}{10000}			%nobreaks
+\setcounter{highnamepenalty}{10000}			%nobreaks
+\setcounter{biburlnumpenalty}{8000}			%nobreaks
+
 %blocos
 \DeclareFieldFormat*{url}{Disponível em\addcolon\space\url{#1}.}
 \DeclareFieldFormat{urldate}{Acesso em\addcolon\space{#1}}

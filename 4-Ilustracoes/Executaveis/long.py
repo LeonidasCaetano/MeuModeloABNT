@@ -1,5 +1,4 @@
 import re
-import pandas
 from pandas.io.formats.style import Styler
 
 
@@ -19,23 +18,26 @@ def get_content(table: str):
             insidecontent = True
     return "\n".join(listofcont)
 
+# ==============================================================================
 
-def get_header(table: str):
-    firsthead_match = re.search(
-        r"\\begin\{longtable\}\{.*?\}(.*?)\\endfirsthead", table, re.DOTALL)
-    head_match = re.search(r"\\endfirsthead(.*?)\\endhead", table, re.DOTALL)
+
+def get_header(table: str) -> str:
+    frst_head_str = r"\\begin\{longtable\}\{.*?\}(.*?)\\endfirsthead"
+    firsthead_match = re.search(frst_head_str, table, re.DOTALL)
+    head_str = r"\\endfirsthead(.*?)\\endhead"
+    head_match = re.search(head_str, table, re.DOTALL)
     firsthead = firsthead_match.group(1).strip() if firsthead_match else ""
-    head = (head_match.group(1).strip() if head_match else "").replace(
-        "\\toprule", "\\midrule", 1)
+    head = head_match.group(1).strip() if head_match else ""
+    head = head.replace("\\toprule", "\\midrule", 1)
     return f"{firsthead}\n\\endfirsthead\n{head}\n\\endhead"
 
 
-def get_length(table: str):
+def get_length(table: str) -> str:
     match = re.search(r"\\endhead.*?\\multicolumn\{(\d+)\}", table, re.DOTALL)
     return match.group(1).strip() if match else "1"
 
 
-def getrules(self: Styler):
+def getrules(self: Styler) -> tuple[str, str]:
     details = self.table_styles
     bottom = "\\bottomrule"
     mid = "\\midrule"
@@ -49,30 +51,36 @@ def getrules(self: Styler):
     return (mid, bottom)
 
 
-def makefoot(fonte: str | None, continue_phrase: str | None, cols: int, rules: tuple):
-    foot = f"{rules[0]}\n{f"\\multicolumn{{{cols}}}{{r}}{{{continue_phrase}}}\n"\
-                        if continue_phrase else ""}\\endfoot\n"
-    lastfoot = f"{rules[1]}\n\\multicolumn{{{cols}}}{{c}}{{\\fonte{"["+fonte+"]"\
-                        if fonte else ""}}}\n\\endlastfoot\n"
+def makefoot(fonte: str | None, c_phrase: str | None, c: str, rules: tuple) -> str:
+    parc_foot = f"\\multicolumn{{{c}}}{{r}}{{{c_phrase}}}\n" if c_phrase else ""
+    foot = f"{rules[0]}\n{parc_foot}\\endfoot\n"
+    parc_lst_foot = "{\\fonte" + ("["+fonte+"]"if fonte else "") + "}"
+    lastfoot = f"{rules[1]}\n\\multicolumn{{{c}}}{{c}}{parc_lst_foot}\n\\endlastfoot\n"
     return foot + lastfoot
 
+# ==============================================================================
 
-def makestring(content: str, env: tuple, header: tuple):
+
+def makestring(content: str, env: tuple, header: tuple) -> str:
     head = f"\\begin{{{env[0]}}}{{{env[1]}}}\n{header[0]}\n{header[1]}"\
         if env[0] and header[0] else ""
     lastline = f"\n\\end{{{env[0]}}}" if env[0] and header[0] else ""
     return f"{head}{content}{lastline}"
 
 
-def exportTeX(buf: str, table: str):
+def exportTeX(buf: str, table: str) -> None:
     with open(buf, "w", encoding="utf-8") as tex:
         tex.write(table)
 
 
 def long(
-    self: Styler, buf: str | None = None, environment: str | None = None, column_format: str | None = None,
-    caption: str | None = None, label: str | None = None, fonte: str | None = None,
-    continue_phrase="Continua na próxima página",
+    self: Styler, buf: str | None = None,
+    environment: str | None = None,
+    column_format: str | None = None,
+    caption: str | None = None,
+    label: str | None = None,
+    fonte: str | None = None,
+    continue_phrase: str = "Continua na próxima página",
     **kwargs
 ) -> str | None:
     """
@@ -84,7 +92,11 @@ def long(
         buf: Caminho para exportar, se não informado será retornado 
         environment: tipo da tabela, se não informado será exportado somente o conteúdo
         columns_format: formatação das colunas
-
+        caption: Titulo da tabela
+        label: Nome usado para referenciar a tabela (hyperref)
+        fonte: Referência utilizada na fonte
+        continue_phrase: Frase utilizada no fim de uma página quando a ilustração ainda não acabou
+        **kwargs: Outros comandos usados na função Styler.to_latex
     examples
     --------
         >>> sim
@@ -107,20 +119,23 @@ def long(
 
 
 def tex(
-    self: Styler, buf: str | None, environment: str | None,
-    column_format: str | None, caption: str | None, label: str | None,
-    fonte: str | None, position: str | None, **kwargs
+    self: Styler,
+    buf: str | None,
+    environment: str | None,
+    column_format: str | None,
+    caption: str | None,
+    label: str | None,
+    fonte: str | None,
+    position: str | None,
+    **kwargs
 ):
     tablestr = self.to_latex(environment=environment,
                              column_format=column_format,
-                             caption=caption, label=label, position=position, **kwargs)
+                             caption=caption,
+                             label=label, position=position, **kwargs)
     tablelist = tablestr.splitlines()
     tablelist.insert(-1, "\n\\fonte" + (f"[{fonte}]" if fonte else ""))
     tablestr = "\n".join(tablelist)
     if not buf:
         return tablestr
     exportTeX(buf, tablestr)
-
-
-Styler.to_longtex = long
-Styler.to_tex = tex

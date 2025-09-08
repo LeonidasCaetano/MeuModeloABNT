@@ -14,12 +14,12 @@ try:
         {'selector': 'toprule', 'props': ':hline;'},
         {'selector': 'midrule', 'props': ':hline;'},
         {'selector': 'bottomrule', 'props': ':hline;'},
-    ], overwrite=False)
+    ], overwrite=True)
 
-    a = lg.long(sty, "../Quadros/LongQuadro.tex",
-                       environment="longquadro",
-                       caption="Exemplo de longquadro"
-                       )
+    a = lg.long(sty,  # "../Quadros/LongQuadro.tex",
+                environment="longquadro",
+                caption="Exemplo de longquadro"
+                )
     print(a)
 except FileNotFoundError as e:
     print(f"Arquivo não encontrado!\n{e}\n")

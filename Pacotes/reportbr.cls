@@ -11,15 +11,18 @@
 %=========================================================================================
 %pacotes
 \RequirePackage[english,brazil]{babel}%Pacote BR
+
 %==================================================================
 \RequirePackage{mathtools}%equações matematicas
 \RequirePackage{amsfonts}%letras matematicas
 \RequirePackage{siunitx}\sisetup{detect-all}%Unidades
 \RequirePackage{polynom}%divisão polinomial
 \RequirePackage{chemfig}%quimica
+
 %==================================================================
 \RequirePackage{graphicx}%Inserir imagem
 \RequirePackage{xcolor}%cores
+
 %==================================================================
 %Tabelas
 \RequirePackage{multirow}%multilinha
@@ -27,14 +30,17 @@
 \RequirePackage{tabularx}%tabela estranha
 \RequirePackage{colortbl}%cores
 \ifdefined\@bktbspkg \@bktbspkg\fi%solo for py
+
 %==================================================================
 \RequirePackage[T1]{fontenc}%acentos
 \RequirePackage{indentfirst}%recuo 1º paragrafo
 \RequirePackage{parskip}%distancia entre paragrafos
+
 %==================================================================
 \RequirePackage{calc}%operação com variaveis
 \RequirePackage[section]{placeins}
 \RequirePackage{float}%posição absoluta
+
 %==================================================================
 \RequirePackage{etoolbox}
 \ifdefined\@imkidxpkg 
@@ -44,6 +50,7 @@
 	\let\addaoindice\index
 	\renewcommand{\index}[1]{\addaoindice{\MakeTitlecase{#1}}}
 \fi
+
 %==================================================================
 \ifdefined\directlua
 	\RequirePackage{fontspec}%mudar fonte
@@ -59,9 +66,11 @@
 	\RequirePackage{mathspec}%mudar fonte
 	\RequirePackage{lscape}%pag deitada
 \fi
+
 %==================================================================
 \RequirePackage{pgffor}%loop option 1 
 \RequirePackage{forloop}%loop option 2
+
 %==================================================================
 \RequirePackage{appendix}
 

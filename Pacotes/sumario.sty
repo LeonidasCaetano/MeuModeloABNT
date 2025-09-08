@@ -9,16 +9,16 @@
 \RequirePackage[shortlabels]{enumitem}
 %=========================================================================================
 \SetupFloatingEnvironment{figure}{
-	fileext = lol,
-	placement = H,
-	chapterlistsgaps=off
+	fileext 		 = lol,
+	placement 		 = H,
+	chapterlistsgaps = off
 }
 \renewcommand{\thefigure}{\arabic{figure}}
 %=============================================
 \SetupFloatingEnvironment{table}{
-	fileext = lol,
-	placement = H,
-	chapterlistsgaps=off
+	fileext 		 = lol,
+	placement 		 = H,
+	chapterlistsgaps = off
 }
 \IfFileExists{Pacotes/longtab.sty}{
 \RequirePackage[lol]{Pacotes/longtab}
@@ -27,22 +27,22 @@
 \renewcommand{\thetable}{\arabic{table}}
 %==================================================================
 \DeclareFloatingEnvironment[
-    fileext = lol,
-    listname = LISTA DE QUADROS,
-    name = Quadro,
-    placement = !ht,
-    chapterlistsgaps=off
+    fileext  		 = lol,
+    listname 		 = LISTA DE QUADROS,
+    name 			 = Quadro,
+    placement 		 = !ht,
+    chapterlistsgaps = off
 ]{quadro}
 \IfFileExists{Pacotes/longquadro.sty}{
 \RequirePackage[lol]{Pacotes/longquadro}}{}
 \renewcommand{\thequadro}{\arabic{quadro}}
 %=============================================
 \DeclareFloatingEnvironment[
-    fileext = lol,
-    listname = LISTA DE GRÁFICOS,
-    name = Gráfico,
-    placement = !ht,
-    chapterlistsgaps=off
+    fileext 		 = lol,
+    listname	 	 = LISTA DE GRÁFICOS,
+    name 			 = Gráfico,
+    placement 		 = !ht,
+    chapterlistsgaps = off
 ]{grafico}
 \renewcommand{\thegrafico}{\arabic{grafico}}
 %=============================================
@@ -64,10 +64,10 @@
 \def\lstlistlistingname{Lista de códigos}
 %==================================================================
 \DeclareFloatingEnvironment[
-    fileext = lol,
-    listname = LISTA DE ILUSTRAÇÕES,
-    name = Ilustração,
-    chapterlistsgaps=off
+    fileext 		 = lol,
+    listname 		 = LISTA DE ILUSTRAÇÕES,
+    name 			 = Ilustração,
+    chapterlistsgaps = off
 ]{ilustracao}
 %=========================================================================================
 \def\linhapad{\space\titlerule*[.3pc]{.}\contentspage\vspace{\distanciasecs}}
@@ -77,17 +77,17 @@
 \setlength{\distanciasecs}{0cm}
 %==================================================================
 \setlist[description,1]{align = left,
-	topsep = 0cm,
-	itemindent = 0cm,  
-	leftmargin = \caixalargsec, 
-	labelwidth = \caixalargsec,
-	labelsep = 0em, 
-	labelindent = 0cm, 
-	listparindent = \parindent,
-	itemsep = \distanciasecs,
-	parsep = \parskip,
-	font=\normalsize, 
-	format=\normalfont
+	topsep 			= 0cm,
+	itemindent 		= 0cm,  
+	leftmargin 		= \caixalargsec, 
+	labelwidth 		= \caixalargsec,
+	labelsep 		= 0em, 
+	labelindent 	= 0cm, 
+	listparindent 	= \parindent,
+	itemsep 		= \distanciasecs,
+	parsep 			= \parskip,
+	font			= \normalsize, 
+	format			= \normalfont
 }
 %==================================================================
 %apendice
@@ -173,7 +173,7 @@
 \ifdefined\chapter 
 	\counterwithout{figure}	{chapter}
 	\counterwithout{table}	{chapter}
-	\counterwithout{quadro}{chapter}
+	\counterwithout{quadro}	{chapter}
 	\counterwithout{grafico}{chapter}
 \fi
 
