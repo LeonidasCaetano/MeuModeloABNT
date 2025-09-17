@@ -1,17 +1,16 @@
-import Cache.funcs as fx
+import pkg.Interation as rel
 
-try:
-    data, arquivo = fx.ImportarData()
-    config = fx.importbibconfig()
-except Exception as e:
-    print("Something went wrong during data import:")
-    print(e)
+rel.config_path = "pkg/tipos.config"
+rel.bib_path = "bib/"
+rel.db_path = "db/"
 
-data = fx.Interface(data, config)
 
-try:
-    fx.Exportar2Db(data, arquivo)
-    fx.Exportar2Bib(data, arquivo)
-except Exception as e:
-    print("Couldn't export data:")
-    print(e)
+def main():
+    rel.ImportConfig()
+    data = rel.ImportarData()
+    data = rel.Interface(data)
+    rel.Exportar2Bib(data)
+    rel.Exportar2Db(data)
+
+
+main()

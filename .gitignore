@@ -12,3 +12,4 @@
 *.run.xml
 *.synctex.gz
 *.toc
+*__pycache__*
