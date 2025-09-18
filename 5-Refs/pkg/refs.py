@@ -26,7 +26,7 @@ def editref(listofchange, ref, tipo, data):
 
 def visualizarref(ref, tipo, data, config):
     print(f"\t{' ' * 4}>>{ref}")
-    for k in config[tipo][1]:
+    for k in config[tipo][0]:
         if k in data[tipo][ref]:
             print(f"\t\t{k}: {data[tipo][ref][k]}")
 

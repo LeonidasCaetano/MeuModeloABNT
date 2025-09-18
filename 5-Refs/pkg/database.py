@@ -24,8 +24,8 @@ def db2data(db: str, data: dict):
     try:
         with open(db, "r", encoding="utf-8") as arquivo:
             for linha in arquivo:
-                newref = line2ref(linha)
-                data = fx.insertref(newref[0], newref[1], newref[2], data)
+                fields, ref, tipo = line2ref(linha)
+                data = fx.insertref(fields, ref, tipo, data)
     except FileNotFoundError:
         print("File not found")
     except Exception as e:
@@ -40,7 +40,8 @@ def line2ref(linha: str):
     campos = {}
     for campo in contents:
         key, value = campo.split("=", 1)
-        campos[key] = value
+        if value.strip() != "":
+            campos[key] = value
     return (campos, ref, tipo)
 
 # Escrita

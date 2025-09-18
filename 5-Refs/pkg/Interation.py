@@ -41,7 +41,9 @@ def get_option(
 ) -> dict[str, str]:
     contents: dict[str, str] = dict()
     for campo in part_config[0]:
-        contents[campo] = prompt(campo, default=ref.get(campo, ""))
+        entrada = prompt(f"{campo}: ", default=ref.get(campo, ""))
+        if entrada.strip() != "":
+            contents[campo] = entrada
     opt = input("Deseja verificar campos opcionais? Y/n\n")
     if opt == "Y":
         for campos in part_config[1:]:
@@ -107,7 +109,7 @@ def ImportarData(data: dict = {}):
             print("Arquivo já carregado")
             continue
 
-        data, scss = error_block(db.db2data)(newfile, data)
+        data, scss = error_block(db.db2data)(f"{db_path}{newfile}.refdb", data)
         if scss:
             file_src.append(newfile.strip())
     return data
