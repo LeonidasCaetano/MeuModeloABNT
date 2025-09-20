@@ -16,7 +16,7 @@ try:
         {'selector': 'bottomrule', 'props': ':hline;'},
     ], overwrite=True)
 
-    a = lg.long(sty,  # "../Quadros/LongQuadro.tex",
+    a = lg.long(sty, "../Quadros/LongQuadro.tex",
                 environment="longquadro",
                 caption="Exemplo de longquadro"
                 )
