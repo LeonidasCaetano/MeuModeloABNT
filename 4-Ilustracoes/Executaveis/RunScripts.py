@@ -26,7 +26,7 @@ def showscripts(executable):
 def get_ridof_opt() -> str:
     print("Options:")
     print("\tall")
-    print("\tpart <{n-} with n being a single caracter>")
+    print("\tpart <{c-} with c being the filestartname>")
     print("\tarq <name of the arq>")
     return input("Option: ")
 
@@ -37,7 +37,7 @@ def get_ridof(opt, executable):
         case "all":
             return executable
         case "part":
-            return [i for i in executable if i[0:1] == option[1][0:1]]
+            return [i for i in executable if f"\\{option[1]}" in i]
         case "arq":
             return [i for i in executable if i == option[1]]
         case _:

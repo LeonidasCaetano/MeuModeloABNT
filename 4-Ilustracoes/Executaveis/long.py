@@ -120,13 +120,13 @@ def long(
 
 def tex(
     self: Styler,
-    buf: str | None,
-    environment: str | None,
-    column_format: str | None,
-    caption: str | None,
-    label: str | None,
-    fonte: str | None,
-    position: str | None,
+    buf: str | None = None,
+    environment: str | None = None,
+    column_format: str | None = None,
+    caption: str | None = None,
+    label: str | None = None,
+    fonte: str | None = None,
+    position: str | None = None,
     **kwargs
 ):
     tablestr = self.to_latex(environment=environment,
