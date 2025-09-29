@@ -1,7 +1,12 @@
 # Gerenciamento
 
 
-def insertref(fields, ref, tipo, data):
+def insertref(
+    fields: dict[str, str],
+    ref: str,
+    tipo: str,
+    data: dict[str, dict[str, dict[str, str]]]
+) -> dict[str, dict[str, dict[str, str]]]:
     if not (tipo in data):
         data[tipo] = {}
     if ref in data[tipo]:
@@ -10,17 +15,22 @@ def insertref(fields, ref, tipo, data):
     return data
 
 
+def editref(
+    listofchange: dict[str, str],
+    ref: str,
+    tipo: str,
+    data: dict[str, dict[str, dict[str, str]]]
+) -> dict[str, dict[str, dict[str, str]]]:
+    for k, v in listofchange.items():
+        data[tipo][ref][k] = v
+    return data
+
+
 def removeref(ref, tipo, data):
     try:
         del data[tipo][ref]
     except IndexError:
         raise Exception("Referência não existe")
-    return data
-
-
-def editref(listofchange, ref, tipo, data):
-    for k, v in listofchange.items():
-        data[tipo][ref][k] = v
     return data
 
 

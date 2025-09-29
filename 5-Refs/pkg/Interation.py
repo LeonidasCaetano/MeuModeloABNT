@@ -35,67 +35,6 @@ def ImportConfig():
     config = db.importbibconfig(config_path)
 
 
-def get_option(
-    part_config: tuple[tuple[str, ...], ...],
-    ref: dict = {}
-) -> dict[str, str]:
-    contents: dict[str, str] = dict()
-    for campo in part_config[0]:
-        entrada = prompt(f"{campo}: ", default=ref.get(campo, ""))
-        if entrada.strip() != "":
-            contents[campo] = entrada
-    opt = input("Deseja verificar campos opcionais? Y/n\n")
-    if opt == "Y":
-        for campos in part_config[1:]:
-            for campo in campos:
-                contents[campo] = prompt(
-                    f"{campo}: ", default=ref.get(campo, ""))
-    return contents
-
-
-# =============================================================================
-
-
-def InsertRef(data: dict = {}):
-    tipo = prompt("Insira o tipo da referencia: ", default="book")
-    if tipo not in config:
-        raise InterationError("Tipo de referência não definido")
-    chave = prompt("Insira a chave da referência: ")
-    change = get_option(config[tipo], {})
-    data = ref.insertref(change, chave, tipo, data)
-    return data
-
-
-def EditarRef(data: dict):
-    tipo = prompt("Insira o tipo da referencia: ", default="book")
-    if tipo not in config:
-        raise InterationError("Tipo de referência não definido")
-    chave = prompt("Insira a chave da referência: ")
-    if tipo not in data or chave not in data[tipo]:
-        raise InterationError("Referência não existe!")
-    change = get_option(config[tipo], data[tipo][chave])
-    data = ref.editref(change, chave, tipo, data)
-    return data
-
-
-def RemoverRef(data: dict):
-    tipo = prompt("Insira o tipo da referencia: ", default="book")
-    if tipo not in config:
-        raise InterationError("Tipo de referência não definido")
-    chave = prompt("Insira a chave da referência: ")
-    data = ref.removeref(chave, tipo, data)
-    return data
-
-
-def Visualizarref(data: dict) -> None:
-    tipo = prompt(
-        "Insira o tipo da referencia a ser visualizado: ", default="todos")
-    ref.visualizardata(data, config, tipo)
-
-
-# =============================================================================
-
-
 def ImportarData(data: dict = {}):
     global file_src
     print("Insira o nome dos arquivos que estão as referencias um a um (somente nome)")
@@ -113,6 +52,68 @@ def ImportarData(data: dict = {}):
         if scss:
             file_src.append(newfile.strip())
     return data
+
+
+# =============================================================================
+
+
+def get_option(
+    part_config: tuple[tuple[str, ...], ...],
+    ref: dict = {}
+) -> dict[str, str]:
+
+    cont: dict[str, str] = dict()
+    for campo in part_config[0]:
+        entrada = prompt(f"{campo}: ", default=ref.get(campo, ""))
+        if entrada.strip() != "":
+            cont[campo] = entrada
+
+    opt = input("Deseja verificar campos opcionais? Y/n\n")
+    if opt == "Y":
+        for campos in part_config[1:]:
+            for campo in campos:
+                cont[campo] = prompt(f"{campo}: ", default=ref.get(campo, ""))
+    return cont
+
+
+def InsertRef(data: dict = {}) -> dict:
+    tipo = prompt("Insira o tipo da referencia: ", default="book")
+    if tipo not in config:
+        raise InterationError("Tipo de referência não definido")
+    chave = prompt("Insira a chave da referência: ")
+    change = get_option(config[tipo], {})
+    data = ref.insertref(change, chave, tipo, data)
+    return data
+
+
+def EditarRef(data: dict) -> dict:
+    tipo = prompt("Insira o tipo da referencia: ", default="book")
+    if tipo not in config:
+        raise InterationError("Tipo de referência não definido")
+    chave = prompt("Insira a chave da referência: ")
+    if tipo not in data or chave not in data[tipo]:
+        raise InterationError("Referência não existe!")
+    change = get_option(config[tipo], data[tipo][chave])
+    data = ref.editref(change, chave, tipo, data)
+    return data
+
+
+def RemoverRef(data: dict) -> dict:
+    tipo = prompt("Insira o tipo da referencia: ", default="book")
+    if tipo not in config:
+        raise InterationError("Tipo de referência não definido")
+    chave = prompt("Insira a chave da referência: ")
+    data = ref.removeref(chave, tipo, data)
+    return data
+
+
+def Visualizarref(data: dict) -> None:
+    tipo = prompt(
+        "Insira o tipo da referencia a ser visualizado: ", default="todos")
+    ref.visualizardata(data, config, tipo)
+
+
+# =============================================================================
 
 
 def Exportar2Bib(data: dict):
